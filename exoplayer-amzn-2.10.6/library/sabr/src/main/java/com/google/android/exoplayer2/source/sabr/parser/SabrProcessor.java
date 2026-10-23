@@ -53,7 +53,8 @@ import java.util.Set;
 public class SabrProcessor {
     private static final String TAG = SabrProcessor.class.getSimpleName();
     private static final int NO_VALUE = -1;
-    private static final long LIVE_START_OFFSET_MS = 10_000;
+    // Must exceed the readahead (15s) plus a couple of segments, or requests run past the live edge and stall until timeout
+    private static final long LIVE_START_OFFSET_MS = 25_000;
     private final String videoPlaybackUstreamerConfig;
     private final ClientInfo clientInfo;
     private FormatSelector formatSelector;

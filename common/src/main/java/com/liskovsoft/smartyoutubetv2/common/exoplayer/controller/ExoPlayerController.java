@@ -45,7 +45,7 @@ import java.util.List;
 public class ExoPlayerController implements Player.EventListener, LiveStateProvider {
     private static final String TAG = ExoPlayerController.class.getSimpleName();
     /** How far from the live edge (in segments) the playback is considered to be on the edge */
-    private static final int SABR_LIVE_EDGE_TOLERANCE_SEGMENTS = 4;
+    private static final int SABR_LIVE_EDGE_TOLERANCE_SEGMENTS = 8; // > live start offset (25s), see SabrProcessor
     private final Context mContext;
     private final ExoMediaSourceFactory mMediaSourceFactory;
     private final TrackSelectorManager mTrackSelectorManager;
@@ -111,8 +111,8 @@ public class ExoPlayerController implements Player.EventListener, LiveStateProvi
             return;
         }
 
-        // Stream without DVR can't be rewound: start right on the live edge
-        long startPositionMs = mSabrLiveSeekBlocked ? getLiveDurationMs() : mSabrLiveManifest.getLiveStartPositionMs();
+        // Even without DVR keep a gap to the live edge: segments past the edge don't exist yet
+        long startPositionMs = mSabrLiveManifest.getLiveStartPositionMs();
 
         if (startPositionMs == -1) { // not yet. Try on the next event
             return;
@@ -213,8 +213,9 @@ public class ExoPlayerController implements Player.EventListener, LiveStateProvi
             long toleranceMs = SABR_LIVE_EDGE_TOLERANCE_SEGMENTS * mSabrLiveManifest.getLiveSegmentDurationMs();
             // Skip the seek when already near the edge (the app sets position periodically)
             if (liveEdgeMs != -1 && mPlayer != null && liveEdgeMs - mPlayer.getCurrentPosition() > toleranceMs) {
-                Log.d(TAG, "Live stream has no DVR. Moving to the live edge: " + liveEdgeMs);
-                mPlayer.seekTo(liveEdgeMs);
+                long liveStartMs = mSabrLiveManifest.getLiveStartPositionMs();
+                Log.d(TAG, "Live stream has no DVR. Moving near the live edge: " + liveStartMs);
+                mPlayer.seekTo(liveStartMs != -1 ? liveStartMs : liveEdgeMs);
             }
             return;
         }
