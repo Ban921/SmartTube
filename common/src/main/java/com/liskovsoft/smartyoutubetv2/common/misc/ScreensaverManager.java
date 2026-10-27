@@ -25,6 +25,8 @@ public class ScreensaverManager {
     private static final String TAG = ScreensaverManager.class.getSimpleName();
     private static final int MODE_SCREENSAVER = 0;
     private static final int MODE_SCREEN_OFF = 1;
+    // Even with dimming disabled, the dim callback still runs to re-evaluate the system screensaver state
+    private static final int SCREENSAVER_NEVER_RECHECK_MS = 10_000;
     private static final WeakHashSet<ScreensaverManager> sInstances = new WeakHashSet<>();
     private static boolean sLockInstance;
     private final WeakReference<Activity> mActivity;
@@ -39,8 +41,7 @@ public class ScreensaverManager {
     // the host activity is not in the foreground. Blocked only suppresses user-facing dimming.
     private boolean mIsSuspended;
     private final Runnable mTimeoutHandler = () -> {
-        // Playing the video and dialog overlay isn't shown
-        if (getViewManager().getTopView() != PlaybackView.class || !getTweaksData().isScreenOffTimeoutEnabled()) {
+        if (!isScreenOffTimeoutApplicable()) {
             return;
         }
 
@@ -68,15 +69,6 @@ public class ScreensaverManager {
             LayoutInflater layoutInflater = activity.getLayoutInflater();
             dimContainer = layoutInflater.inflate(R.layout.dim_container, null);
             if (rootView instanceof ViewGroup) {
-                // NOTE: zoom will be bugged! Frames on top and bottom.
-                // Add negative margin to fix un-proper viewport positioning on some devices
-                // NOTE: below code is not working!!!
-                // NOTE: comment out code below if you don't want this
-                //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                //        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                //params.setMargins(-30, -30, -30, -30);
-                //((ViewGroup) rootView).addView(dimContainer, params);
-
                 ((ViewGroup) rootView).addView(dimContainer);
             }
         }
@@ -122,7 +114,7 @@ public class ScreensaverManager {
 
         disable();
         int delayMs = getGeneralData().getScreensaverTimeoutMs() == GeneralData.SCREENSAVER_TIMEOUT_NEVER ?
-                10_000 :
+                SCREENSAVER_NEVER_RECHECK_MS :
                 getGeneralData().getScreensaverTimeoutMs();
         Utils.postDelayed(mDimScreen, delayMs);
     }
@@ -149,8 +141,7 @@ public class ScreensaverManager {
             return;
         }
 
-        // NOTE: disable will create infinite loop
-        //disable();
+        // NOTE: calling disable() here would create an infinite loop
         mMode = MODE_SCREEN_OFF;
         Utils.removeCallbacks(mUndimScreen);
         Utils.postDelayed(mDimScreen, 0);
@@ -199,9 +190,12 @@ public class ScreensaverManager {
         mIsBlocked = blocked;
     }
 
+    private boolean isScreenOffTimeoutApplicable() {
+        return getViewManager().getTopView() == PlaybackView.class && getTweaksData().isScreenOffTimeoutEnabled();
+    }
+
     private void enableTimeout() {
-        // Playing the video and dialog overlay isn't shown
-        if (getViewManager().getTopView() != PlaybackView.class || !getTweaksData().isScreenOffTimeoutEnabled()) {
+        if (!isScreenOffTimeoutApplicable()) {
             disableTimeout();
             return;
         }
@@ -252,12 +246,9 @@ public class ScreensaverManager {
         }
 
         int screenOffColor = Utils.getColor(activity, R.color.black, getTweaksData().getScreenOffDimmingPercents());
-        //int screenOffColorResId = getPlayerTweaksData().getScreenOffDimmingPercents() == 50 ? DIM_50 : DIM_100;
         int screensaverColor = Utils.getColor(activity, R.color.black, getGeneralData().getScreensaverDimmingPercents());
-        //int screensaverColorResId = getGeneralData().getScreensaverMode() == GeneralData.SCREENSAVER_MODE_NORMAL ? DIM_50 : DIM_100;
 
         dimContainer.setBackgroundColor(mMode == MODE_SCREENSAVER ? screensaverColor : screenOffColor);
-        //dimContainer.setBackgroundResource(mMode == MODE_SCREENSAVER ? screensaverColorResId : screenOffColorResId);
         dimContainer.setVisibility(show ? View.VISIBLE : View.GONE);
 
         mIsScreenOff = mMode == MODE_SCREEN_OFF && getTweaksData().getScreenOffDimmingPercents() == 100 && show;
@@ -295,25 +286,18 @@ public class ScreensaverManager {
         }
     }
 
-    private boolean isPlaying() {
+    private PlaybackView getPlaybackView() {
         Activity activity = mActivity.get();
+        return activity != null ? PlaybackPresenter.instance(activity).getView() : null;
+    }
 
-        if (activity == null) {
-            return false;
-        }
-
-        PlaybackView playbackView = PlaybackPresenter.instance(activity).getView();
+    private boolean isPlaying() {
+        PlaybackView playbackView = getPlaybackView();
         return playbackView != null && playbackView.isPlaying();
     }
 
     private long getPosition() {
-        Activity activity = mActivity.get();
-
-        if (activity == null) {
-            return 0;
-        }
-
-        PlaybackView playbackView = PlaybackPresenter.instance(activity).getView();
+        PlaybackView playbackView = getPlaybackView();
         // Fix screen off before the video started
         return playbackView != null ? playbackView.getPositionMs() : 0;
     }
@@ -329,13 +313,7 @@ public class ScreensaverManager {
     }
 
     private void hidePlayerOverlay() {
-        Activity activity = mActivity.get();
-
-        if (activity == null) {
-            return;
-        }
-
-        PlaybackView playbackView = PlaybackPresenter.instance(activity).getView();
+        PlaybackView playbackView = getPlaybackView();
 
         if (playbackView != null) {
             playbackView.showOverlay(false);
