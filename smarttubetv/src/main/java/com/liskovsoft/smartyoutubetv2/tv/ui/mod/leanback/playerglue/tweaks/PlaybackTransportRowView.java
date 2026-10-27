@@ -61,10 +61,6 @@ public class PlaybackTransportRowView extends LinearLayout {
         mOnUnhandledKeyListener = listener;
     }
 
-    OnUnhandledKeyListener getOnUnhandledKeyListener() {
-        return mOnUnhandledKeyListener;
-    }
-
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (super.dispatchKeyEvent(event)) {

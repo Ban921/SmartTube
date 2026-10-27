@@ -133,15 +133,6 @@ public class SidebarService implements ProfileChangeListener {
         return section != null; // by default enable all pinned items
     }
 
-    public int getSectionIndex(int sectionId) {
-        // 1) Distinguish section from pinned item
-        // 2) Add pinned items after the sections
-
-        int index = findPinnedItemIndex(sectionId);
-
-        return index;
-    }
-
     public void renameSection(int sectionId, String newTitle) {
         int index = findPinnedItemIndex(sectionId);
         if (index != -1) {
@@ -157,14 +148,6 @@ public class SidebarService implements ProfileChangeListener {
 
     public void moveSectionDown(int sectionId) {
         shiftSection(sectionId, 1);
-    }
-
-    public boolean canMoveSectionUp(int sectionId) {
-        return canShiftSection(sectionId, -1);
-    }
-
-    public boolean canMoveSectionDown(int sectionId) {
-        return canShiftSection(sectionId, 1);
     }
 
     private boolean canShiftSection(int sectionId, int shift) {

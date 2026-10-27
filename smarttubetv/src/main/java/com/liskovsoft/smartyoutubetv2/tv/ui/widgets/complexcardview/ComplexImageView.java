@@ -127,10 +127,6 @@ public class ComplexImageView extends RelativeLayout {
         }
     }
 
-    public void setPreviewUrlEnabled(boolean enabled) {
-        mIsPreviewUrlEnabled = enabled;
-    }
-
     public void setPreview(Video video) {
         if (video != null) {
             mVideo = new WeakReference<>(video);

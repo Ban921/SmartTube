@@ -19,14 +19,6 @@ public class DeArrowData extends DataSaverBase {
         return sInstance;
     }
 
-    public boolean isDeArrowEnabled() {
-        return getBoolean(0);
-    }
-
-    public void setDeArrowEnabled(boolean enable) {
-        setBoolean(0, enable);
-    }
-
     public boolean isReplaceTitlesEnabled() {
         return getBoolean(1);
     }

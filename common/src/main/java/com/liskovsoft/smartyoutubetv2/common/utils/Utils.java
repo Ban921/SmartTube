@@ -35,16 +35,12 @@ import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
-import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.StyleSpan;
-import android.text.style.URLSpan;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.BaseInputConnection;
@@ -54,12 +50,8 @@ import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.PeriodicWorkRequest;
-import com.liskovsoft.leanbackassistant.utils.SafeWorkManager;
 
 import com.jakewharton.processphoenix.ProcessPhoenix;
-import com.liskovsoft.sharedutils.helpers.AppInfoHelpers;
 import com.liskovsoft.sharedutils.helpers.DeviceHelpers;
 import com.liskovsoft.sharedutils.helpers.Helpers;
 import com.liskovsoft.sharedutils.helpers.MessageHelpers;
@@ -69,7 +61,6 @@ import com.liskovsoft.sharedutils.okhttp.OkHttpManager;
 import com.liskovsoft.smartyoutubetv2.common.BuildConfig;
 import com.liskovsoft.smartyoutubetv2.common.R;
 import com.liskovsoft.smartyoutubetv2.common.app.models.data.Video;
-import com.liskovsoft.smartyoutubetv2.common.app.models.playback.manager.PlayerConstants;
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.manager.PlayerManager;
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.service.VideoStateService;
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.PlaybackPresenter;
@@ -82,7 +73,6 @@ import com.liskovsoft.smartyoutubetv2.common.exoplayer.selector.TrackSelectorUti
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.selector.track.MediaTrack;
 import com.liskovsoft.smartyoutubetv2.common.misc.MotherActivity;
 import com.liskovsoft.smartyoutubetv2.common.misc.RemoteControlService;
-import com.liskovsoft.smartyoutubetv2.common.misc.RemoteControlWorker;
 import com.liskovsoft.smartyoutubetv2.common.misc.ScreensaverManager;
 import com.liskovsoft.smartyoutubetv2.common.prefs.BlockedChannelData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.GeneralData;
@@ -99,7 +89,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -128,10 +117,8 @@ public class Utils {
     };
     private static final String SUPER_PASSWD = "smarttube";
     private static final int RANDOM_FAIL_REPEAT_TIMES = 10;
-    private static final String REMOTE_CONTROL_RECEIVER_CLASS_NAME = "com.liskovsoft.smartyoutubetv2.common.misc.RemoteControlReceiver";
     private static final String UPDATE_CHANNELS_RECEIVER_CLASS_NAME = "com.liskovsoft.leanbackassistant.channels.UpdateChannelsReceiver";
     private static final String BOOTSTRAP_ACTIVITY_CLASS_NAME = "com.liskovsoft.smartyoutubetv2.tv.ui.main.SplashActivity";
-    private static final String TASK_ID = RemoteControlWorker.class.getSimpleName();
     private static final String TAG = Utils.class.getSimpleName();
     private static final String QR_CODE_URL_TEMPLATE = "https://api.qrserver.com/v1/create-qr-code/?data=%s";
     private static final int GLOBAL_VOLUME_TYPE = AudioManager.STREAM_MUSIC;
@@ -269,21 +256,6 @@ public class Utils {
                  // NOP
             }
         }, Context.BIND_AUTO_CREATE);
-    }
-
-    public static void startRemoteControlWorkRequest(Context context) {
-        PeriodicWorkRequest workRequest =
-                new PeriodicWorkRequest.Builder(
-                        RemoteControlWorker.class, 30, TimeUnit.MINUTES
-                ).build();
-
-        SafeWorkManager
-                .getInstance(context)
-                .enqueueUniquePeriodicWork(
-                        TASK_ID,
-                        ExistingPeriodicWorkPolicy.KEEP,
-                        workRequest
-                );
     }
 
     /**
@@ -660,11 +632,6 @@ public class Utils {
         return null;
     }
 
-    public static void cancelNotification(Context context, int notificationId) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(notificationId);
-    }
-
     public static Notification createNotification(Context context, int iconResId, String title, Class<? extends Activity> activityCls) {
         return createNotification(context, iconResId, title, null, activityCls);
     }
@@ -706,11 +673,6 @@ public class Utils {
         return builder.build();
     }
 
-    public static void showNotification(Context context, int notificationId, Notification notification) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(notificationId, notification);
-    }
-
     public static void startService(Context context, Class<? extends Service> serviceCls) {
         if (isServiceRunning(context, serviceCls)) {
             return;
@@ -734,26 +696,6 @@ public class Utils {
         Intent serviceIntent = new Intent(context, serviceCls);
 
         context.stopService(serviceIntent);
-    }
-
-    public static void showRepeatInfo(Context context, int modeIndex) {
-        switch (modeIndex) {
-            case PlayerConstants.PLAYBACK_MODE_ALL:
-                MessageHelpers.showMessage(context, R.string.repeat_mode_all);
-                break;
-            case PlayerConstants.PLAYBACK_MODE_ONE:
-                MessageHelpers.showMessage(context, R.string.repeat_mode_one);
-                break;
-            case PlayerConstants.PLAYBACK_MODE_PAUSE:
-                MessageHelpers.showMessage(context, R.string.repeat_mode_pause);
-                break;
-            case PlayerConstants.PLAYBACK_MODE_LIST:
-                MessageHelpers.showMessage(context, R.string.repeat_mode_pause_alt);
-                break;
-            case PlayerConstants.PLAYBACK_MODE_CLOSE:
-                MessageHelpers.showMessage(context, R.string.repeat_mode_none);
-                break;
-        }
     }
 
     /**
@@ -934,10 +876,6 @@ public class Utils {
         startReceiver(context, UPDATE_CHANNELS_RECEIVER_CLASS_NAME);
     }
 
-    public static void startRemoteControl(Context context) {
-        startReceiver(context, REMOTE_CONTROL_RECEIVER_CLASS_NAME);
-    }
-
     /**
      * Finish the app but remain running services
      */
@@ -1033,13 +971,6 @@ public class Utils {
         if (context instanceof MotherActivity) {
             ((MotherActivity) context).finishReally();
         }
-        Runtime.getRuntime().exit(0);
-    }
-
-    public static void triggerRebirth3(Context context, Class<?> myClass) {
-        Intent intent = new Intent(context, myClass);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        context.startActivity(intent);
         Runtime.getRuntime().exit(0);
     }
 
@@ -1248,35 +1179,6 @@ public class Utils {
         }
         
         return false;
-    }
-
-    /**
-     * Make link open in browser. Not working.
-     */
-    public static CharSequence toBrowserLink(Context context, CharSequence message) {
-        SpannableStringBuilder builder = SpannableStringBuilder.valueOf(message);
-        URLSpan[] spans = builder.getSpans(0, builder.length(), URLSpan.class);
-
-        for (URLSpan span : spans) {
-            builder.setSpan(new ClickableSpan() {
-                                @Override
-                                public void onClick(@NonNull View widget) {
-                                    MessageHelpers.showMessage(context, "On link clicked " + span.getURL());
-                                }
-                            },
-                    builder.getSpanStart(span),
-                    builder.getSpanEnd(span),
-                    Spanned.SPAN_INCLUSIVE_EXCLUSIVE
-            );
-            builder.removeSpan(span);
-        }
-
-        return builder;
-    }
-
-    public static boolean isSharedDirRestricted(Context context) {
-        // Android 11+: only backup through the file manager (no shared dir)
-        return AppInfoHelpers.getRealSdkVersion(context) > 29;
     }
 
     public static boolean fixRetrofitErrors(@NonNull Context context, Throwable error) {

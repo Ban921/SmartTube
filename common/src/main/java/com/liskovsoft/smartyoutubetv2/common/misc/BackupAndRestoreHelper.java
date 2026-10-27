@@ -107,32 +107,6 @@ public class BackupAndRestoreHelper implements OnResult {
         mContext.startActivity(Intent.createChooser(intent, mContext.getString(R.string.app_backup)));
     }
 
-    /**
-     * NOTE: The file picker relies on apps that support the Storage Access Framework (SAF).
-     * At the moment, no known third-party file manager properly supports selecting ZIP
-     * archives through this API, so the backup file may not appear in the picker.
-     */
-    public void importAppMediaFolder(Runnable onSuccess) {
-        if (VERSION.SDK_INT < 19 || onSuccess == null) {
-            return;
-        }
-
-        mOnSuccess = onSuccess;
-
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.setType("*/*");
-        //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        //intent.addCategory(Intent.CATEGORY_OPENABLE);
-        //intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{
-        //        "application/zip",
-        //        "application/x-zip-compressed"
-        //});
-
-        ((MotherActivity) mContext).addOnResult(this);
-
-        ((Activity) mContext).startActivityForResult(intent, REQ_PICK_FILES);
-    }
-
     @Override
     public void onResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQ_PICK_FILES && resultCode == Activity.RESULT_OK) {

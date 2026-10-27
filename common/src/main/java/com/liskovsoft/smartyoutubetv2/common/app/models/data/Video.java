@@ -27,7 +27,6 @@ import com.liskovsoft.googlecommon.common.helpers.ServiceHelper;
 import com.liskovsoft.googlecommon.common.helpers.YouTubeHelper;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -359,20 +358,6 @@ public final class Video {
         return !TextUtils.isEmpty(result) && (!belongsToChannelUploads() || !Helpers.isNumeric(result.substring(0, 1))) ? result.trim() : null;
     }
 
-    public static List<Video> findVideosByAuthor(VideoGroup group, String author) {
-        List<Video> result = new ArrayList<>();
-
-        if (group != null && group.getVideos() != null) {
-            for (Video video : group.getVideos()) {
-                if (Helpers.equals(video.getAuthor(), author)) {
-                    result.add(video);
-                }
-            }
-        }
-
-        return result;
-    }
-
     public int describeContents() {
         return 0;
     }
@@ -514,20 +499,12 @@ public final class Video {
         return getReloadPageKey() != null;
     }
 
-    public boolean hasNextPageKey() {
-        return getNextPageKey() != null;
-    }
-
     public boolean hasNextItem() {
         return nextMediaItem != null;
     }
 
     public boolean hasNestedItems() {
         return mediaItem != null && mediaItem.hasUploads();
-    }
-
-    public boolean hasPlaylistIndex() {
-        return playlistIndex > 0;
     }
 
     public boolean isChannel() {
@@ -669,10 +646,6 @@ public final class Video {
         return isShorts && (belongsToShorts() || belongsToHome());
     }
 
-    public boolean belongsToSearch() {
-        return belongsToGroup(MediaGroup.TYPE_SEARCH);
-    }
-
     public boolean belongsToNotifications() {
         return belongsToGroup(MediaGroup.TYPE_NOTIFICATIONS);
     }
@@ -689,37 +662,8 @@ public final class Video {
         return belongsToGroup(MediaGroup.TYPE_USER_PLAYLISTS);
     }
 
-    public boolean belongsToUndefined() {
-        return belongsToGroup(MediaGroup.TYPE_UNDEFINED);
-    }
-
-    public boolean belongsToBlockedChannels() {
-        return belongsToGroup(MediaGroup.TYPE_BLOCKED_CHANNELS);
-    }
-
-    /**
-     * Get the appropriate channel ID for blocking.
-     * Tries channelId first, then falls back to author name.
-     *
-     * @return The channel ID to use for blocking, or null if not available
-     */
-    public String getChannelIdOrName() {
-        if (channelId != null && !channelId.isEmpty()) {
-            return channelId;
-        }
-
-        // Fallback: use author name if no ID available (less reliable but better than
-        // nothing)
-        String authorName = getAuthor();
-        return authorName != null && !authorName.isEmpty() ? authorName : null;
-    }
-
     private boolean belongsToGroup(int groupId) {
         return getGroup() != null && getGroup().getType() == groupId;
-    }
-
-    public boolean belongsToSection() {
-        return getGroup() != null && getGroup().getSection() != null;
     }
 
     public void sync(Video video) {

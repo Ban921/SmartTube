@@ -15,7 +15,6 @@ package com.liskovsoft.smartyoutubetv2.tv.ui.mod.fragments;
 
 import android.graphics.Paint;
 import android.graphics.Paint.FontMetricsInt;
-import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -54,36 +53,6 @@ public class ErrorSupportFragment extends BrandedSupportFragment {
         mIsBackgroundTranslucent = translucent;
         updateBackground();
         updateMessage();
-    }
-
-    /**
-     * Returns true if the background is translucent.
-     */
-    public boolean isBackgroundTranslucent() {
-        return mIsBackgroundTranslucent;
-    }
-
-    /**
-     * Sets a drawable for the fragment background.
-     *
-     * @param drawable The drawable used for the background.
-     */
-    public void setBackgroundDrawable(Drawable drawable) {
-        mBackgroundDrawable = drawable;
-        if (drawable != null) {
-            final int opacity = drawable.getOpacity();
-            mIsBackgroundTranslucent = (opacity == PixelFormat.TRANSLUCENT
-                    || opacity == PixelFormat.TRANSPARENT);
-        }
-        updateBackground();
-        updateMessage();
-    }
-
-    /**
-     * Returns the background drawable.  May be null if a default is used.
-     */
-    public Drawable getBackgroundDrawable() {
-        return mBackgroundDrawable;
     }
 
     /**
@@ -131,13 +100,6 @@ public class ErrorSupportFragment extends BrandedSupportFragment {
     }
 
     /**
-     * Returns the button text.
-     */
-    public String getButtonText() {
-        return mButtonText;
-    }
-
-    /**
      * Set the button click listener.
      *
      * @param clickListener The click listener for the button.
@@ -145,13 +107,6 @@ public class ErrorSupportFragment extends BrandedSupportFragment {
     public void setButtonClickListener(View.OnClickListener clickListener) {
         mButtonClickListener = clickListener;
         updateButton();
-    }
-
-    /**
-     * Returns the button click listener.
-     */
-    public View.OnClickListener getButtonClickListener() {
-        return mButtonClickListener;
     }
 
     @Override

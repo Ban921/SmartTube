@@ -11,8 +11,6 @@
     <dimen name="shorts_card_width">120dp</dimen>
     <dimen name="shorts_card_height">200dp</dimen>
 
-    <dimen name="tiny_card_width">150dp</dimen>
-    <dimen name="tiny_card_height">25dp</dimen>
 
     <dimen name="channel_card_width">200dp</dimen>
     <dimen name="channel_card_height">30dp</dimen>
@@ -23,7 +21,6 @@
     <dimen name="settings_image_padding">25dp</dimen>
     <!-- Old value: 100dp -->
     <dimen name="settings_card_width">128dp</dimen>
-    <dimen name="settings_card_height">100dp</dimen>
 
     <dimen name="pip_title_max_width">370dp</dimen>
     <dimen name="pip_title_size">24sp</dimen>

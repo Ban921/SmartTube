@@ -76,10 +76,6 @@ public class TrackSelectorUtil {
         return format != null && Helpers.equalsAny(format.id, "15");
     }
 
-    public static boolean isHlsFormat(Format format) {
-        return format != null && format.containerMimeType == null && format.height >= 1080;
-    }
-
     public static String buildHDRString(Format format) {
         if (format == null) {
             return "";
@@ -224,14 +220,6 @@ public class TrackSelectorUtil {
         return format.bitrate > 300000;
     }
 
-    public static boolean is48KAudio(Format format) {
-        if (format == null) {
-            return false;
-        }
-
-        return format.sampleRate >= 48000;
-    }
-
     public static boolean isVideo(Format format) {
         return MimeTypes.isVideo(format.sampleMimeType);
     }
@@ -248,17 +236,6 @@ public class TrackSelectorUtil {
     }
 
     /**
-     * Check widescreen: 16:9, 16:8, 16:7 etc<br/>
-     */
-    public static boolean isWideScreenOld(Format format) {
-        if (format == null) {
-            return false;
-        }
-
-        return format.width / (float) format.height >= 1.77;
-    }
-
-    /**
      * MOD: Mimic official behavior (handle low res shorts etc)
      */
     public static boolean isWideScreen(Format format) {
@@ -267,17 +244,6 @@ public class TrackSelectorUtil {
         }
 
         return format.width / (float) format.height > 1;
-    }
-
-    public static boolean is4to3Screen(Format format) {
-        if (format == null) {
-            return false;
-        }
-
-        float ratio = format.width / (float) format.height;
-        float targetRatio = 4 / (float) 3;
-
-        return Math.abs(ratio - targetRatio) < 0.2;
     }
 
     public static String getResolutionLabel(Format format) {

@@ -132,10 +132,6 @@ public abstract class SearchTagsFragmentBase extends SearchSupportFragment
         mTagsPresenter.setOnItemViewLongPressedListener(listener);
     }
 
-    public boolean isStopping() {
-        return mIsStopping;
-    }
-
     public boolean hasResults() {
         return mResultsAdapter.size() > 0;
     }

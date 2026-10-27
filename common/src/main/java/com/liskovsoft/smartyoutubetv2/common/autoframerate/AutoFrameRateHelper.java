@@ -183,10 +183,6 @@ public class AutoFrameRateHelper {
         mSyncHelper.setListener(listener);
     }
 
-    public boolean isFpsCorrectionEnabled() {
-        return mIsFpsCorrectionEnabled;
-    }
-
     public void setFpsCorrectionEnabled(boolean enabled) {
         mIsFpsCorrectionEnabled = enabled;
     }

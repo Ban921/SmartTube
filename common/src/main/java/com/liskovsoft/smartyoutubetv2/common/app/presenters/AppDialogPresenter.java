@@ -163,10 +163,6 @@ public class AppDialogPresenter extends BasePresenter<AppDialogView> {
                 getViewManager().isViewPending(AppDialogView.class);
     }
 
-    public boolean isCommentsDialogShown() {
-        return isDialogShown() && isTypeComments();
-    }
-
     public void appendCategory(OptionCategory category) {
         mCategories.add(category);
     }
@@ -187,10 +183,6 @@ public class AppDialogPresenter extends BasePresenter<AppDialogView> {
         mCategories.add(OptionCategory.longText(categoryTitle, item));
     }
 
-    public void appendChatCategory(CharSequence categoryTitle, OptionItem item) {
-        mCategories.add(OptionCategory.chat(categoryTitle, item));
-    }
-
     public void appendCommentsCategory(CharSequence categoryTitle, OptionItem item) {
         mCategories.add(OptionCategory.comments(categoryTitle, item));
     }
@@ -201,16 +193,6 @@ public class AppDialogPresenter extends BasePresenter<AppDialogView> {
 
     public void appendSingleButton(OptionItem optionItem) {
         mCategories.add(OptionCategory.singleButton(optionItem));
-    }
-
-    public void showDialogMessage(String dialogTitle, Runnable onClose, int timeoutMs) {
-        showDialog(dialogTitle, onClose);
-
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            if (getView() != null) {
-                getView().finish();
-            }
-        }, timeoutMs);
     }
 
     public void setCloseTimeoutMs(long timeoutMs) {
@@ -279,22 +261,5 @@ public class AppDialogPresenter extends BasePresenter<AppDialogView> {
         if (mTimeoutMs > 0) {
             mHandler.postDelayed(mCloseDialog, mTimeoutMs);
         }
-    }
-
-    private boolean isTypeComments() {
-        if (mBackupCategories == null) {
-            return false;
-        }
-
-        boolean isComments = false;
-
-        for (OptionCategory category : mBackupCategories) {
-            if (category.type == OptionCategory.TYPE_COMMENTS) {
-                isComments = true;
-                break;
-            }
-        }
-
-        return isComments;
     }
 }

@@ -57,13 +57,6 @@ public class GridFragment extends Fragment implements BrowseSupportFragment.Main
     }
 
     /**
-     * Returns the grid presenter.
-     */
-    public VerticalGridPresenter getGridPresenter() {
-        return mGridPresenter;
-    }
-
-    /**
      * Returns R.id.browse_grid
      */
     public VerticalGridView getBrowseGrid() {

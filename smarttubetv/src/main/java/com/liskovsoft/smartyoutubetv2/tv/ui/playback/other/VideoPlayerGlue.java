@@ -279,14 +279,6 @@ public class VideoPlayerGlue extends MaxControlsVideoPlayerGlue<PlayerAdapter> i
         mActionListener.onPrevious();
     }
 
-    public void togglePlayback() {
-        if (isPlaying()) {
-            pause();
-        } else {
-            play();
-        }
-    }
-
     /** Skips backwards 10 seconds. */
     public void rewind() {
         if (isSeekBlocked()) {

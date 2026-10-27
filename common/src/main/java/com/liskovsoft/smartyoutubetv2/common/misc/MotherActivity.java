@@ -362,10 +362,6 @@ public class MotherActivity extends FragmentActivity {
         sIsInPipMode = false;
     }
 
-    public static DisplayMetrics getCachedDisplayMetrics() {
-        return sCachedDisplayMetrics;
-    }
-
     /**
      * Comments focus fix<br/>
      * https://stackoverflow.com/questions/34277425/recyclerview-items-lose-focus

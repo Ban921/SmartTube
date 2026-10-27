@@ -243,19 +243,9 @@ public class BrowseFragment extends BrowseSupportFragment implements BrowseView 
         return (int) ((PageRow) mSectionRowAdapter.get(getSelectedPosition())).getHeaderItem().getId();
     }
     
-    public void updateErrorIfEmpty(ErrorFragmentData data) {
-        mHandler.postDelayed(() -> showErrorIfEmpty(data), 500); // need delay because header may be not updated
-    }
-
     @Override
     public void showError(ErrorFragmentData data) {
         replaceMainFragment(new ErrorDialogFragment(data));
-    }
-
-    private void showErrorIfEmpty(ErrorFragmentData data) {
-        if (isEmpty()) {
-            replaceMainFragment(new ErrorDialogFragment(data));
-        }
     }
 
     private void replaceMainFragment(Fragment fragment) {

@@ -56,15 +56,6 @@ public class SearchData {
         persistData();
     }
 
-    public int getSearchOptions() {
-        return mSearchOptions;
-    }
-
-    public void setSearchOptions(int searchOptions) {
-        mSearchOptions = searchOptions;
-        persistData();
-    }
-
     public boolean isKeyboardAutoShowEnabled() {
         return mIsKeyboardAutoShowEnabled;
     }
@@ -90,15 +81,6 @@ public class SearchData {
     public void setTypingCorrectionDisabled(boolean disabled) {
         mIsTypingCorrectionDisabled = disabled;
         persistData();
-    }
-
-    public void setTrendingSearchesEnabled(boolean enabled) {
-        mIsTrendingSearchesEnabled = enabled;
-        persistData();
-    }
-
-    public boolean isTrendingSearchesEnabled() {
-        return mIsTrendingSearchesEnabled;
     }
 
     public boolean isTempBackgroundModeEnabled() {

@@ -267,13 +267,6 @@ class ControlBarPresenter extends Presenter {
         mOnControlSelectedListener = listener;
     }
 
-    /**
-     * Returns the listener for control selection.
-     */
-    public OnControlSelectedListener getOnItemControlListener() {
-        return mOnControlSelectedListener;
-    }
-
     public void setBackgroundColor(ViewHolder vh, int color) {
         vh.mControlsContainer.setBackgroundColor(color);
     }

@@ -553,23 +553,6 @@ public abstract class PlaybackBaseControlGlue<T extends PlayerAdapter> extends P
     }
 
     /**
-     * Sets the drawable representing cover image. The drawable will be rendered by default
-     * description presenter in
-     * {@link PlaybackTransportRowPresenter#setDescriptionPresenter(Presenter)}.
-     * @param cover The drawable representing cover image.
-     */
-    public void setArt(Drawable cover) {
-        if (mCover == cover) {
-            return;
-        }
-        this.mCover = cover;
-        mControlsRow.setImageDrawable(mCover);
-        if (getHost() != null) {
-            getHost().notifyPlaybackRowChanged();
-        }
-    }
-
-    /**
      * @return The drawable representing cover image.
      */
     public Drawable getArt() {

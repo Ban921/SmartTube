@@ -267,14 +267,6 @@ public class ViewManager {
         mDefaultTop = activity == null ? null : activity.getClass();
     }
 
-    public Class<? extends Activity> getBlockedTop() {
-        return mDefaultTop;
-    }
-
-    public void removeTop(Activity activity) {
-        mActivityStack.remove(activity.getClass());
-    }
-
     private boolean checkMoveViewsToBack(Activity activity) {
         if (mIsMoveToBackEnabled) {
             safeMoveTaskToBack(activity);

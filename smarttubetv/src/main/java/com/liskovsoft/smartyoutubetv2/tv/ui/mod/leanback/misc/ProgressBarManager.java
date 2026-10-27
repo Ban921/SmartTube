@@ -129,20 +129,6 @@ public final class ProgressBarManager {
         mUserProvidedProgressBar = true;
     }
 
-    /**
-     * Disables progress bar.
-     */
-    public void disableProgressBar() {
-        mEnableProgressBar = false;
-    }
-
-    /**
-     * Enables progress bar.
-     */
-    public void enableProgressBar() {
-        mEnableProgressBar = true;
-    }
-
     public void setPosition(int position) {
         mPosition = position;
     }

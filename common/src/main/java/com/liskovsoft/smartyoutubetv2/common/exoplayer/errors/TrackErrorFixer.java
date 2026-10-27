@@ -5,12 +5,8 @@ import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer.DecoderInitializationException;
 import com.google.android.exoplayer2.source.DefaultMediaSourceEventListener;
 import com.google.android.exoplayer2.source.MediaSource.MediaPeriodId;
-import com.google.android.exoplayer2.source.chunk.Chunk;
-import com.google.android.exoplayer2.source.chunk.ContainerMediaChunk;
 import com.google.android.exoplayer2.upstream.HttpDataSource.InvalidResponseCodeException;
 import com.google.android.exoplayer2.util.MimeTypes;
-import com.liskovsoft.sharedutils.helpers.Helpers;
-import com.liskovsoft.sharedutils.mylogger.Log;
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.selector.TrackSelectorManager;
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.selector.track.MediaTrack;
 
@@ -234,21 +230,6 @@ public class TrackErrorFixer extends DefaultMediaSourceEventListener {
 
     private void addToBlacklist(MediaTrack track) {
         mBlacklistedTracks.put(track, System.currentTimeMillis());
-    }
-
-    public void fixEmptyChunk(Chunk chunk) {
-        // Fix when just started new type live stream ahead of the position
-        if (chunk instanceof ContainerMediaChunk) {
-            long nextLoadPosition = (Long) Helpers.getField(chunk, "nextLoadPosition");
-            if (nextLoadPosition == 0) {
-                Log.e(TAG, "Stream position behind the timeline. Waiting for new data...");
-                try {
-                    Thread.sleep(10_000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     @Override

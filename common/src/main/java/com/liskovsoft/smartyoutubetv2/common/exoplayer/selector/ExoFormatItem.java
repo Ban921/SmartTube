@@ -313,28 +313,6 @@ public class ExoFormatItem implements FormatItem {
         return formatItem;
     }
 
-    public static ExoFormatItem fromAudioData(int format) {
-        ExoFormatItem formatItem = new ExoFormatItem();
-        MediaTrack mediaTrack = MediaTrack.forRendererIndex(TrackSelectorManager.RENDERER_INDEX_AUDIO);
-        formatItem.mTrack = mediaTrack;
-        formatItem.mType = TYPE_AUDIO;
-
-        String codec = null;
-
-        switch (format) {
-            case FORMAT_MP4A:
-            default:
-                codec = "mp4a";
-                break;
-        }
-
-        // Fake format. It's used in app internal comparison routine.
-        mediaTrack.format = Format.createAudioSampleFormat(
-                null, null, codec, -1, -1,0, 0, null, null, 0, null);
-
-        return formatItem;
-    }
-
     /**
      * Codec and language (lower case) delimited by comma
      * @param spec codec, language

@@ -104,30 +104,6 @@ public final class SeekBar extends View {
                 R.dimen.lb_playback_transport_progressbar_active_radius);
     }
 
-    /**
-     * Set radius in pixels for thumb when SeekBar is focused.
-     */
-    public void setActiveRadius(int radius) {
-        mActiveRadius = radius;
-        calculate();
-    }
-
-    /**
-     * Set horizontal bar height in pixels when SeekBar is not focused.
-     */
-    public void setBarHeight(int barHeight) {
-        mBarHeight = barHeight;
-        calculate();
-    }
-
-    /**
-     * Set horizontal bar height in pixels when SeekBar is focused.
-     */
-    public void setActiveBarHeight(int activeBarHeight) {
-        mActiveBarHeight = activeBarHeight;
-        calculate();
-    }
-
     @Override
     protected void onFocusChanged(boolean gainFocus,
             int direction, Rect previouslyFocusedRect) {
@@ -189,13 +165,6 @@ public final class SeekBar extends View {
      */
     public int getProgress() {
         return mProgress;
-    }
-
-    /**
-     * Get secondary progress within 0 and {@link #getMax()}
-     */
-    public int getSecondProgress() {
-        return mSecondProgress;
     }
 
     /**

@@ -41,10 +41,6 @@ public class Playlist {
         mCurrentIndex = -1;
     }
 
-    public void clearPosition() {
-        mCurrentIndex = -1;
-    }
-
     /**
      * Used to sync list with remotely added items
      */
@@ -148,16 +144,6 @@ public class Playlist {
         }
 
         return mPlaylist.contains(video);
-    }
-
-    public boolean containsAfterCurrent(Video video) {
-        if (Video.isEmpty(video)) {
-            return false;
-        }
-
-        List<Video> afterCurrent = getAllAfterCurrent();
-
-        return afterCurrent != null && afterCurrent.contains(video);
     }
 
     ///**

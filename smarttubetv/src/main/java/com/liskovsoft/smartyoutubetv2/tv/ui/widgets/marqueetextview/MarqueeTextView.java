@@ -73,8 +73,4 @@ public class MarqueeTextView extends TextView implements View.OnLayoutChangeList
             mMarqueeSpeedFactor = factor;
         }
     }
-
-    public float getMarqueeSpeedFactor() {
-        return mMarqueeSpeedFactor;
-    }
 }

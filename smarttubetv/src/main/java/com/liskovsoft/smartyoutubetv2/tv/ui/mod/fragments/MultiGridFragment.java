@@ -83,20 +83,6 @@ public class MultiGridFragment extends Fragment implements BrowseSupportFragment
         }
     }
 
-    /**
-     * Returns the grid1 presenter.
-     */
-    public VerticalGridPresenter getGridPresenter1() {
-        return mGridPresenter1;
-    }
-
-    /**
-     * Returns the grid2 presenter.
-     */
-    public VerticalGridPresenter getGridPresenter2() {
-        return mGridPresenter2;
-    }
-
     public VerticalGridView getBrowseGrid1() {
         return mGridViewHolder1 != null ? mGridViewHolder1.getGridView() : null;
     }
@@ -114,25 +100,11 @@ public class MultiGridFragment extends Fragment implements BrowseSupportFragment
     }
 
     /**
-     * Returns the object adapter.
-     */
-    public ObjectAdapter getAdapter1() {
-        return mAdapter1;
-    }
-
-    /**
      * Sets the object adapter for the fragment.
      */
     public void setAdapter2(ObjectAdapter adapter) {
         mAdapter2 = adapter;
         updateAdapter2();
-    }
-
-    /**
-     * Returns the object adapter.
-     */
-    public ObjectAdapter getAdapter2() {
-        return mAdapter2;
     }
 
     final private OnItemViewSelectedListener mViewSelectedListener1 =
@@ -281,20 +253,6 @@ public class MultiGridFragment extends Fragment implements BrowseSupportFragment
         }
     }
 
-    /**
-     * Returns the item clicked listener.
-     */
-    public OnItemViewClickedListener getOnItemViewClickedListener1() {
-        return mOnItemViewClickedListener1;
-    }
-
-    /**
-     * Returns the item clicked listener.
-     */
-    public OnItemViewClickedListener getOnItemViewClickedListener2() {
-        return mOnItemViewClickedListener2;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -363,22 +321,8 @@ public class MultiGridFragment extends Fragment implements BrowseSupportFragment
         }
     }
 
-    /**
-     * Sets the grid2 selected item position.
-     */
-    public void setSelectedPosition2(int position) {
-        mSelectedPosition2 = position;
-        if(mGridViewHolder2 != null && mGridViewHolder2.getGridView().getAdapter() != null) {
-            mGridViewHolder2.getGridView().setSelectedPosition(position);
-        }
-    }
-
     public int getSelectedPosition1() {
         return mSelectedPosition1;
-    }
-
-    public int getSelectedPosition2() {
-        return mSelectedPosition2;
     }
 
     private void updateAdapter1() {

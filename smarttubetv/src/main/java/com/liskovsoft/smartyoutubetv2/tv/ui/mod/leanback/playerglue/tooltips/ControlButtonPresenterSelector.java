@@ -44,13 +44,6 @@ public class ControlButtonPresenterSelector extends PresenterSelector {
     }
 
     /**
-     * Returns the presenter for primary controls.
-     */
-    public Presenter getPrimaryPresenter() {
-        return mPrimaryPresenter;
-    }
-
-    /**
      * Returns the presenter for secondary controls.
      */
     public Presenter getSecondaryPresenter() {

@@ -104,10 +104,6 @@ public class ProxyManager {
         return false;
     }
 
-    public Proxy getCurrentProxy() {
-        return mProxy;
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public String getProxyHost() {
         return mProxy == null ? "" : ((PasswdInetSocketAddress) mProxy.address()).getHostString();

@@ -77,68 +77,6 @@ public class ThumbsBar extends LinearLayout {
     }
 
     /**
-     * Set size of thumb view in pixels
-     */
-    public void setThumbSize(int width, int height) {
-        mThumbHeightInPixel = height;
-        mThumbWidthInPixel = width;
-        int heroIndex = getHeroIndex();
-        for (int i = 0; i < getChildCount(); i++) {
-            if (heroIndex != i) {
-                View child = getChildAt(i);
-                LayoutParams lp = (LayoutParams) child.getLayoutParams();
-                boolean changed = false;
-                if (lp.height != height) {
-                    lp.height = height;
-                    changed = true;
-                }
-                if (lp.width != width) {
-                    lp.width = width;
-                    changed = true;
-                }
-                if (changed) {
-                    child.setLayoutParams(lp);
-                }
-            }
-        }
-    }
-
-    /**
-     * Set size of hero thumb view in pixels, it is usually larger than other thumbs.
-     */
-    public void setHeroThumbSize(int width, int height) {
-        mHeroThumbHeightInPixel = height;
-        mHeroThumbWidthInPixel = width;
-        int heroIndex = getHeroIndex();
-        for (int i = 0; i < getChildCount(); i++) {
-            if (heroIndex == i) {
-                View child = getChildAt(i);
-                LayoutParams lp = (LayoutParams) child.getLayoutParams();
-                boolean changed = false;
-                if (lp.height != height) {
-                    lp.height = height;
-                    changed = true;
-                }
-                if (lp.width != width) {
-                    lp.width = width;
-                    changed = true;
-                }
-                if (changed) {
-                    child.setLayoutParams(lp);
-                }
-            }
-        }
-    }
-
-    /**
-     * Set the space between thumbs in pixels
-     */
-    public void setThumbSpace(int spaceInPixel) {
-        mMeasuredMarginInPixel = spaceInPixel;
-        requestLayout();
-    }
-
-    /**
      * Set number of thumb views.
      */
     public void setNumberOfThumbs(int numOfThumbs) {

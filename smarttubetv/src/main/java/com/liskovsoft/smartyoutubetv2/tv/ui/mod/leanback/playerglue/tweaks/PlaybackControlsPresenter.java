@@ -222,22 +222,6 @@ class PlaybackControlsPresenter extends ControlBarPresenter {
         super(layoutResourceId);
     }
 
-    /**
-     * Enables the display of secondary actions.
-     * A "more actions" button will be displayed.  When "more actions" is selected,
-     * the primary actions are replaced with the secondary actions.
-     */
-    public void enableSecondaryActions(boolean enable) {
-        mMoreActionsEnabled = enable;
-    }
-
-    /**
-     * Returns true if secondary actions are enabled.
-     */
-    public boolean areMoreActionsEnabled() {
-        return mMoreActionsEnabled;
-    }
-
     public void setProgressColor(ViewHolder vh, @ColorInt int color) {
         Drawable drawable = new ClipDrawable(new ColorDrawable(color),
                 Gravity.LEFT, ClipDrawable.HORIZONTAL);
@@ -293,25 +277,8 @@ class PlaybackControlsPresenter extends ControlBarPresenter {
         return vh.getSecondaryProgress();
     }
 
-    public void showPrimaryActions(ViewHolder vh) {
-        if (vh.mMoreActionsShowing) {
-            vh.toggleMoreActions();
-        }
-    }
-
     public void resetFocus(ViewHolder vh) {
         vh.mControlBar.requestFocus();
-    }
-
-    public void enableTimeMargins(ViewHolder vh, boolean enable) {
-        MarginLayoutParams lp;
-        lp = (MarginLayoutParams) vh.mCurrentTime.getLayoutParams();
-        lp.setMarginStart(enable ? vh.mCurrentTimeMarginStart : 0);
-        vh.mCurrentTime.setLayoutParams(lp);
-
-        lp = (MarginLayoutParams) vh.mTotalTime.getLayoutParams();
-        lp.setMarginEnd(enable ? vh.mTotalTimeMarginEnd : 0);
-        vh.mTotalTime.setLayoutParams(lp);
     }
 
     @Override

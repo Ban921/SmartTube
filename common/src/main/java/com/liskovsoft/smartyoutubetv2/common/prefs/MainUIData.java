@@ -162,15 +162,6 @@ public class MainUIData extends DataChangeBase implements ProfileChangeListener 
         persistState();
     }
 
-    public int getCardTitleLinesNum() {
-        return mCardTitleLinesNum;
-    }
-
-    public void setCartTitleLinesNum(int lines) {
-        mCardTitleLinesNum = lines;
-        persistState();
-    }
-
     public int getThumbQuality() {
         return mThumbQuality;
     }

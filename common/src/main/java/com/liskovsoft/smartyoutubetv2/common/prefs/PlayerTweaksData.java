@@ -193,15 +193,6 @@ public class PlayerTweaksData implements ProfileChangeListener {
         return mIsSetOutputSurfaceWorkaroundEnabled;
     }
 
-    /**
-     * Need to be enabled on older version of ExoPlayer (e.g. 2.10.6).<br/>
-     * It's because there's no tweaks for modern devices.
-     */
-    public void setSetOutputSurfaceWorkaroundEnabled(boolean enable) {
-        mIsSetOutputSurfaceWorkaroundEnabled = enable;
-        persistData();
-    }
-
     public boolean isAudioSyncFixEnabled() {
         return mIsAudioSyncFixEnabled;
     }

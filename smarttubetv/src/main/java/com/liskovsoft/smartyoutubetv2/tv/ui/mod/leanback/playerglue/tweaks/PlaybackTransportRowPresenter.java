@@ -953,13 +953,6 @@ public class PlaybackTransportRowPresenter extends PlaybackRowPresenter {
     }
 
     /**
-     * Returns the listener for {@link Action} click events.
-     */
-    public OnActionClickedListener getOnActionClickedListener() {
-        return mOnActionClickedListener;
-    }
-
-    /**
      * Sets the primary color for the progress bar.  If not set, a default from
      * the theme will be used.
      */
@@ -1145,22 +1138,6 @@ public class PlaybackTransportRowPresenter extends PlaybackRowPresenter {
                 mOnActionClickedListener.onActionClicked(vh.mPlayPauseAction);
             }
         }
-    }
-
-    /**
-     * Set default seek increment if {@link PlaybackSeekDataProvider} is null.
-     * @param ratio float value between 0(inclusive) and 1(inclusive).
-     */
-    public void setDefaultSeekIncrement(float ratio) {
-        mDefaultSeekIncrement = ratio;
-    }
-
-    /**
-     * Get default seek increment if {@link PlaybackSeekDataProvider} is null.
-     * @return float value between 0(inclusive) and 1(inclusive).
-     */
-    public float getDefaultSeekIncrement() {
-        return mDefaultSeekIncrement;
     }
 
     @Override

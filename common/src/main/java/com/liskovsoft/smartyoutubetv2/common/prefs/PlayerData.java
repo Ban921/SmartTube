@@ -655,30 +655,12 @@ public class PlayerData extends DataChangeBase implements PlayerConstants, Profi
         mLastAudioLanguages.add(0, language);
     }
 
-    public String getSubtitleLanguage() {
-        return mSubtitleLanguage;
-    }
-
-    public void setSubtitleLanguage(String language) {
-        mSubtitleLanguage = language;
-        persistState();
-    }
-
     public float getSleepTimerHours() {
         return mSleepTimerHours;
     }
 
     public void setSleepTimerHours(float hours) {
         mSleepTimerHours = hours;
-        persistState();
-    }
-
-    public boolean isTimeCorrectionEnabled() {
-        return mIsTimeCorrectionEnabled;
-    }
-
-    public void setTimeCorrectionEnabled(boolean enable) {
-        mIsTimeCorrectionEnabled = enable;
         persistState();
     }
 

@@ -149,14 +149,6 @@ public class BrowseSectionFragmentFactory extends BrowseSupportFragment.Fragment
         mOnSectionSelected = null;
     }
 
-    public int getCurrentFragmentItemIndex() {
-        if (mCurrentFragment instanceof VideoSection) {
-            return ((VideoSection) mCurrentFragment).getPosition();
-        }
-
-        return -1;
-    }
-
     public void setCurrentFragmentItemIndex(int index) {
         if (index < 0) {
             return;

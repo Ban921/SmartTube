@@ -1353,11 +1353,6 @@ public class PlaybackFragment extends SeekModePlaybackFragment implements Playba
         }
     }
 
-    public boolean isDebugInfoShown() {
-        createDebugManager();
-        return mDebugInfoManager != null && mDebugInfoManager.isShown();
-    }
-
     @Override
     public void updateSuggestions(VideoGroup group) {
         if (mRowsAdapter == null) {

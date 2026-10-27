@@ -19,8 +19,6 @@ public class PreviewCardView extends FrameLayout {
 
     ProgressBar mProgressCard;
 
-    private String mVideoUrl;
-
     public PreviewCardView(Context context) {
         super(context);
         init();
@@ -44,36 +42,6 @@ public class PreviewCardView extends FrameLayout {
         mImageView = view.findViewById(R.id.main_image);
         mOverlayView = view.findViewById(R.id.view_overlay);
         mProgressCard = view.findViewById(R.id.progress_card);
-    }
-
-    public void setVideoUrl(String videoUrl) {
-        mVideoUrl = videoUrl;
-    }
-
-    public ImageView getImageView() {
-        return mImageView;
-    }
-
-    public void setLoading() {
-        mOverlayView.setVisibility(View.VISIBLE);
-        mProgressCard.setVisibility(View.VISIBLE);
-        mVideoView.setVisibility(View.VISIBLE);
-        mVideoView.setupMediaPlayer(mVideoUrl, new LoopingVideoView.OnVideoReadyListener() {
-            @Override
-            public void onVideoReady() {
-                mOverlayView.setVisibility(View.INVISIBLE);
-                mProgressCard.setVisibility(View.INVISIBLE);
-                mImageView.setVisibility(View.INVISIBLE);
-            }
-        });
-    }
-
-    public void setFinished() {
-        mVideoView.setVisibility(View.INVISIBLE);
-        mVideoView.stopMediaPlayer();
-        mImageView.setVisibility(View.VISIBLE);
-        mOverlayView.setVisibility(View.INVISIBLE);
-        mProgressCard.setVisibility(View.INVISIBLE);
     }
 
 }

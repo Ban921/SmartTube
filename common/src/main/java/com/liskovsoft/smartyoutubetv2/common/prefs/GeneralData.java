@@ -264,15 +264,6 @@ public class GeneralData implements ProfileChangeListener {
         persistState();
     }
 
-    public boolean isVPNEnabled() {
-        return mIsVPNEnabled;
-    }
-
-    public void setVPNEnabled(boolean enable) {
-        mIsVPNEnabled = enable;
-        persistState();
-    }
-
     public boolean isBridgeCheckEnabled() {
         return mIsBridgeCheckEnabled;
     }
@@ -402,26 +393,6 @@ public class GeneralData implements ProfileChangeListener {
         persistState();
     }
 
-    public boolean isAltAppIconEnabled() {
-        return mIsAltAppIconEnabled;
-    }
-
-    public void setAltAppIconEnabled(boolean enable) {
-        mIsAltAppIconEnabled = enable;
-
-        persistState();
-    }
-
-    public int getVersionCode() {
-        return mVersionCode;
-    }
-
-    public void setVersionCode(int code) {
-        mVersionCode = code;
-
-        persistState();
-    }
-
     public boolean isSelectChannelSectionEnabled() {
         return mIsSelectChannelSectionEnabled;
     }
@@ -483,11 +454,6 @@ public class GeneralData implements ProfileChangeListener {
 
     public boolean isFirstUseTooltipEnabled() {
         return mIsFirstUseTooltipEnabled;
-    }
-
-    public void setFirstUseTooltipEnabled(boolean enable) {
-        mIsFirstUseTooltipEnabled = enable;
-        persistState();
     }
 
     public boolean isDeviceSpecificBackupEnabled() {

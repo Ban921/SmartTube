@@ -1,8 +1,6 @@
 package com.liskovsoft.smartyoutubetv2.tv.util;
 
 import android.content.Context;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.os.Build.VERSION;
 import android.text.Layout;
 import android.text.TextUtils.TruncateAt;
@@ -11,19 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.leanback.widget.FocusHighlight;
-import androidx.leanback.widget.ListRow;
 import androidx.leanback.widget.RowPresenter;
 import androidx.leanback.widget.VerticalGridView;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.liskovsoft.sharedutils.helpers.Helpers;
 import com.liskovsoft.smartyoutubetv2.tv.R;
-import com.liskovsoft.smartyoutubetv2.tv.adapter.VideoGroupObjectAdapter;
 import com.liskovsoft.smartyoutubetv2.tv.ui.widgets.marqueetextview.MarqueeTextView;
 import com.liskovsoft.smartyoutubetv2.tv.ui.widgets.marqueetextviewcompat.MarqueeTextViewCompat;
 import com.liskovsoft.smartyoutubetv2.tv.ui.widgets.speedmarquee.SpeedMarquee;
@@ -160,16 +155,6 @@ public class ViewUtil {
         }
     }
 
-    public static boolean isListRowEmpty(Object obj) {
-        if (obj instanceof ListRow) {
-            ListRow row = (ListRow) obj;
-            VideoGroupObjectAdapter adapter = (VideoGroupObjectAdapter) row.getAdapter();
-            return adapter == null || adapter.isEmpty();
-        }
-
-        return true;
-    }
-
     public static RequestOptions glideOptions() {
         return new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.NONE) // ensure start animation from beginning
@@ -221,13 +206,6 @@ public class ViewUtil {
         if (mainContainer instanceof FrameLayout) {
             ((FrameLayout.LayoutParams) mainContainer.getLayoutParams()).gravity = Gravity.START;
         }
-    }
-
-    public static void makeMonochrome(ImageView iconView) {
-        ColorMatrix colorMatrix = new ColorMatrix();
-        colorMatrix.setSaturation(0);
-        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(colorMatrix);
-        iconView.setColorFilter(filter);
     }
 
     public static void setGravity(View view, int gravity) {

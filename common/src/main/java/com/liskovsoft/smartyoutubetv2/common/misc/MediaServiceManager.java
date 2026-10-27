@@ -312,13 +312,6 @@ public class MediaServiceManager implements OnAccountChange {
         RxHelper.disposeActions(mMetadataAction, mUploadsAction, mRowsAction, mSubscribedChannelsAction);
     }
 
-    /**
-     * Most tiny ui has 8 cards in a row or 24 in grid.
-     */
-    public boolean shouldContinueGridGroup(Context context, VideoGroup group) {
-        return shouldContinueTheGroup(context, group, true);
-    }
-
     public boolean shouldContinueRowGroup(Context context, VideoGroup group) {
         return shouldContinueTheGroup(context, group,false);
     }
@@ -445,10 +438,6 @@ public class MediaServiceManager implements OnAccountChange {
                 mAccountListeners.add(listener);
             }
         }
-    }
-
-    public void removeAccountListener(AccountChangeListener listener) {
-        mAccountListeners.remove(listener);
     }
 
     public Account getSelectedAccount() {

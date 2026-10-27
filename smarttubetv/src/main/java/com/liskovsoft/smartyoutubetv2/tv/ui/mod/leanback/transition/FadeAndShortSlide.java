@@ -290,23 +290,6 @@ public class FadeAndShortSlide extends Visibility {
         return super.removeListener(listener);
     }
 
-    /**
-     * Returns distance to slide.  When negative value is returned, it will use 1/4 of
-     * sceneRoot dimension.
-     */
-    public float getDistance() {
-        return mDistance;
-    }
-
-    /**
-     * Set distance to slide, default value is -1.  when negative value is set, it will use 1/4 of
-     * sceneRoot dimension.
-     * @param distance Pixels to slide.
-     */
-    public void setDistance(float distance) {
-        mDistance = distance;
-    }
-
     @Override
     public Transition clone() {
         FadeAndShortSlide clone = null;

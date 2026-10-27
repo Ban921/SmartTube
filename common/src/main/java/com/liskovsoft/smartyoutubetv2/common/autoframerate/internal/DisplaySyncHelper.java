@@ -254,10 +254,6 @@ public class DisplaySyncHelper implements UhdHelperListener {
         return supportedDevice;
     }
 
-    public boolean displayModeSyncInProgress() {
-        return mDisplaySyncInProgress;
-    }
-
     @Override
     public void onModeChanged(Mode mode) {
         mDisplaySyncInProgress = false;

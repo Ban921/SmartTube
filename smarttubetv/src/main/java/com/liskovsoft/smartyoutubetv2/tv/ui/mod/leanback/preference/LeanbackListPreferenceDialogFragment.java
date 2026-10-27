@@ -371,10 +371,6 @@ public class LeanbackListPreferenceDialogFragment extends LeanbackPreferenceDial
             return mTitleView;
         }
 
-        public ViewGroup getContainer() {
-            return mContainer;
-        }
-
         @Override
         public void onClick(View v) {
             mListener.onItemClick(this);
