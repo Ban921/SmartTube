@@ -104,6 +104,13 @@ public class PlaybackActivity extends LeanbackActivity {
 
     @Override
     public boolean onGenericMotionEvent(MotionEvent event) {
+        // Check before the triggers: a mouse event has zero trigger axes, which the release branch below would swallow
+        if ((event.getSource() & InputDevice.SOURCE_CLASS_POINTER) != 0 && event.getAction() == MotionEvent.ACTION_SCROLL) {
+            // mouse wheel handling
+            VolumeHelper.volumeUp(this, getPlaybackView(), event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f);
+            return true;
+        }
+
         // This method will handle gamepad events.
         if (event.getAxisValue(MotionEvent.AXIS_LTRIGGER) > GAMEPAD_TRIGGER_INTENSITY_ON
                 && !gamepadTriggerPressed) {
@@ -116,10 +123,6 @@ public class PlaybackActivity extends LeanbackActivity {
         } else if (event.getAxisValue(MotionEvent.AXIS_LTRIGGER) < GAMEPAD_TRIGGER_INTENSITY_OFF
                 && event.getAxisValue(MotionEvent.AXIS_RTRIGGER) < GAMEPAD_TRIGGER_INTENSITY_OFF) {
             gamepadTriggerPressed = false;
-        } else if ((event.getSource() & InputDevice.SOURCE_CLASS_POINTER) != 0 && event.getAction() == MotionEvent.ACTION_SCROLL) {
-            // mouse wheel handling
-            VolumeHelper.volumeUp(this, getPlaybackView(), event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f);
-            return true;
         }
         return super.onGenericMotionEvent(event);
     }
