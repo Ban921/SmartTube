@@ -126,15 +126,6 @@ public abstract class MultipleRowsFragment extends RowsSupportFragment implement
         setPosition(mChannelHeaderCallback != null ? 1 : 0);
     }
 
-    private void removeByIndex(int idx) {
-        if (mRowsAdapter != null && mRowsAdapter.size() > idx) {
-            ListRow row = (ListRow) mRowsAdapter.get(idx);
-            mRowsAdapter.remove(row);
-            VideoGroupObjectAdapter group = (VideoGroupObjectAdapter) row.getAdapter();
-            mVideoGroupAdapters.values().remove(group);
-        }
-    }
-
     private void removeById(int id) {
         if (mRowsAdapter != null) {
             VideoGroupObjectAdapter needed = mVideoGroupAdapters.get(id);

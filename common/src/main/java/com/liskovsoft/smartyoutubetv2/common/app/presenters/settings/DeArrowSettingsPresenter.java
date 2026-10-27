@@ -96,18 +96,4 @@ public class DeArrowSettingsPresenter extends BasePresenter<Void> {
         settingsPresenter.appendSingleButton(statsCheckOption);
         settingsPresenter.appendSingleButton(webSiteOption);
     }
-
-    private void appendDeArrowSwitch(AppDialogPresenter settingsPresenter) {
-        String title = String.format(
-                "%s (%s)",
-                getContext().getString(R.string.dearrow_provider),
-                getContext().getString(R.string.dearrow_provider_url)
-        );
-        OptionItem sponsorBlockOption = UiOptionItem.from(title,
-                option -> mDeArrowData.setDeArrowEnabled(option.isSelected()),
-                mDeArrowData.isDeArrowEnabled()
-        );
-
-        settingsPresenter.appendSingleSwitch(sponsorBlockOption);
-    }
 }

@@ -208,14 +208,6 @@ public class VideoStateService implements ProfileChangeListener {
         restoreState();
     }
 
-    private void setStateDataSafe(String data) {
-        try {
-            setStateData(data);
-        } catch (ArrayIndexOutOfBoundsException e) { // weird issue (NVidia Shield)
-            e.printStackTrace();
-        }
-    }
-
     private void setStateData(String data) {
         if (data != null) {
             String[] split = Helpers.split(data, DELIM);

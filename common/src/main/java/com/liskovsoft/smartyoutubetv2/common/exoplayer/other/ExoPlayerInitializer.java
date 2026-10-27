@@ -11,21 +11,12 @@ import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SeekParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.audio.AudioAttributes;
-import com.google.android.exoplayer2.drm.DefaultDrmSessionManager;
-import com.google.android.exoplayer2.drm.DrmSessionManager;
-import com.google.android.exoplayer2.drm.ExoMediaDrm.KeyRequest;
-import com.google.android.exoplayer2.drm.ExoMediaDrm.ProvisionRequest;
-import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
-import com.google.android.exoplayer2.drm.MediaDrmCallback;
-import com.google.android.exoplayer2.drm.UnsupportedDrmException;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.TransferListener;
 import com.liskovsoft.sharedutils.helpers.DeviceHelpers;
 import com.liskovsoft.smartyoutubetv2.common.prefs.PlayerData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.PlayerTweaksData;
-
-import java.util.UUID;
 
 public class ExoPlayerInitializer {
     private final int mMaxBufferBytes;
@@ -201,26 +192,6 @@ public class ExoPlayerInitializer {
 
         mVolumeBooster = null;
         mPlayer = null;
-    }
-
-    private DrmSessionManager<FrameworkMediaCrypto> createDrmManager() {
-        try {
-            return DefaultDrmSessionManager.newWidevineInstance(new MediaDrmCallback() {
-                @Override
-                public byte[] executeProvisionRequest(UUID uuid, ProvisionRequest request) {
-                    return new byte[0];
-                }
-
-                @Override
-                public byte[] executeKeyRequest(UUID uuid, KeyRequest request) {
-                    return new byte[0];
-                }
-            }, null);
-        } catch (UnsupportedDrmException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     private static final class DummyBandwidthMeter implements BandwidthMeter {

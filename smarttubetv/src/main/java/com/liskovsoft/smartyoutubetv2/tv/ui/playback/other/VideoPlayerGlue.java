@@ -432,13 +432,6 @@ public class VideoPlayerGlue extends MaxControlsVideoPlayerGlue<PlayerAdapter> i
         return handled;
     }
 
-    private void incrementActionIndex(Action action) {
-        if (action instanceof PlaybackControlsRow.MultiAction) {
-            PlaybackControlsRow.MultiAction multiAction = (PlaybackControlsRow.MultiAction) action;
-            multiAction.nextIndex();
-        }
-    }
-
     /**
      * Properly handle ui changes of multi-action buttons
      */
@@ -462,40 +455,6 @@ public class VideoPlayerGlue extends MaxControlsVideoPlayerGlue<PlayerAdapter> i
             int index = adapter.indexOf(action);
             if (index >= 0) {
                 adapter.notifyArrayItemRangeChanged(index, 1);
-            }
-        }
-    }
-
-    private void removePrimaryAction(Action action) {
-        ArrayObjectAdapter adapter = (ArrayObjectAdapter) getControlsRow().getPrimaryActionsAdapter();
-        if (adapter != null) {
-            adapter.remove(action);
-        }
-    }
-
-    private void removeSecondaryAction(Action action) {
-        ArrayObjectAdapter adapter = (ArrayObjectAdapter) getControlsRow().getSecondaryActionsAdapter();
-        if (adapter != null) {
-            adapter.remove(action);
-        }
-    }
-
-    private void addPrimaryAction(Action action, int position) {
-        ArrayObjectAdapter adapter = (ArrayObjectAdapter) getControlsRow().getPrimaryActionsAdapter();
-        addAction(action, position, adapter);
-    }
-
-    private void addSecondaryAction(Action action, int position) {
-        ArrayObjectAdapter adapter = (ArrayObjectAdapter) getControlsRow().getSecondaryActionsAdapter();
-        addAction(action, position, adapter);
-    }
-
-    private void addAction(Action action, int position, ArrayObjectAdapter adapter) {
-        if (adapter != null) {
-            int index = adapter.indexOf(action);
-            if (index == -1) {
-                int size = adapter.size();
-                adapter.add(Math.min(position, size), action);
             }
         }
     }

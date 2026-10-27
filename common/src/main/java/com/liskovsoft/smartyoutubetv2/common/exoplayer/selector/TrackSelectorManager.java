@@ -286,11 +286,6 @@ public class TrackSelectorManager implements TrackSelectorCallback {
         //}
     }
 
-    private void enableAutoSelection(int rendererIndex) {
-        mRenderers[rendererIndex].isDisabled = false;
-        mRenderers[rendererIndex].selectedTrack = null;
-    }
-
     public Set<MediaTrack> getVideoTracks() {
         return getAvailableTracks(RENDERER_INDEX_VIDEO);
     }
@@ -722,50 +717,6 @@ public class TrackSelectorManager implements TrackSelectorCallback {
         }
 
         return trackGroupList;
-    }
-
-    // Track array manipulation.
-    private static int[] getTracksAdding(SelectionOverride override, int addedTrack) {
-        int[] tracks = override.tracks;
-        tracks = Arrays.copyOf(tracks, tracks.length + 1);
-        tracks[tracks.length - 1] = addedTrack;
-        return tracks;
-    }
-
-    private static int[] getTracksRemoving(SelectionOverride override, int removedTrack) {
-        int[] tracks = new int[override.length - 1];
-        int trackCount = 0;
-        for (int i = 0; i < tracks.length + 1; i++) {
-            int track = override.tracks[i];
-            if (track != removedTrack) {
-                tracks[trackCount++] = track;
-            }
-        }
-        return tracks;
-    }
-
-    /**
-     * Get the number of tracks with the same resolution.
-     * <p>I assume that the tracks already have been sorted in descendants order. <br/>
-     * <p>Details: {@code com.liskovsoft.smartyoutubetv.flavors.exoplayer.youtubeinfoparser.mpdbuilder.MyMPDBuilder}
-     * @param group the group
-     * @param trackIndex current track in group
-     * @return
-     */
-    private int getRelatedTrackOffsets(TrackGroup group, int trackIndex) {
-        int prevHeight = 0;
-        int offset = 0;
-        for (int i = trackIndex; i > 0; i--) {
-            Format format = group.getFormat(i);
-            if (prevHeight == 0) {
-                prevHeight = format.height;
-            } else if (prevHeight == format.height) {
-                offset++;
-            } else {
-                break;
-            }
-        }
-        return offset;
     }
 
     private static class Renderer {

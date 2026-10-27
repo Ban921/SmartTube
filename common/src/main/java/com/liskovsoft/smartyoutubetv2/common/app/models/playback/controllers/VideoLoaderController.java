@@ -617,14 +617,4 @@ public class VideoLoaderController extends BasePlayerController {
             }
         }
     }
-
-    private void preloadNextVideoIfNeeded() {
-        if (isEmbedPlayer() || getPlayer() == null || getVideo() == null || getVideo().isLive) {
-            return;
-        }
-
-        if (getPlayer().getDurationMs() - getPlayer().getPositionMs() < 50_000) {
-            MediaServiceManager.instance().loadFormatInfo(mSuggestionsController.getNext(), formatInfo -> {});
-        }
-    }
 }

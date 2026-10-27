@@ -1,7 +1,6 @@
 package com.liskovsoft.smartyoutubetv2.tv.ui.browse.dialog;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,13 +17,10 @@ import com.liskovsoft.smartyoutubetv2.tv.R;
 import com.liskovsoft.smartyoutubetv2.tv.ui.mod.fragments.ErrorSupportFragment;
 
 public class ErrorDialogFragment extends ErrorSupportFragment implements BrowseSupportFragment.MainFragmentAdapterProvider {
-    private static final boolean TRANSLUCENT = true;
-    private static final int TIMER_DELAY = 1000;
     // Override style value 'lb_error_message_max_lines'
     private static final int NORMAL_MAX_LINES = 7;
     private static final int EXPANDED_MAX_LINES = 15;
 
-    private final Handler mHandler = new Handler();
     private final ErrorFragmentData mDialogData;
     private final MainFragmentAdapter<Fragment> mMainFragmentAdapter =
             new MainFragmentAdapter<Fragment>(this) {

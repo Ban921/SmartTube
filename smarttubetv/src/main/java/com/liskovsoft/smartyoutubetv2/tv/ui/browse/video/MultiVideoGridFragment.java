@@ -50,7 +50,6 @@ public class MultiVideoGridFragment extends MultiGridFragment implements VideoSe
     private LongClickPresenter mCardPresenter1;
     private LongClickPresenter mCardPresenter2;
     private int mSelectedItemIndex1 = -1;
-    private int mSelectedItemIndex2 = -1;
     private Video mSelectedItem1;
     private float mVideoGridScale;
     private final Runnable mRestore1Task = this::restorePosition1;

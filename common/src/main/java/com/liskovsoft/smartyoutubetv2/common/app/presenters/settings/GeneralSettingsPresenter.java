@@ -209,25 +209,6 @@ public class GeneralSettingsPresenter extends BasePresenter<Void> {
         settingsPresenter.appendCheckedCategory(getContext().getString(R.string.context_menu), options);
     }
 
-    private void appendContextMenuSortingCategory(AppDialogPresenter settingsPresenter) {
-        List<OptionItem> options = new ArrayList<>();
-
-        Map<Long, Integer> menuNames = getMenuNames();
-
-        for (Long menuItem : mMainUIData.getMenuItemsOrdered()) {
-            Integer nameResId = menuNames.get(menuItem);
-
-            if (nameResId == null || !mMainUIData.isMenuItemEnabled(menuItem)) {
-                continue;
-            }
-
-            options.add(UiOptionItem.from(getContext().getString(nameResId), optionItem ->
-                    showMenuItemOrderDialog(menuItem), false));
-        }
-
-        settingsPresenter.appendRadioCategory(getContext().getString(R.string.context_menu_sorting), options);
-    }
-
     private void showMenuItemOrderDialog(Long menuItem) {
         AppDialogPresenter dialog = AppDialogPresenter.instance(getContext());
 

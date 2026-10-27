@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
-import android.app.AlarmManager;
 import android.app.Instrumentation;
 import android.app.KeyguardManager;
 import android.app.Notification;
@@ -1026,17 +1025,6 @@ public class Utils {
         }
     }
 
-    private static void exitToHome(Context context) {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        try {
-            context.startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * More info: https://stackoverflow.com/questions/6609414/how-do-i-programmatically-restart-an-android-app
      */
@@ -1048,23 +1036,6 @@ public class Utils {
             ((MotherActivity) context).finishReally();
         }
         Runtime.getRuntime().exit(0);
-    }
-
-    /**
-     * More info: https://stackoverflow.com/questions/6609414/how-do-i-programmatically-restart-an-android-app
-     */
-    private static void triggerRebirth2(Context context, Class<?> rootActivity) {
-        Intent mStartActivity = new Intent(context, rootActivity);
-        int mPendingIntentId = 123456;
-        int flags = PendingIntent.FLAG_CANCEL_CURRENT;
-        if (Build.VERSION.SDK_INT >= 23) {
-            // IllegalArgumentException fix: Targeting S+ (version 31 and above) requires that one of FLAG_IMMUTABLE...
-            flags |= PendingIntent.FLAG_IMMUTABLE;
-        }
-        PendingIntent mPendingIntent = PendingIntent.getActivity(context, mPendingIntentId, mStartActivity, flags);
-        AlarmManager mgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
-        System.exit(0);
     }
 
     public static void triggerRebirth3(Context context, Class<?> myClass) {

@@ -150,12 +150,6 @@ public class AutoFrameRateController extends BasePlayerController implements Aut
         mAutoFrameRateHelper.setSkip24RateEnabled(getPlayerData().isSkip24RateEnabled());
     }
 
-    private void applyAfrWrapper() {
-        if (getPlayerData().isAfrEnabled()) {
-            AppDialogPresenter.instance(getContext()).showDialogMessage("Applying AFR...", this::applyAfr, 1_000);
-        }
-    }
-
     /**
      * Sometimes AFR is not working on activity startup. Trying to fix with delay.
      */

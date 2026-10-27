@@ -247,12 +247,6 @@ public class GDriveBackupManager {
         return mGeneralData.isDeviceSpecificBackupEnabled() ? "_" + Build.MODEL.replace(" ", "_") : "";
     }
 
-    private String getAltBackupDir() {
-        String backupDir = getBackupDir();
-        String altPackageName = getAltPackageName();
-        return backupDir.replace(mContext.getPackageName(), altPackageName);
-    }
-
     public String getBackupDir() {
         return mBackupDir + getDeviceSuffix();
     }

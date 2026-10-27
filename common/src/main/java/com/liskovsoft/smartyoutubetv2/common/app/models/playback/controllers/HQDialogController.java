@@ -224,10 +224,6 @@ public class HQDialogController extends BasePlayerController {
                 }));
     }
 
-    private void removeCategoryInt(int id) {
-        mCategoriesInt.remove(id);
-    }
-
     private void addCategoryInt(OptionCategory category) {
         mCategoriesInt.put(category.id, category);
     }

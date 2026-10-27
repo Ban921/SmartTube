@@ -46,7 +46,6 @@ public class ChannelHeaderPresenter extends RowPresenter {
     private static final String TAG = ChannelHeaderPresenter.class.getSimpleName();
     private static final String EXTRA_LEANBACK_BADGE_PRESENT = "LEANBACK_BADGE_PRESENT";
     private static final int REQUEST_SPEECH = 0x00000010;
-    private static final int RESULTS_CHANGED = 0x1;
     private static final int QUERY_COMPLETE = 0x2;
     private boolean mIsKeyboardAutoShowEnabled;
     private boolean mIsKeyboardFixEnabled;

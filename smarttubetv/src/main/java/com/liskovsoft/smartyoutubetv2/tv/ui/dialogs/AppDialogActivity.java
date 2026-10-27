@@ -1,8 +1,6 @@
 package com.liskovsoft.smartyoutubetv2.tv.ui.dialogs;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
-import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
@@ -41,16 +39,6 @@ public class AppDialogActivity extends MotherActivity {
         int settingsThemeResId = MainUIData.instance(this).getColorScheme().settingsThemeResId;
         if (settingsThemeResId > 0) {
             setTheme(settingsThemeResId);
-        }
-    }
-
-    private void setupActivity() {
-        // Fix crash in AppSettingsActivity: "Only fullscreen opaque activities can request orientation"
-        // Error happen only on Android O (api 26) when you set "portrait" orientation in manifest
-        // So, to fix the problem, set orientation here instead of manifest
-        // More info: https://stackoverflow.com/questions/48072438/java-lang-illegalstateexception-only-fullscreen-opaque-activities-can-request-o
-        if (VERSION.SDK_INT != 26) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
     }
 

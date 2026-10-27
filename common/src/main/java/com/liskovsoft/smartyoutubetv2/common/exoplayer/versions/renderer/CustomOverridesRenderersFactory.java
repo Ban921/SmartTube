@@ -24,11 +24,6 @@ import java.util.ArrayList;
  */
 public class CustomOverridesRenderersFactory extends CustomRenderersFactoryBase {
     private static final String TAG = CustomOverridesRenderersFactory.class.getSimpleName();
-    private static final String[] FRAME_DROP_FIX_LIST = {
-            "T95ZPLUS (q201_3GB)",
-            "UGOOS (UGOOS)",
-            "55UC30G (ctl_iptv_mrvl)" // Kivi 55uc30g
-    };
     private final PlayerData mPlayerData;
     private final PlayerTweaksData mPlayerTweaksData;
     // 2.12, 2.13

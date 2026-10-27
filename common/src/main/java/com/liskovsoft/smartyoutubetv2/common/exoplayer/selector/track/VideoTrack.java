@@ -82,10 +82,6 @@ public class VideoTrack extends MediaTrack {
         return !fpsEquals(fps1, fps2) && fps1 < fps2;
     }
 
-    private boolean isLive(MediaTrack track) {
-        return track.format.frameRate == -1;
-    }
-
     @Override
     public int inBounds(MediaTrack track2) {
         if (format == null) {

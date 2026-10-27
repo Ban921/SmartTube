@@ -26,7 +26,6 @@ import java.util.Set;
 
 public class StoryboardManager {
     private static final String TAG = StoryboardManager.class.getSimpleName();
-    private static final long FRAME_DURATION_MS = 10_000;
     private static final int MAX_PRELOADED_IMAGES = 3;
     private static final int DIRECTION_RIGHT = 0;
     private static final int DIRECTION_LEFT = 1;
@@ -96,10 +95,6 @@ public class StoryboardManager {
         for (int i = 0; i < mSeekPositions.length; i++) {
             mSeekPositions[i] = i * (mLengthMs / mSeekPositions.length);
         }
-    }
-
-    private long getFrameDurationMs() {
-        return FRAME_DURATION_MS;
     }
 
     private long getFrameDurationMsAlt() {

@@ -329,15 +329,6 @@ public class VideoMenuPresenter extends BaseMenuPresenter {
                 UiOptionItem.from(getContext().getString(R.string.open_playlist), optionItem -> ChannelUploadsPresenter.instance(getContext()).openChannel(mVideo)));
     }
 
-    private void appendOpenChannelUploadsButton() {
-        if (!mIsOpenChannelUploadsButtonEnabled || mVideo == null) {
-            return;
-        }
-
-        mDialogPresenter.appendSingleButton(
-                UiOptionItem.from(getContext().getString(R.string.open_channel_uploads), optionItem -> ChannelUploadsPresenter.instance(getContext()).openChannel(mVideo)));
-    }
-
     private void appendNotInterestedButton() {
         if (mVideo == null || mVideo.mediaItem == null || (mVideo.mediaItem.getFeedbackToken() == null && mVideo.mediaItem.getFeedbackEndpoint() == null)) {
             return;

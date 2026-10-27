@@ -47,7 +47,6 @@ import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -340,13 +339,6 @@ public class BrowsePresenter extends BasePresenter<BrowseView> implements Sectio
         initPinnedSections();
         initPinnedCallbacks();
         initPasswordSection();
-    }
-
-    private void sortSections() {
-        // NOTE: Comparator.comparingInt API >= 24
-        Collections.sort(mSections, (o1, o2) -> {
-            return getSidebarService().getSectionIndex(o1.getId()) - getSidebarService().getSectionIndex(o2.getId());
-        });
     }
 
     public void updateChannelSorting() {
@@ -1042,14 +1034,6 @@ public class BrowsePresenter extends BasePresenter<BrowseView> implements Sectio
                 getContext().getString(R.string.breaking_news_row_name),
                 getContext().getString(R.string.covid_news_row_name)
         ));
-    }
-
-    private int moveToTopIfNeeded(MediaGroup mediaGroup) {
-        if (mediaGroup == null) {
-            return -1;
-        }
-
-        return Helpers.equalsAny(mediaGroup.getTitle(), getContext().getString(R.string.trending_row_name)) ? 0 : -1;
     }
 
     private Observable<MediaGroup> createPinnedGridAction(Video item) {

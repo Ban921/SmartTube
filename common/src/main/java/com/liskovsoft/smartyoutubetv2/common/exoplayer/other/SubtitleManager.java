@@ -28,7 +28,6 @@ public class SubtitleManager implements TextOutput, OnDataChange {
     private static final String TAG = SubtitleManager.class.getSimpleName();
     private final SubtitleView mSubtitleView;
     private final Context mContext;
-    private final List<SubtitleStyle> mSubtitleStyles = new ArrayList<>();
     private final AppPrefs mPrefs;
     private final PlayerData mPlayerData;
     private CharSequence subsBuffer;
@@ -80,10 +79,6 @@ public class SubtitleManager implements TextOutput, OnDataChange {
         if (mSubtitleView != null) {
             mSubtitleView.setVisibility(show ? View.VISIBLE : View.GONE);
         }
-    }
-
-    private List<SubtitleStyle> getSubtitleStyles() {
-        return mSubtitleStyles;
     }
 
     private SubtitleStyle getSubtitleStyle() {

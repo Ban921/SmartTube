@@ -2,7 +2,6 @@ package com.liskovsoft.smartyoutubetv2.tv.presenter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
 import android.util.Pair;
@@ -243,19 +242,6 @@ public class VideoCardPresenter extends LongClickPresenter {
 
         @Override
         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-            return false;
-        }
-    };
-
-    private final RequestListener<Bitmap> mErrorListener2 = new RequestListener<Bitmap>() {
-        @Override
-        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-            Log.e(TAG, "Glide load failed: " + e);
-            return false;
-        }
-
-        @Override
-        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
             return false;
         }
     };

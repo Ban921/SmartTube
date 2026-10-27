@@ -22,7 +22,6 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.decoder.DecoderCounters;
-import com.google.android.exoplayer2.mediacodec.MediaCodecInfo;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.dash.manifest.DashManifest;
 import com.google.android.exoplayer2.source.sabr.manifest.SabrManifest;
@@ -507,17 +506,6 @@ public final class DebugInfoManager implements Runnable, Player.EventListener {
             result += "@" + ((int) video.frameRate);
         }
         return result;
-    }
-
-    // NOTE: Be aware. This info isn't real! It's like caps or something like that. To get real info use method below.
-    private String getVideoDecoderNameV1(Format format) {
-        if (format == null) {
-            return null;
-        }
-
-        MediaCodecInfo info = ExoUtils.getCapsDecoderInfo(format.sampleMimeType);
-
-        return info != null ? info.name : null;
     }
 
     private String getVideoDecoderNameV2() {
