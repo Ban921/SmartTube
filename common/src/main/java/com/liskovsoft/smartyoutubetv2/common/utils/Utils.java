@@ -11,7 +11,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -20,11 +19,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
-import android.database.ContentObserver;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Handler;
@@ -33,25 +28,16 @@ import android.os.Looper;
 import android.os.PowerManager;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.AbsoluteSizeSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.ImageSpan;
-import android.text.style.StyleSpan;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.BaseInputConnection;
 
 import androidx.annotation.NonNull;
-import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 
-import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.liskovsoft.sharedutils.helpers.DeviceHelpers;
 import com.liskovsoft.sharedutils.helpers.Helpers;
 import com.liskovsoft.sharedutils.helpers.MessageHelpers;
@@ -60,28 +46,20 @@ import com.liskovsoft.sharedutils.mylogger.Log;
 import com.liskovsoft.sharedutils.okhttp.OkHttpManager;
 import com.liskovsoft.smartyoutubetv2.common.BuildConfig;
 import com.liskovsoft.smartyoutubetv2.common.R;
-import com.liskovsoft.smartyoutubetv2.common.app.models.data.Video;
-import com.liskovsoft.smartyoutubetv2.common.app.models.playback.manager.PlayerManager;
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.service.VideoStateService;
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.PlaybackPresenter;
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.SplashPresenter;
-import com.liskovsoft.smartyoutubetv2.common.app.presenters.WebBrowserPresenter;
 import com.liskovsoft.smartyoutubetv2.common.app.views.PlaybackView;
-import com.liskovsoft.smartyoutubetv2.common.app.views.ViewManager;
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.selector.FormatItem.VideoPreset;
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.selector.TrackSelectorUtil;
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.selector.track.MediaTrack;
 import com.liskovsoft.smartyoutubetv2.common.misc.MotherActivity;
 import com.liskovsoft.smartyoutubetv2.common.misc.RemoteControlService;
 import com.liskovsoft.smartyoutubetv2.common.misc.ScreensaverManager;
-import com.liskovsoft.smartyoutubetv2.common.prefs.BlockedChannelData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.GeneralData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.HiddenPrefs;
-import com.liskovsoft.smartyoutubetv2.common.prefs.MainUIData;
-import com.liskovsoft.smartyoutubetv2.common.prefs.PlayerData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.PlayerTweaksData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.RemoteControlData;
-import com.liskovsoft.youtubeapi.service.internal.MediaServiceData;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -118,104 +96,13 @@ public class Utils {
     private static final String SUPER_PASSWD = "smarttube";
     private static final int RANDOM_FAIL_REPEAT_TIMES = 10;
     private static final String UPDATE_CHANNELS_RECEIVER_CLASS_NAME = "com.liskovsoft.leanbackassistant.channels.UpdateChannelsReceiver";
-    private static final String BOOTSTRAP_ACTIVITY_CLASS_NAME = "com.liskovsoft.smartyoutubetv2.tv.ui.main.SplashActivity";
     private static final String TAG = Utils.class.getSimpleName();
-    private static final String QR_CODE_URL_TEMPLATE = "https://api.qrserver.com/v1/create-qr-code/?data=%s";
-    private static final int GLOBAL_VOLUME_TYPE = AudioManager.STREAM_MUSIC;
-    private static final String GLOBAL_VOLUME_SERVICE = Context.AUDIO_SERVICE;
     public static final Handler sHandler = new Handler(Looper.getMainLooper());
     public static final float[] SPEED_LIST_LONG =
             new float[]{0.25f, 0.5f, 0.75f, 0.80f, 0.85f, 0.90f, 0.95f, 1.0f, 1.05f, 1.1f, 1.15f, 1.2f, 1.25f, 1.3f, 1.35f, 1.4f, 1.45f, 1.5f, 1.6f, 1.75f, 1.8f, 2.0f, 2.25f, 2.5f, 2.75f, 3.0f, 3.25f, 3.5f, 3.75f, 4.0f};
     public static final float[] SPEED_LIST_EXTRA_LONG = Helpers.range(0.05f, 4f, 0.05f);
     public static final float[] SPEED_LIST_SHORT =
             new float[] {0.25f, 0.5f, 0.75f, 1.0f, 1.25f, 1.5f, 1.75f, 2.0f, 2.25f, 2.5f, 2.75f, 3.0f, 3.25f, 3.5f, 3.75f, 4.0f};
-    private static Boolean sGlobalVolumeFixed;
-    private static int sCurrentVolume = -1;
-    private static final Runnable sForceFinishTheApp = () -> Runtime.getRuntime().exit(0);
-
-    public static void displayShareVideoDialog(Context context, String videoId) {
-        displayShareVideoDialog(context, videoId, 0);
-    }
-
-    public static void displayShareVideoDialog(Context context, String videoId, int posSec) {
-        Uri videoUrl = convertToFullVideoUrl(videoId, posSec);
-        showMultiChooser(context, videoUrl);
-    }
-
-    public static void displayShareEmbedVideoDialog(Context context, String videoId) {
-        displayShareEmbedVideoDialog(context, videoId, 0);
-    }
-
-    public static void displayShareEmbedVideoDialog(Context context, String videoId, int posSec) {
-        Uri videoUrl = convertToEmbedVideoUrl(videoId, posSec);
-        showMultiChooser(context, videoUrl);
-    }
-
-    public static void displayShareChannelDialog(Context context, String channelId) {
-        Uri channelUrl = convertToFullChannelUrl(channelId);
-        showMultiChooser(context, channelUrl);
-    }
-
-    public static void displaySharePlaylistDialog(Context context, String playlistId) {
-        Uri playlistUrl = convertToPlaylistUrl(playlistId);
-        showMultiChooser(context, playlistUrl);
-    }
-
-    public static void openUrlInternally(Context context, Uri url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(url);
-        intent.setPackage(context.getPackageName());
-        PackageManager packageManager = context.getPackageManager();
-        if (intent.resolveActivity(packageManager) != null) {
-            SplashPresenter.instance(context).applyNewIntent(intent);
-        } else {
-            // Fallback to the chooser dialog
-            showMultiChooser(context, url);
-        }
-    }
-
-    public static void showMultiChooser(Context context, Uri url) {
-        Intent primaryIntent = new Intent(Intent.ACTION_VIEW);
-        Intent secondaryIntent = new Intent(Intent.ACTION_SEND);
-        primaryIntent.setData(url);
-        secondaryIntent.putExtra(Intent.EXTRA_TEXT, url.toString());
-        secondaryIntent.setType("text/plain");
-        Intent chooserIntent = Intent.createChooser(primaryIntent, context.getResources().getText(R.string.share_link));
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { secondaryIntent });
-        chooserIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        try {
-            context.startActivity(chooserIntent);
-        } catch (ActivityNotFoundException e) {
-            Log.e(TAG, "Chooser intent not found", e);
-        }
-    }
-
-    /**
-     * https://youtu.be/nragduYePsQ?t=193<br/>
-     * https://www.youtube.com/watch?v=nragduYePsQ&t=193
-     */
-    public static Uri convertToFullVideoUrl(String videoId, int posSec) {
-        String url = String.format("https://youtu.be/%s?t=%s", videoId, posSec);
-        return Uri.parse(url);
-    }
-
-    /**
-     * https://www.youtube.com/embed/nragduYePsQ?start=193
-     */
-    public static Uri convertToEmbedVideoUrl(String videoId, int posSec) {
-        String url = String.format("https://www.youtube.com/embed/%s?start=%s", videoId, posSec);
-        return Uri.parse(url);
-    }
-
-    public static Uri convertToFullChannelUrl(String channelId) {
-        String url = String.format("https://www.youtube.com/channel/%s", channelId);
-        return Uri.parse(url);
-    }
-
-    public static Uri convertToPlaylistUrl(String playlistId) {
-        String url = String.format("https://www.youtube.com/playlist?list=%s", playlistId);
-        return Uri.parse(url);
-    }
 
     public static boolean isAppInForegroundFixed() {
         // Skip the situation when the splash presenter still running
@@ -259,200 +146,6 @@ public class Utils {
     }
 
     /**
-     * Volume: 0 - 100
-     */
-    private static void setGlobalVolume(Context context, int volume) {
-        if (context != null) {
-            AudioManager audioManager = (AudioManager) context.getSystemService(GLOBAL_VOLUME_SERVICE);
-            if (audioManager != null) {
-                int streamMaxVolume = audioManager.getStreamMaxVolume(GLOBAL_VOLUME_TYPE);
-                double newVolume = streamMaxVolume / 100d * volume;
-                if (sCurrentVolume < volume) {
-                    newVolume = Math.ceil(newVolume);
-                } else {
-                    newVolume = Math.floor(newVolume);
-                }
-                try {
-                    audioManager.setStreamVolume(GLOBAL_VOLUME_TYPE, (int) newVolume, 0);
-                    sCurrentVolume = volume;
-                } catch (SecurityException | IllegalArgumentException e) {
-                    // Not allowed to change Do Not Disturb state
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    /**
-     * Volume: 0 - 100
-     */
-    private static int getGlobalVolume(Context context) {
-        if (context != null) {
-            AudioManager audioManager = (AudioManager) context.getSystemService(GLOBAL_VOLUME_SERVICE);
-            if (audioManager != null) {
-                int streamMaxVolume = audioManager.getStreamMaxVolume(GLOBAL_VOLUME_TYPE);
-                int streamVolume = audioManager.getStreamVolume(GLOBAL_VOLUME_TYPE);
-
-                int volume = (int) Math.ceil(streamVolume / (streamMaxVolume / 100f));
-                return Math.abs(sCurrentVolume - volume) == 1 ? sCurrentVolume : volume; // fix small steps (1). volume should be precise.
-            }
-        }
-
-        return 100;
-    }
-
-    public static void initVolume(Context context) {
-        if (sGlobalVolumeFixed != null) {
-            return;
-        }
-
-        if ("D2150 (Nebula-Cosmos-Max)".equals(Helpers.getDeviceName())) { // A projector
-            sGlobalVolumeFixed = true;
-            return;
-        }
-
-        int volume = getGlobalVolume(context);
-        setGlobalVolume(context, volume > 50 ? volume - 10 : volume + 10);
-        sGlobalVolumeFixed = volume == getGlobalVolume(context);
-        setGlobalVolume(context, volume);
-    }
-
-    /**
-     * Global volume may not be supported (see FireTV Stick)
-     */
-    private static boolean isGlobalVolumeFixed(Context context) {
-        if (sGlobalVolumeFixed != null) {
-            return sGlobalVolumeFixed;
-        }
-
-        initVolume(context);
-        return sGlobalVolumeFixed;
-    }
-
-    /**
-     * Volume: 0 - 100
-     */
-    public static int getVolume(Context context, PlayerManager player) {
-        if (context != null) {
-            if (isGlobalVolumeFixed(context)) {
-                return getPlayerVolume(player);
-            } else {
-                try {
-                    return getGlobalVolume(context);
-                } catch (SecurityException e) {
-                    // Permission denial: writing to settings requires:android.permission.WRITE_SECURE_SETTINGS
-                    return getPlayerVolume(player);
-                }
-            }
-        }
-
-        return 100;
-    }
-
-    private static int getPlayerVolume(PlayerManager player) {
-        if (player == null) {
-            return -1;
-        }
-        return (int)(player.getVolume() * 100);
-    }
-
-    /**
-     * Volume: 0 - 100
-     */
-    public static void setVolume(Context context, PlayerManager player, int volume) {
-        Log.d(TAG, "setVolume: %s", volume);
-
-        if (volume < 0) {
-            volume = 0;
-        }
-
-        if (context != null) {
-            if (isGlobalVolumeFixed(context)) {
-                setPlayerVolume(context, player, volume);
-            } else {
-                try {
-                    setGlobalVolume(context, volume);
-                    showSystemVolumeUI(context);
-                } catch (SecurityException e) {
-                    // Permission denial: writing to settings requires:android.permission.WRITE_SECURE_SETTINGS
-                    setPlayerVolume(context, player, volume);
-                }
-            }
-        }
-    }
-
-    @SuppressLint("StringFormatMatches")
-    private static void setPlayerVolume(Context context, PlayerManager player, int volume) {
-        if (player == null) {
-            return;
-        }
-        player.setVolume(volume / 100f);
-        MessageHelpers.showMessage(context, context.getString(R.string.volume, getPlayerVolume(player)));
-    }
-
-    public static void volumeUp(Context context, PlayerManager player, boolean up) {
-        if (player != null) {
-            int volume = getVolume(context, player);
-            final int delta = 1; // volume step
-
-            if (up) {
-                setVolume(context, player, Math.min(volume + delta, 100));
-            } else {
-                setVolume(context, player, Math.max(volume - delta, 0));
-            }
-        }
-    }
-
-    @SuppressLint("StringFormatMatches")
-    public static void volumeUpPlayer(Context context, PlayerManager player, boolean up) {
-        if (player != null) {
-            int volume = (int) (player.getVolume() * 100);
-            int round = 10 - volume % 10;
-            if (round != 10) {
-                volume += round;
-            }
-            final int delta = 10; // volume step
-
-            int newVolume;
-
-            if (up) {
-                newVolume = Math.min(volume + delta, 300);
-            } else {
-                newVolume = Math.max(volume - delta, 0);
-            }
-
-            player.setVolume(newVolume / 100f);
-
-            PlayerData.instance(context).setPlayerVolume(newVolume / 100f);
-
-            // Check that volume is set.
-            // Because global value may not be supported (see FireTV Stick).
-            MessageHelpers.showMessage(context, context.getString(R.string.volume, (int) (player.getVolume() * 100)));
-        }
-    }
-
-    public static void showSystemVolumeUI(Context context) {
-        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        if (audioManager != null) {
-            // Show the system volume bar without changing the volume
-            audioManager.adjustStreamVolume(
-                    AudioManager.STREAM_MUSIC, // Target the music stream
-                    AudioManager.ADJUST_SAME, // No actual adjustment
-                    AudioManager.FLAG_SHOW_UI // This flag displays the volume UI
-            );
-        }
-    }
-
-    public static void registerAudioObserver(Context context, ContentObserver observer) {
-        context.getApplicationContext().getContentResolver()
-                .registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, observer);
-    }
-
-    public static void unregisterAudioObserver(Context context, ContentObserver observer) {
-        context.getApplicationContext().getContentResolver().unregisterContentObserver(observer);
-    }
-
-    /**
      * <a href="https://stackoverflow.com/questions/2891337/turning-on-screen-programmatically">More info</a>
      */
     @SuppressWarnings("deprecation")
@@ -475,38 +168,6 @@ public class Utils {
                 );
             }
         }
-    }
-
-    public static String toQrCodeLink(String data) {
-        return String.format(QR_CODE_URL_TEMPLATE, data);
-    }
-
-    public static void openLink(Context context, String url) {
-        try {
-            WebBrowserPresenter.instance(context).loadUrl(url);
-        } catch (Exception e) {
-            // WebView not found. Use alt method.
-            openLinkExt(context, url);
-        }
-    }
-
-    public static void openLinkExt(Context context, String url) {
-        try {
-            openLinkInTabs(context, url);
-        } catch (Exception e) {
-            // Permission Denial on Android 9 (SecurityException)
-            // Chrome Tabs not found (ActivityNotFoundException)
-            Helpers.openLink(context, url); // revert to simple in-browser page
-        }
-    }
-
-    /**
-     * <a href="https://developer.chrome.com/docs/android/custom-tabs/integration-guide/">Chrome custom tabs</a>
-     */
-    private static void openLinkInTabs(Context context, String url) {
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-        CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.launchUrl(context, Uri.parse(url));
     }
 
     public static void postDelayed(Runnable callback, long delayMs) {
@@ -537,70 +198,6 @@ public class Utils {
                 sHandler.removeCallbacks(callback);
             }
         }
-    }
-
-    public static CharSequence color(CharSequence string, int color, int start, int end) {
-        SpannableString spannable = new SpannableString(string);
-        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(color);
-        spannable.setSpan(foregroundColorSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        return spannable;
-    }
-
-    public static CharSequence color(CharSequence string, int color) {
-        SpannableString spannable = new SpannableString(string);
-        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(color);
-        spannable.setSpan(foregroundColorSpan, 0, spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        return spannable;
-    }
-
-    /**
-     * NOTE: Android 5.1: Italic cause crashes with Arabic fonts
-     */
-    public static CharSequence italic(CharSequence string) {
-        if (Build.VERSION.SDK_INT <= 22) {
-            return string;
-        }
-
-        SpannableString spannable = new SpannableString(string);
-        spannable.setSpan(new StyleSpan(Typeface.ITALIC), 0, spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannable;
-    }
-
-    public static CharSequence bold(CharSequence string) {
-        SpannableString spannable = new SpannableString(string);
-        spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannable;
-    }
-
-    public static CharSequence createSmallNewLine() {
-        SpannableString spannable = new SpannableString("\n");
-        // Make this line smaller by setting a smaller font size
-        spannable.setSpan(new AbsoluteSizeSpan(6, true), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannable;
-    }
-
-    public static CharSequence icon(Context context, int resId, int lineHeight) {
-        SpannableString spannable = new SpannableString(" ");
-        Drawable drawable = ContextCompat.getDrawable(context, resId);
-        drawable.setBounds(0, 0, lineHeight, lineHeight);
-        ImageSpan imageSpan = new ImageSpan(drawable);
-        spannable.setSpan(imageSpan, 0, spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        return spannable;
-    }
-
-    public static CharSequence icon(Drawable drawable) {
-        if (drawable == null) {
-            return null;
-        }
-
-        SpannableString spannable = new SpannableString(" ");
-        CenteredImageSpan imageSpan = new CenteredImageSpan(drawable);
-        spannable.setSpan(imageSpan, 0, spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        return spannable;
     }
 
     @SuppressWarnings("deprecation")
@@ -876,66 +473,6 @@ public class Utils {
         startReceiver(context, UPDATE_CHANNELS_RECEIVER_CLASS_NAME);
     }
 
-    /**
-     * Finish the app but remain running services
-     */
-    public static void properlyFinishTheApp(Context context) {
-        ViewManager.instance(context).properlyFinishTheApp(context);
-    }
-
-    /**
-     * Simply kills the app.
-     */
-    public static void forceFinishTheApp(Context context) {
-        persistData(context);
-        postDelayed(sForceFinishTheApp, 1_000);
-    }
-
-    public static void cancelFinishTheApp(Context context) {
-        ViewManager.instance(context).cancelOnFinish();
-        removeCallbacks(sForceFinishTheApp);
-    }
-
-    public static void restartTheApp(Context context) {
-        persistData(context);
-        postDelayed(() -> restartTheAppInt(context), 1_000);
-    }
-
-    private static void restartTheAppInt(Context context) {
-        try {
-            Intent intent = new Intent(context, Class.forName(BOOTSTRAP_ACTIVITY_CLASS_NAME));
-            intent.putExtra(IntentExtractor.RESTART_INTENT, true);
-            ProcessPhoenix.triggerRebirth(context, intent);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void restartTheApp(Context context, Video video, long posMs) {
-        persistData(context);
-        postDelayed(() -> restartTheAppInt(context, video, posMs), 1_000);
-    }
-
-    private static void restartTheAppInt(Context context, Video video, long posMs) {
-        if (video == null || !video.hasVideo()) {
-            return;
-        }
-
-        try {
-            Intent intent = new Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(String.format("https://www.youtube.com/watch?v=%s&t=%ss", video.videoId, posMs / 1_000)),
-                    context,
-                    Class.forName(BOOTSTRAP_ACTIVITY_CLASS_NAME)
-            );
-            intent.putExtra(IntentExtractor.RESTART_INTENT, true);
-            intent.putExtra(IntentExtractor.INCOGNITO_INTENT, video.incognito);
-            ProcessPhoenix.triggerRebirth(context, intent);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
     private static void startReceiver(Context context, String receiverClassName) {
         // Can't use class directly! ATV module is disabled for some flavors.
         Class<?> clazz = null;
@@ -959,19 +496,6 @@ public class Utils {
         } else {
             Log.e(TAG, "Channels receiver class not found: " + receiverClassName);
         }
-    }
-
-    /**
-     * More info: https://stackoverflow.com/questions/6609414/how-do-i-programmatically-restart-an-android-app
-     */
-    private static void triggerRebirth(Context context, Class<?> rootActivity) {
-        Intent intent = new Intent(context, rootActivity);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-        if (context instanceof MotherActivity) {
-            ((MotherActivity) context).finishReally();
-        }
-        Runtime.getRuntime().exit(0);
     }
 
     public static String updateTooltip(Context context, String tooltip) {
@@ -1189,7 +713,7 @@ public class Utils {
             if (playerTweaksData.getPreferredDnsType() != customDns) {
                 playerTweaksData.setPreferredDnsType(customDns);
                 // Restart app to reinit OkHttp internal objects
-                Utils.restartTheApp(context);
+                AppProcessHelper.restartTheApp(context);
                 return true;
             }
         }
@@ -1218,16 +742,5 @@ public class Utils {
                 }
             }
         });
-    }
-
-    private static void persistData(Context context) {
-        VideoStateService.instance(context).persistNow();
-        PlayerData.instance(context).persistNow();
-        PlayerTweaksData.instance(context).persistNow();
-        MainUIData.instance(context).persistNow();
-        GeneralData.instance(context).persistNow();
-        MediaServiceData mediaServiceData = MediaServiceData.instance();
-        mediaServiceData.persistNow();
-        BlockedChannelData.instance(context).persistNow();
     }
 }

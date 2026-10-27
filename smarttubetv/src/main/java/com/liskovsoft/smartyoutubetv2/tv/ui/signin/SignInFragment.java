@@ -17,7 +17,8 @@ import com.bumptech.glide.request.target.Target;
 import com.liskovsoft.sharedutils.mylogger.Log;
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.SignInPresenter;
 import com.liskovsoft.smartyoutubetv2.common.app.views.SignInView;
-import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
+import com.liskovsoft.smartyoutubetv2.common.utils.LinkHelper;
+import com.liskovsoft.smartyoutubetv2.common.utils.SpanHelper;
 import com.liskovsoft.smartyoutubetv2.tv.R;
 import com.liskovsoft.smartyoutubetv2.tv.util.ViewUtil;
 
@@ -71,7 +72,7 @@ public class SignInFragment extends GuidedStepSupportFragment implements SignInV
         mFullSignInUrl = fullSignInUrl != null ? fullSignInUrl : signInUrl;
 
         Glide.with(getContext())
-                .load(Utils.toQrCodeLink(mFullSignInUrl))
+                .load(LinkHelper.toQrCodeLink(mFullSignInUrl))
                 .placeholder(R.drawable.activate_account_qrcode)
                 .apply(ViewUtil.glideOptions())
                 .error(R.drawable.activate_account_qrcode)
@@ -81,7 +82,7 @@ public class SignInFragment extends GuidedStepSupportFragment implements SignInV
         String description = getString(R.string.signin_view_description, signInUrl);
         int start = description.indexOf(signInUrl);
         int end = start + signInUrl.length();
-        CharSequence coloredDescription = Utils.color(description, ContextCompat.getColor(getContext(), R.color.red), start, end);
+        CharSequence coloredDescription = SpanHelper.color(description, ContextCompat.getColor(getContext(), R.color.red), start, end);
 
         getGuidanceStylist().getDescriptionView().setText(coloredDescription);
     }
@@ -121,7 +122,7 @@ public class SignInFragment extends GuidedStepSupportFragment implements SignInV
             mSignInPresenter.onActionClicked();
         } else if (action.getId() == OPEN_BROWSER) {
             if (mFullSignInUrl != null) {
-                Utils.openLinkExt(getContext(), mFullSignInUrl);
+                LinkHelper.openLinkExt(getContext(), mFullSignInUrl);
             }
         }
     }

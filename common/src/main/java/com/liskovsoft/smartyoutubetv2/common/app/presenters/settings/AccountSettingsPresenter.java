@@ -22,6 +22,7 @@ import com.liskovsoft.smartyoutubetv2.common.prefs.AppPrefs;
 import com.liskovsoft.smartyoutubetv2.common.utils.AppDialogUtil;
 import com.liskovsoft.smartyoutubetv2.common.utils.GlideIconFetcher;
 import com.liskovsoft.smartyoutubetv2.common.utils.SimpleEditDialog;
+import com.liskovsoft.smartyoutubetv2.common.utils.SpanHelper;
 import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class AccountSettingsPresenter extends BasePresenter<Void> {
 
         Account account = getSignInService().getSelectedAccount();
         int accountIndex = accounts != null ? accounts.indexOf(account) : -1;
-        CharSequence accountIcon = accountIndex != -1 ? Utils.icon(icons.get(accountIndex)) : null;
+        CharSequence accountIcon = accountIndex != -1 ? SpanHelper.icon(icons.get(accountIndex)) : null;
         settingsPresenter.showDialog(account != null ? TextUtils.concat(accountIcon, " ", account.getName())
                 : getContext().getString(R.string.settings_accounts), this::unhold);
     }
@@ -99,7 +100,7 @@ public class AccountSettingsPresenter extends BasePresenter<Void> {
 
         for (Account account : accounts) {
             index++;
-            CharSequence icon = Utils.icon(icons.get(index));
+            CharSequence icon = SpanHelper.icon(icons.get(index));
             optionItems.add(UiOptionItem.from(
                     TextUtils.concat(icon, " ", getFullName(account)), option -> {
                         AccountSelectionPresenter.instance(getContext()).selectAccount(account);
@@ -127,7 +128,7 @@ public class AccountSettingsPresenter extends BasePresenter<Void> {
 
         for (Account account : accounts) {
             index++;
-            CharSequence icon = Utils.icon(icons.get(index));
+            CharSequence icon = SpanHelper.icon(icons.get(index));
             optionItems.add(UiOptionItem.from(
                     TextUtils.concat(icon, " ", getFullName(account)), option ->
                         AppDialogUtil.showConfirmationDialog(

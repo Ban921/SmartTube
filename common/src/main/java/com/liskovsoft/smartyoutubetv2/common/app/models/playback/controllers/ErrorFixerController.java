@@ -16,6 +16,7 @@ import com.liskovsoft.smartyoutubetv2.common.misc.BufferingDetector;
 import com.liskovsoft.smartyoutubetv2.common.misc.BufferingDetector.OnLongBuffering;
 import com.liskovsoft.smartyoutubetv2.common.prefs.PlayerData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.PlayerTweaksData;
+import com.liskovsoft.smartyoutubetv2.common.utils.AppProcessHelper;
 import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
 import com.liskovsoft.youtubeapi.service.YouTubeServiceManager;
 
@@ -69,7 +70,7 @@ public class ErrorFixerController extends BasePlayerController implements OnLong
                 getPlayerTweaksData().setPreferredDnsType(customDns);
                 if (!isCustomDnsEnabled) {
                     // Restart app to reinit OkHttp internal objects
-                    Utils.restartTheApp(getContext());
+                    AppProcessHelper.restartTheApp(getContext());
                 } else {
                     mVideoLoaderController.restartEngine();
                 }

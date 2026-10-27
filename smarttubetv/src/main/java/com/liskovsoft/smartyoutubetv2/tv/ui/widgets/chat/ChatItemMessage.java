@@ -7,7 +7,7 @@ import com.liskovsoft.mediaserviceinterfaces.data.ChatItem;
 import com.liskovsoft.mediaserviceinterfaces.data.CommentItem;
 import com.liskovsoft.sharedutils.helpers.Helpers;
 import com.liskovsoft.smartyoutubetv2.common.app.models.data.Video;
-import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
+import com.liskovsoft.smartyoutubetv2.common.utils.SpanHelper;
 import com.liskovsoft.smartyoutubetv2.tv.R;
 import com.liskovsoft.googlecommon.common.helpers.ServiceHelper;
 import com.stfalcon.chatkit.commons.models.IMessage;
@@ -30,7 +30,7 @@ public class ChatItemMessage implements IMessage {
         ChatItemMessage message = new ChatItemMessage();
         message.mId = chatItem.getId();
         if (chatItem.getMessage() != null && !chatItem.getMessage().trim().isEmpty()) {
-            message.mText = TextUtils.concat(Utils.bold(chatItem.getAuthorName()), ": ", chatItem.getMessage());
+            message.mText = TextUtils.concat(SpanHelper.bold(chatItem.getAuthorName()), ": ", chatItem.getMessage());
         }
         message.mAuthor = ChatItemAuthor.from(chatItem);
         message.mCreatedAt = new Date();
@@ -49,7 +49,7 @@ public class ChatItemMessage implements IMessage {
                     commentItem.getPublishedDate(),
                     commentItem.getReplyCount(),
                     commentItem.isLiked() ? String.format("(%s)", context.getString(R.string.you_liked)) : null);
-            message.mText = TextUtils.concat(Utils.bold(header), "\n", Utils.createSmallNewLine(), commentItem.getMessage());
+            message.mText = TextUtils.concat(SpanHelper.bold(header), "\n", SpanHelper.createSmallNewLine(), commentItem.getMessage());
         }
         message.mAuthor = ChatItemAuthor.from(commentItem);
         message.mCreatedAt = new Date();

@@ -16,7 +16,8 @@ import com.liskovsoft.smartyoutubetv2.common.app.views.PlaybackView;
 import com.liskovsoft.smartyoutubetv2.common.misc.MediaServiceManager;
 import com.liskovsoft.smartyoutubetv2.common.prefs.SponsorBlockData;
 import com.liskovsoft.smartyoutubetv2.common.utils.AppDialogUtil;
-import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
+import com.liskovsoft.smartyoutubetv2.common.utils.LinkHelper;
+import com.liskovsoft.smartyoutubetv2.common.utils.SpanHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,10 +134,10 @@ public class SponsorBlockSettingsPresenter extends BasePresenter<Void> {
 
     private void appendLinks(AppDialogPresenter settingsPresenter) {
         OptionItem statsCheckOption = UiOptionItem.from(getContext().getString(R.string.content_block_status),
-                option -> Utils.openLink(getContext(), getContext().getString(R.string.content_block_status_url)));
+                option -> LinkHelper.openLink(getContext(), getContext().getString(R.string.content_block_status_url)));
 
         OptionItem webSiteOption = UiOptionItem.from(getContext().getString(R.string.about_sponsorblock),
-                option -> Utils.openLink(getContext(), getContext().getString(R.string.content_block_provider_url)));
+                option -> LinkHelper.openLink(getContext(), getContext().getString(R.string.content_block_provider_url)));
 
         settingsPresenter.appendSingleButton(statsCheckOption);
         settingsPresenter.appendSingleButton(webSiteOption);
@@ -173,7 +174,7 @@ public class SponsorBlockSettingsPresenter extends BasePresenter<Void> {
 
     private CharSequence getColoredString(int strResId, int colorResId) {
         String origin = getContext().getString(strResId);
-        CharSequence colorMark = Utils.color("●", ContextCompat.getColor(getContext(), colorResId));
+        CharSequence colorMark = SpanHelper.color("●", ContextCompat.getColor(getContext(), colorResId));
         return TextUtils.concat( colorMark, " ", origin);
     }
 }

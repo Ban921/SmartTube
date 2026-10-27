@@ -107,11 +107,11 @@ public class AppDialogUtil {
         dialogPresenter.appendSingleButton(
                 UiOptionItem.from(context.getString(R.string.share_link), optionItem -> {
                     if (video.videoId != null) {
-                        Utils.displayShareVideoDialog(context, video.videoId, positionSec == -1 ? Utils.toSec(video.getPositionMs()) : positionSec);
+                        LinkHelper.displayShareVideoDialog(context, video.videoId, positionSec == -1 ? Utils.toSec(video.getPositionMs()) : positionSec);
                     } else if (video.playlistId != null) {
-                        Utils.displaySharePlaylistDialog(context, video.playlistId);
+                        LinkHelper.displaySharePlaylistDialog(context, video.playlistId);
                     } else if (video.channelId != null) {
-                        Utils.displayShareChannelDialog(context, video.channelId);
+                        LinkHelper.displayShareChannelDialog(context, video.channelId);
                     }
                 }));
     }
@@ -138,7 +138,7 @@ public class AppDialogUtil {
         dialogPresenter.appendSingleButton(
                 UiOptionItem.from(context.getString(R.string.share_embed_link), optionItem -> {
                     if (video.videoId != null) {
-                        Utils.displayShareEmbedVideoDialog(context, video.videoId, positionSec == -1 ? Utils.toSec(video.getPositionMs()) : positionSec);
+                        LinkHelper.displayShareEmbedVideoDialog(context, video.videoId, positionSec == -1 ? Utils.toSec(video.getPositionMs()) : positionSec);
                     }
                 }));
     }
@@ -166,8 +166,8 @@ public class AppDialogUtil {
                 UiOptionItem.from(context.getString(R.string.share_qr_link), optionItem -> {
                     dialogPresenter.closeDialog(); // pause bg video
                     if (video.videoId != null) {
-                        Utils.openLink(context, Utils.toQrCodeLink(
-                                Utils.convertToFullVideoUrl(video.videoId, positionSec == -1 ? Utils.toSec(video.getPositionMs()) : positionSec).toString()));
+                        LinkHelper.openLink(context, LinkHelper.toQrCodeLink(
+                                LinkHelper.convertToFullVideoUrl(video.videoId, positionSec == -1 ? Utils.toSec(video.getPositionMs()) : positionSec).toString()));
                     }
                 }));
     }

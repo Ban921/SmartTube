@@ -11,7 +11,7 @@ import com.liskovsoft.smartyoutubetv2.common.misc.GlobalKeyTranslator;
 import com.liskovsoft.smartyoutubetv2.common.misc.MotherActivity;
 import com.liskovsoft.smartyoutubetv2.common.misc.PlayerKeyTranslator;
 import com.liskovsoft.smartyoutubetv2.common.prefs.GeneralData;
-import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
+import com.liskovsoft.smartyoutubetv2.common.utils.AppProcessHelper;
 import com.liskovsoft.smartyoutubetv2.tv.ui.common.keyhandler.DoubleBackManager2;
 import com.liskovsoft.smartyoutubetv2.tv.ui.playback.PlaybackActivity;
 import com.liskovsoft.smartyoutubetv2.tv.ui.search.tags.SearchTagsActivity;
@@ -25,7 +25,7 @@ public abstract class LeanbackActivity extends MotherActivity {
     private ModeSyncManager mModeSyncManager;
     private DoubleBackManager2 mDoubleBackManager;
     private GlobalKeyTranslator mGlobalKeyTranslator;
-    private final Runnable sOnFinish = () -> Utils.forceFinishTheApp(this);
+    private final Runnable sOnFinish = () -> AppProcessHelper.forceFinishTheApp(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +135,6 @@ public abstract class LeanbackActivity extends MotherActivity {
     private void finishTheApp() {
         getViewManager().addOnFinish(sOnFinish);
 
-        Utils.properlyFinishTheApp(this);
+        AppProcessHelper.properlyFinishTheApp(this);
     }
 }

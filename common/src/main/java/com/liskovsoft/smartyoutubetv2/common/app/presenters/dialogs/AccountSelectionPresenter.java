@@ -19,6 +19,7 @@ import com.liskovsoft.smartyoutubetv2.common.misc.MediaServiceManager;
 import com.liskovsoft.smartyoutubetv2.common.prefs.AccountsData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.GeneralData;
 import com.liskovsoft.smartyoutubetv2.common.utils.GlideIconFetcher;
+import com.liskovsoft.smartyoutubetv2.common.utils.SpanHelper;
 import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
 import com.liskovsoft.youtubeapi.service.YouTubeServiceManager;
 
@@ -96,7 +97,7 @@ public class AccountSelectionPresenter extends BasePresenter<Void> {
 
         for (Account account : accounts) {
             index++;
-            CharSequence icon = Utils.icon(accounts.size() == icons.size() ? icons.get(index) : null);
+            CharSequence icon = SpanHelper.icon(accounts.size() == icons.size() ? icons.get(index) : null);
             optionItems.add(UiOptionItem.from(
                     TextUtils.concat(icon, " ", formatAccount(account)), option -> {
                         selectAccount(account);

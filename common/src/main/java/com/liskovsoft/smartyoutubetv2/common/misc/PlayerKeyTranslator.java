@@ -10,6 +10,7 @@ import com.liskovsoft.smartyoutubetv2.common.prefs.GeneralData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.PlayerData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.PlayerTweaksData;
 import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
+import com.liskovsoft.smartyoutubetv2.common.utils.VolumeHelper;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -191,7 +192,7 @@ public class PlayerKeyTranslator extends GlobalKeyTranslator {
         PlaybackPresenter playbackPresenter = getPlaybackPresenter();
 
         if (playbackPresenter != null && playbackPresenter.getView() != null) {
-            Utils.volumeUp(mContext, playbackPresenter.getView(), up);
+            VolumeHelper.volumeUp(mContext, playbackPresenter.getView(), up);
         }
     }
 

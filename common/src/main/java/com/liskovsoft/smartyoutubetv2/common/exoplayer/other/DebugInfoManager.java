@@ -40,7 +40,7 @@ import com.liskovsoft.smartyoutubetv2.common.misc.MediaServiceManager;
 import com.liskovsoft.smartyoutubetv2.common.prefs.AppPrefs;
 import com.liskovsoft.smartyoutubetv2.common.prefs.PlayerData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.PlayerTweaksData;
-import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
+import com.liskovsoft.smartyoutubetv2.common.utils.SpanHelper;
 import com.liskovsoft.youtubeapi.app.models.AppInfo;
 import com.liskovsoft.youtubeapi.common.helpers.AppClient;
 import com.liskovsoft.youtubeapi.service.internal.MediaServiceData;
@@ -398,8 +398,8 @@ public final class DebugInfoManager implements Runnable, Player.EventListener {
             boolean isFailed = MediaServiceData.instance().getFailedAppInfo() != null;
 
             shortPlayerUrl = shortPlayerUrl != null ? shortPlayerUrl.split("/")[1] : null;
-            CharSequence coloredVersion = isFailed ? Utils.color(playerVersion, Color.RED) : playerVersion;
-            CharSequence coloredType = isFailed ? Utils.color(shortPlayerUrl, Color.RED) : shortPlayerUrl;
+            CharSequence coloredVersion = isFailed ? SpanHelper.color(playerVersion, Color.RED) : playerVersion;
+            CharSequence coloredType = isFailed ? SpanHelper.color(shortPlayerUrl, Color.RED) : shortPlayerUrl;
             appendRow("Web player (Version/Type)", TextUtils.concat(coloredVersion, "/", coloredType));
         }
     }

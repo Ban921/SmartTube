@@ -90,7 +90,7 @@ public class EndingTimeView extends TextView implements TickleListener, OnDataCh
 
             //if (endingTime != null) {
             //    // https://stackoverflow.com/questions/5437674/what-unicode-characters-represent-time/9454080
-            //    //setText(TextUtils.concat( Utils.icon(getContext(), R.drawable.action_pip, getLineHeight()), " ", endingTime));
+            //    //setText(TextUtils.concat( SpanHelper.icon(getContext(), R.drawable.action_pip, getLineHeight()), " ", endingTime));
             //    setText(String.format("⌛ %s", endingTime));
             //    //setText(String.format("(%s)", endingTime));
             //

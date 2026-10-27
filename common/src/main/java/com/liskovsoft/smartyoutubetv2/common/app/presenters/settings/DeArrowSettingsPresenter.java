@@ -10,7 +10,7 @@ import com.liskovsoft.smartyoutubetv2.common.app.presenters.base.BasePresenter;
 import com.liskovsoft.smartyoutubetv2.common.prefs.DeArrowData;
 import com.liskovsoft.smartyoutubetv2.common.prefs.MainUIData;
 import com.liskovsoft.smartyoutubetv2.common.utils.ClickbaitRemover;
-import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
+import com.liskovsoft.smartyoutubetv2.common.utils.LinkHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,10 +88,10 @@ public class DeArrowSettingsPresenter extends BasePresenter<Void> {
 
     private void appendLinks(AppDialogPresenter settingsPresenter) {
         OptionItem statsCheckOption = UiOptionItem.from(getContext().getString(R.string.dearrow_status),
-                option -> Utils.openLink(getContext(), getContext().getString(R.string.dearrow_status_url)));
+                option -> LinkHelper.openLink(getContext(), getContext().getString(R.string.dearrow_status_url)));
 
         OptionItem webSiteOption = UiOptionItem.from(getContext().getString(R.string.about_dearrow),
-                option -> Utils.openLink(getContext(), getContext().getString(R.string.dearrow_provider_url)));
+                option -> LinkHelper.openLink(getContext(), getContext().getString(R.string.dearrow_provider_url)));
 
         settingsPresenter.appendSingleButton(statsCheckOption);
         settingsPresenter.appendSingleButton(webSiteOption);

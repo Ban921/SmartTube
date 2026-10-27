@@ -29,6 +29,7 @@ import com.liskovsoft.smartyoutubetv2.common.prefs.GeneralData;
 import com.liskovsoft.smartyoutubetv2.common.proxy.ProxyManager;
 import com.liskovsoft.smartyoutubetv2.common.utils.IntentExtractor;
 import com.liskovsoft.smartyoutubetv2.common.utils.SimpleEditDialog;
+import com.liskovsoft.smartyoutubetv2.common.utils.AppProcessHelper;
 import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
 import com.liskovsoft.youtubeapi.service.YouTubeServiceManager;
 
@@ -78,7 +79,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
             return;
         }
 
-        Utils.cancelFinishTheApp(getContext());
+        AppProcessHelper.cancelFinishTheApp(getContext());
 
         runOnceTasks();
         runPerInstanceTasks();

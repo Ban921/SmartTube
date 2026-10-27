@@ -35,7 +35,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.MultiSelectListPreference;
 import androidx.recyclerview.widget.RecyclerView;
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.PlaybackPresenter;
-import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
+import com.liskovsoft.smartyoutubetv2.common.utils.LinkHelper;
 import com.liskovsoft.smartyoutubetv2.tv.ui.mod.clickable.LinkifyCompat;
 import com.liskovsoft.smartyoutubetv2.tv.ui.mod.clickable.LinkifyCompat.LinkifyClickHandler;
 
@@ -193,10 +193,10 @@ public class LeanbackListPreferenceDialogFragment extends LeanbackPreferenceDial
                     //if (intent.resolveActivity(context.getPackageManager()) != null) {
                     //    context.startActivity(intent);
                     //} else {
-                    //    Utils.showMultiChooser(context, Uri.parse(link));
+                    //    LinkHelper.showMultiChooser(context, Uri.parse(link));
                     //}
 
-                    Utils.openUrlInternally(context, Uri.parse(link));
+                    LinkHelper.openUrlInternally(context, Uri.parse(link));
                 }
 
                 @Override

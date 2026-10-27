@@ -19,7 +19,9 @@ import com.liskovsoft.smartyoutubetv2.common.app.models.playback.manager.PlayerU
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.selector.FormatItem;
 import com.liskovsoft.smartyoutubetv2.common.prefs.common.DataChangeBase.OnDataChange;
 import com.liskovsoft.smartyoutubetv2.common.prefs.RemoteControlData;
+import com.liskovsoft.smartyoutubetv2.common.utils.AppProcessHelper;
 import com.liskovsoft.smartyoutubetv2.common.utils.Utils;
+import com.liskovsoft.smartyoutubetv2.common.utils.VolumeHelper;
 import com.liskovsoft.youtubeapi.service.YouTubeServiceManager;
 import io.reactivex.disposables.Disposable;
 import java.util.List;
@@ -402,14 +404,14 @@ public class RemoteController extends BasePlayerController implements OnDataChan
                 int volume = command.getVolume();
 
                 if (command.getDelta() != -1) { // using phone volume sliders
-                    volume = Utils.getVolume(getContext(), getPlayer()) + command.getDelta();
+                    volume = VolumeHelper.getVolume(getContext(), getPlayer()) + command.getDelta();
                 }
 
-                Utils.setVolume(getContext(), getPlayer(), volume);
+                VolumeHelper.setVolume(getContext(), getPlayer(), volume);
                 mVolumeSelfChangeMs = System.currentTimeMillis();
 
                 if (command.getDelta() != -1) { // using phone volume sliders
-                    postVolumeChange(Utils.getVolume(getContext(), getPlayer()));
+                    postVolumeChange(VolumeHelper.getVolume(getContext(), getPlayer()));
                 } else {
                     postVolumeChange(volume);
                 }
@@ -443,7 +445,7 @@ public class RemoteController extends BasePlayerController implements OnDataChan
                 if (getContext() != null && mRemoteControlData.isFinishOnDisconnectEnabled()) {
                     // NOTE: It's not a good idea to remember connection state (mConnected) at this point.
                     MessageHelpers.showLongMessage(getContext(), getContext().getString(R.string.device_disconnected, command.getDeviceName()));
-                    Utils.properlyFinishTheApp(getContext());
+                    AppProcessHelper.properlyFinishTheApp(getContext());
                 }
                 //if (mRemoteControlData.isConnectMessagesEnabled()) {
                 //    MessageHelpers.showLongMessage(getContext(), getContext().getString(R.string.device_disconnected, command.getDeviceName()));
@@ -537,18 +539,18 @@ public class RemoteController extends BasePlayerController implements OnDataChan
             @Override
             public void onChange(boolean selfChange) {
                 if (System.currentTimeMillis() - mVolumeSelfChangeMs > 1_000) {
-                    postVolumeChange(Utils.getVolume(getContext(), getPlayer()));
+                    postVolumeChange(VolumeHelper.getVolume(getContext(), getPlayer()));
                 }
             }
         };
-        Utils.registerAudioObserver(getContext(), mVolumeObserver);
+        VolumeHelper.registerAudioObserver(getContext(), mVolumeObserver);
 
-        postVolumeChange(Utils.getVolume(getContext(), getPlayer()));
+        postVolumeChange(VolumeHelper.getVolume(getContext(), getPlayer()));
     }
 
     private void unregisterVolumeObserver() {
         if (mVolumeObserver != null) {
-            Utils.unregisterAudioObserver(getContext(), mVolumeObserver);
+            VolumeHelper.unregisterAudioObserver(getContext(), mVolumeObserver);
             mVolumeObserver = null;
         }
     }
