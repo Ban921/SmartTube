@@ -5,7 +5,6 @@ import android.content.Context;
 import com.liskovsoft.smartyoutubetv2.common.app.models.data.Video;
 import com.liskovsoft.smartyoutubetv2.common.app.presenters.base.BasePresenter;
 import com.liskovsoft.smartyoutubetv2.common.app.views.DetailsView;
-import com.liskovsoft.smartyoutubetv2.common.app.views.ViewManager;
 
 public class DetailsPresenter extends BasePresenter<DetailsView> {
     @SuppressLint("StaticFieldLeak")

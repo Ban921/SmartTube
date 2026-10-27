@@ -1,7 +1,6 @@
 package com.liskovsoft.smartyoutubetv2.tv.ui.adddevice;
 
 import android.os.Bundle;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.leanback.app.GuidedStepSupportFragment;

@@ -14,7 +14,6 @@ import androidx.leanback.widget.HorizontalGridView;
 import androidx.leanback.widget.ObjectAdapter;
 import androidx.leanback.widget.OnChildLaidOutListener;
 import androidx.leanback.widget.OnChildSelectedListener;
-import androidx.leanback.widget.OnChildViewHolderSelectedListener;
 import androidx.leanback.widget.OnItemViewClickedListener;
 import androidx.leanback.widget.OnItemViewSelectedListener;
 import androidx.leanback.widget.Presenter;
