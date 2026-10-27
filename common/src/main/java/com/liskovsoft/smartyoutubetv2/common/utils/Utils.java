@@ -178,11 +178,9 @@ public class Utils {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(url);
         intent.setPackage(context.getPackageName());
-        //intent.setClass(context, ViewManager.instance(context).getActivity(SplashView.class));
         PackageManager packageManager = context.getPackageManager();
         if (intent.resolveActivity(packageManager) != null) {
             SplashPresenter.instance(context).applyNewIntent(intent);
-            //context.startActivity(intent);
         } else {
             // Fallback to the chooser dialog
             showMultiChooser(context, url);

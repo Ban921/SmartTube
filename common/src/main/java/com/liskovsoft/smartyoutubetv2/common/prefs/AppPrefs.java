@@ -67,7 +67,6 @@ public class AppPrefs extends SharedPreferencesBase implements AccountChangeList
 
         putBoolean(MULTI_PROFILES, enabled);
         onProfileChanged();
-        //selectAccount(enabled ? MediaServiceManager.instance().getSelectedAccount() : null);
     }
 
     public String getBootResolution() {
@@ -109,8 +108,6 @@ public class AppPrefs extends SharedPreferencesBase implements AccountChangeList
     }
 
     public String getProfileData(String key) {
-        //String data = getData(getProfileKey(key, isMultiProfilesEnabled()));
-
         // Fallback to non-profile settings
         //return data != null ? data : getData(key);
 

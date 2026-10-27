@@ -115,7 +115,6 @@ public class ChannelCardPresenter extends LongClickPresenter {
                 .load(video.cardImageUrl)
                 .apply(ViewUtil.glideOptions())
                 .listener(mErrorListener)
-                //.error(R.drawable.card_placeholder) // R.color.lb_grey
                 .into(imageView);
     }
 

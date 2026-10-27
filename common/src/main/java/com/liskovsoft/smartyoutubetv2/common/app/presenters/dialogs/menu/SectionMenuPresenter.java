@@ -75,8 +75,6 @@ public class SectionMenuPresenter extends BaseMenuPresenter {
             return;
         }
 
-        disposeActions();
-
         mSection = section;
         mVideo = section.getData() instanceof Video ? (Video) section.getData() : null;
 
@@ -114,7 +112,7 @@ public class SectionMenuPresenter extends BaseMenuPresenter {
 
         if (!mDialogPresenter.isEmpty()) {
             String title = mSection != null ? mSection.getTitle() : null;
-            mDialogPresenter.showDialog(title, this::disposeActions);
+            mDialogPresenter.showDialog(title);
         }
     }
 
@@ -141,7 +139,7 @@ public class SectionMenuPresenter extends BaseMenuPresenter {
 
         if (!mDialogPresenter.isEmpty()) {
             String title = mSection != null ? mSection.getTitle() : null;
-            mDialogPresenter.showDialog(title, this::disposeActions);
+            mDialogPresenter.showDialog(title);
         }
     }
 
@@ -175,13 +173,11 @@ public class SectionMenuPresenter extends BaseMenuPresenter {
 
         mDialogPresenter.appendSingleButton(
                 UiOptionItem.from(getContext().getString(R.string.move_section_up), optionItem -> {
-                    //mDialogPresenter.closeDialog();
                     BrowsePresenter.instance(getContext()).moveSectionUp(mSection);
                 }));
 
         mDialogPresenter.appendSingleButton(
                 UiOptionItem.from(getContext().getString(R.string.move_section_down), optionItem -> {
-                    //mDialogPresenter.closeDialog();
                     BrowsePresenter.instance(getContext()).moveSectionDown(mSection);
                 }));
     }
@@ -263,10 +259,6 @@ public class SectionMenuPresenter extends BaseMenuPresenter {
         } else {
             MessageHelpers.showMessage(getContext(), R.string.msg_done);
         }
-    }
-
-    private void disposeActions() {
-        //RxUtils.disposeActions(mPlaylistAction);
     }
 
     @Override

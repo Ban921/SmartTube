@@ -259,7 +259,6 @@ public class BrowseFragment extends BrowseSupportFragment implements BrowseView 
     }
 
     private void replaceMainFragment(Fragment fragment) {
-        //Object mainFragment = Helpers.getField(this,"mMainFragment");
         Fragment mainFragment = getMainFragment();
 
         if (mainFragment != null && fragment != null && mainFragment != fragment) {

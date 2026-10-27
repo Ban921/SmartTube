@@ -319,7 +319,6 @@ public final class Video {
 
         String mainTitle = metadataTitle != null ? metadataTitle : title;
         CharSequence subtitle = metadataSecondTitle != null ? metadataSecondTitle : secondTitle;
-        //return hasVideo() ? extractAuthor(subtitle) : Helpers.toString(YouTubeHelper.createInfo(mainTitle, subtitle)); // BAD idea
         return hasVideo() ? extractAuthor(subtitle) : extractAuthor(YouTubeHelper.createInfo(mainTitle, subtitle));
     }
 
@@ -451,12 +450,10 @@ public final class Video {
         result.category = Helpers.parseStr(split[1]);
         result.title = Helpers.parseStr(split[2]);
         result.videoId = Helpers.parseStr(split[3]);
-        //result.videoUrl = Helpers.parseStr(split[4]);
         result.playlistId = Helpers.parseStr(split[5]);
         result.channelId = Helpers.parseStr(split[6]);
         result.bgImageUrl = Helpers.parseStr(split[7]);
         result.cardImageUrl = Helpers.parseStr(split[8]);
-        //result.mediaItem = YouTubeMediaItem.deserializeMediaItem(Helpers.parseStr(split[9]));
         result.playlistParams = Helpers.parseStr(split[10]);
         result.sectionId = Helpers.parseInt(split[11]);
         result.reloadPageKey = Helpers.parseStr(split[12]);

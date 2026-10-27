@@ -281,7 +281,6 @@ public class PlaybackActivity extends LeanbackActivity {
                     // Ensure to continue a playback
                     mPlaybackFragment.blockEngine(true);
                     getViewManager().blockTop(this);
-                    //getViewManager().enableMoveToBack(true);
                 }
                 break;
         }
@@ -309,16 +308,12 @@ public class PlaybackActivity extends LeanbackActivity {
 
     @TargetApi(24)
     private boolean wannaEnterToPip() {
-        //return mPlaybackFragment != null && mPlaybackFragment.getBackgroundMode() == PlayerEngine.BACKGROUND_MODE_PIP && !isInPictureInPictureMode();
-        //return mPlaybackFragment != null && mPlaybackFragment.isEngineBlocked() && !isInPictureInPictureMode();
         boolean isPip = getPlayerData().getBackgroundMode() == PlayerData.BACKGROUND_MODE_PIP || isEngineBlocked();
         return isPip && !isInPictureInPictureMode();
     }
 
     private boolean doNotDestroy() {
         sIsInPipMode = isInPipMode();
-        //return sIsInPipMode || mPlaybackFragment.getBackgroundMode() == PlayerEngine.BACKGROUND_MODE_SOUND;
-        //return sIsInPipMode || mPlaybackFragment.isEngineBlocked();
         boolean isBackground = getPlayerData().getBackgroundMode() == PlayerEngine.BACKGROUND_MODE_SOUND || isEngineBlocked();
         return sIsInPipMode || isBackground;
     }

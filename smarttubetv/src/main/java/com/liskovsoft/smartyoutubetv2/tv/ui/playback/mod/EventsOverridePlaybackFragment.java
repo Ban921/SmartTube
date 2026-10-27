@@ -33,7 +33,6 @@ public class EventsOverridePlaybackFragment extends SurfacePlaybackFragment {
 
     boolean onInterceptInputEvent(InputEvent event) {
         final boolean controlsHidden = !isControlsOverlayVisible();
-        //if (DEBUG) Log.v(TAG, "onInterceptInputEvent hidden " + controlsHidden + " " + event);
         boolean consumeEvent = false;
         int keyCode = KeyEvent.KEYCODE_UNKNOWN;
         int keyAction = 0;

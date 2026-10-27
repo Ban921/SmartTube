@@ -8,8 +8,6 @@ import androidx.work.Configuration;
 
 import com.liskovsoft.sharedutils.helpers.Helpers;
 import com.liskovsoft.sharedutils.helpers.MessageHelpers;
-import com.liskovsoft.smartyoutubetv2.common.app.models.data.BrowseSection;
-import com.liskovsoft.smartyoutubetv2.common.app.presenters.BrowsePresenter;
 import com.liskovsoft.smartyoutubetv2.common.app.views.AddDeviceView;
 import com.liskovsoft.smartyoutubetv2.common.app.views.AppDialogView;
 import com.liskovsoft.smartyoutubetv2.common.app.views.BrowseView;
@@ -152,7 +150,6 @@ public class MainApplication extends MultiDexApplication implements Configuratio
             }
 
             applyCrashFixes(e);
-            //e = wrapWithAdditionalInfo(e);
 
             defaultHandler.uncaughtException(t, e);
         });
@@ -180,22 +177,6 @@ public class MainApplication extends MultiDexApplication implements Configuratio
                 "KatnissVoiceInteractionService", "ListenableFuture", "Missing android.support.FILE_PROVIDER_PATHS meta-data",
                 "Error receiving broadcast Intent { act=android.hardware.usb.action.USB_DEVICE_ATTACHED flg=0x10 }")
                 || e.getClass().getName().startsWith("org.chromium");
-    }
-
-    private Throwable wrapWithAdditionalInfo(Throwable e) {
-        if (Helpers.equalsAny(e.getMessage(),
-                "parameter must be a descendant of this view",
-                "Attempt to invoke virtual method 'android.view.ViewGroup$LayoutParams android.view.View.getLayoutParams()' on a null object reference")) {
-            Class<?> view = ViewManager.instance(getApplicationContext()).getTopView();
-            BrowseSection section = null;
-
-            if (view == BrowseView.class) {
-                section = BrowsePresenter.instance(getApplicationContext()).getCurrentSection();
-            }
-
-            e = new RuntimeException("A crash in the view " + view.getSimpleName() + ", section id " + (section != null ? section.getId() : "-1"), e);
-        }
-        return e;
     }
 
     private void applyCrashFixes(Throwable e) {

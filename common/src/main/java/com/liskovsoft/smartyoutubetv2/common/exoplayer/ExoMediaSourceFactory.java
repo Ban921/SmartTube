@@ -58,7 +58,6 @@ import okhttp3.OkHttpClient;
 public class ExoMediaSourceFactory {
     private static final String TAG = ExoMediaSourceFactory.class.getSimpleName();
     @SuppressLint("StaticFieldLeak")
-    //private static ExoMediaSourceFactory sInstance;
     private static final int MAX_SEGMENTS_PER_LOAD = 1; // default - 1 (1-5)
     private static final int SABR_READ_TIMEOUT_MS = 4_000;
     private static final String USER_AGENT = DefaultHeaders.APP_USER_AGENT;
@@ -104,7 +103,6 @@ public class ExoMediaSourceFactory {
             mediaSources[i] = buildMediaSource(Uri.parse(urlList.get(i)), null);
         }
 
-        //return mediaSources.length == 1 ? mediaSources[0] : new ConcatenatingMediaSource(mediaSources); // or playlist
         return mediaSources[0]; // item with max resolution
     }
 
@@ -329,9 +327,6 @@ public class ExoMediaSourceFactory {
         //if (authorization != null) {
         //    dataSourceFactory.getDefaultRequestProperties().set("Authorization", authorization);
         //}
-
-        //HeaderManager headerManager = new HeaderManager(context);
-        //HashMap<String, String> headers = headerManager.getHeaders();
 
         // NOTE: "Accept-Encoding" should not be set manually (gzip is added by default).
 

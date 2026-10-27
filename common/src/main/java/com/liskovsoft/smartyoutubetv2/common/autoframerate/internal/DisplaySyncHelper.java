@@ -161,7 +161,6 @@ public class DisplaySyncHelper implements UhdHelperListener {
 
     private HashMap<Integer, int[]> getRateMapping() {
         HashMap<Integer, int[]> rateMapping = mIsDoubleRefreshRateEnabled ? getDoubleRateMapping() : getSingleRateMapping();
-        //return apply24RateSkip(rateMapping);
         return rateMapping;
     }
 
@@ -196,16 +195,6 @@ public class DisplaySyncHelper implements UhdHelperListener {
         relatedRates.put(5994, new int[]{5994, 6000, 2997, 3000});
         relatedRates.put(6000, new int[]{6000, 3000});
         return relatedRates;
-    }
-
-    private HashMap<Integer, int[]> apply24RateSkip(HashMap<Integer, int[]> rateMapping) {
-        if (mIsSkip24RateEnabled) {
-            rateMapping.remove(2397);
-            rateMapping.remove(2400);
-            rateMapping.remove(2497);
-        }
-
-        return rateMapping;
     }
 
     /**

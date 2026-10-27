@@ -464,7 +464,6 @@ public class AppDialogUtil {
 
     public static OptionCategory createAudioVolumeCategory(Context context, Runnable onSetCallback) {
         PlayerData playerData = PlayerData.instance(context);
-        //PlayerTweaksData playerTweaksData = PlayerTweaksData.instance(context);
         String title = context.getString(R.string.player_volume);
 
         List<OptionItem> options = new ArrayList<>();
@@ -474,7 +473,6 @@ public class AppDialogUtil {
             options.add(UiOptionItem.from(String.format("%s%%", scalePercent),
                     optionItem -> {
                         playerData.setPlayerVolume(scale);
-                        //playerTweaksData.setPlayerAutoVolumeEnabled(scalePercent == 100);
 
                         if (scalePercent > 100) {
                             MessageHelpers.showLongMessage(context, R.string.volume_boost_warning);
@@ -768,7 +766,6 @@ public class AppDialogUtil {
                     String.valueOf(speed),
                     optionItem -> {
                         if (playbackController != null) {
-                            //playerData.setSpeed(playbackController.getVideo().channelId, speed);
                             playbackController.setSpeed(speed);
                         } else {
                             playerData.setSpeed(speed);
@@ -1207,7 +1204,6 @@ public class AppDialogUtil {
         for (Video video : playlist.getAll()) {
             String title = video.getTitle();
             String author = video.getAuthor();
-            //options.add(0, UiOptionItem.from( // Add to start (recent videos on top)
             options.add(UiOptionItem.from( // Add to end (like on mobile client)
                     String.format("%s - %s", title != null ? title : "...", author != null ? author : "..."),
                     optionItem -> {

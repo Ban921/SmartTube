@@ -71,8 +71,6 @@ public class IconHeaderItemPresenter extends RowHeaderPresenter {
                         .apply(ViewUtil.glideOptions().error(mDefaultIcon))
                         .listener(mErrorListener)
                         .into(iconView);
-
-                //ViewUtil.makeMonochrome(iconView);
             } else {
                 Drawable icon = mResId > 0 ? ContextCompat.getDrawable(rootView.getContext(), mResId) : mDefaultIcon;
                 iconView.setImageDrawable(icon);

@@ -402,7 +402,6 @@ public class UhdHelper {
         mIsSetModeInProgress.set(true);
         //Let the handler know what modeId onDisplayChanged callback event to look for
         mWorkHandler.setExpectedMode(modeId);
-        //mContext.registerReceiver(overlayStateChangeReceiver, new IntentFilter(MODESWITCH_OVERLAY_STATE_CHANGED));
         ContextCompat.registerReceiver(mContext, overlayStateChangeReceiver, new IntentFilter(MODESWITCH_OVERLAY_STATE_CHANGED), ContextCompat.RECEIVER_NOT_EXPORTED);
         mDisplayListener = new DisplayManager.DisplayListener() {
             @Override

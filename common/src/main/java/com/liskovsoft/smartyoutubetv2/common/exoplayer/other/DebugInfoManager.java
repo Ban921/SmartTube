@@ -206,12 +206,9 @@ public final class DebugInfoManager implements Runnable, Player.EventListener {
         appendPlayerState();
         appendDisplayInfo();
         appendDisplayModeId();
-        //appendPlayerWindowIndex();
         appendVersion();
         appendDeviceNameSDKCache();
         appendMemoryInfo();
-        //appendWebViewInfo();
-        //appendClientType();
         appendWebClientInfo();
         appendPlayerVersion();
         appendAccountInfo();
@@ -264,7 +261,6 @@ public final class DebugInfoManager implements Runnable, Player.EventListener {
         //mVideoInfo.add(new Pair<>("Aspect Ratio", par));
         String videoCodecName = getVideoDecoderNameV2();
         mVideoInfo.add(new Pair<>("Video decoder name", videoCodecName));
-        //mVideoInfo.add(new Pair<>("Hardware accelerated", String.valueOf(DeviceHelpers.isHardwareAccelerated(videoCodecName))));
         
         if (video.colorInfo != null) {
             //String transferFunction = getColorTransferString(video.colorInfo.colorTransfer);
@@ -295,8 +291,6 @@ public final class DebugInfoManager implements Runnable, Player.EventListener {
     }
 
     private void appendPlayerState() {
-        //appendRow("Player paused", !mPlayer.getPlayWhenReady());
-
         String state;
         switch (mPlayer.getPlaybackState()) {
             case Player.STATE_BUFFERING:
@@ -315,7 +309,6 @@ public final class DebugInfoManager implements Runnable, Player.EventListener {
                 state = "unknown";
                 break;
         }
-        //appendRow("Playback state", state);
         float boost = mPlayerInitializer.getVolumeBoost();
         appendRow("Playback info", String.format("paused=%s;state=%s", !mPlayer.getPlayWhenReady(), state));
         appendRow("Volume",
@@ -344,8 +337,6 @@ public final class DebugInfoManager implements Runnable, Player.EventListener {
         mDisplayModeId.add(new Pair<>("UI resolution", currentResolution != null ? currentResolution : NOT_AVAILABLE));
         mDisplayModeId.add(new Pair<>("Boot resolution", bootResolution != null ? bootResolution : NOT_AVAILABLE));
 
-        //mDisplayModeId.add(new Pair<>("Display mode ID", currentMode != null ? String.valueOf(currentMode.getModeId()) : NOT_AVAILABLE));
-        //mDisplayModeId.add(new Pair<>("Display modes length", supportedModes != null ? String.valueOf(supportedModes.length) : NOT_AVAILABLE));
         String modeId = currentMode != null ? String.valueOf(currentMode.getModeId()) : NOT_AVAILABLE;
         String modeLength = supportedModes != null ? String.valueOf(supportedModes.length) : NOT_AVAILABLE;
         mDisplayModeId.add(new Pair<>("Display mode (ID/Length)", modeId + "/" + modeLength));
@@ -363,12 +354,7 @@ public final class DebugInfoManager implements Runnable, Player.EventListener {
         mDisplayInfo.add(new Pair<>("Display DPI", String.valueOf(Helpers.getDeviceDpi(mContext))));
     }
 
-    private void appendPlayerWindowIndex() {
-        appendRow("Window index", mPlayer.getCurrentWindowIndex());
-    }
-
     private void appendVersion() {
-        //appendRow("ExoPlayer version", ExoPlayerLibraryInfo.VERSION);
         PlayerTweaksData playerTweaksData = PlayerTweaksData.instance(mContext);
         String engine = playerTweaksData.getPlayerDataSource() == PlayerTweaksData.PLAYER_DATA_SOURCE_OKHTTP ? "OkHttp" :
                 playerTweaksData.getPlayerDataSource() == PlayerTweaksData.PLAYER_DATA_SOURCE_CRONET
@@ -385,8 +371,6 @@ public final class DebugInfoManager implements Runnable, Player.EventListener {
             protocol = "HLS";
         }
         appendRow("ExoPlayer", "engine=" + engine + ";protocol=" + protocol);
-        //appendRow("Cronet version", ApiVersion.getCronetVersion());
-        //appendRow("OkHttp version", Version.userAgent());
         appendRow(mAppVersion, AppInfoHelpers.getAppVersionName(mContext));
     }
 
@@ -412,8 +396,6 @@ public final class DebugInfoManager implements Runnable, Player.EventListener {
             String playerVersion = UrlQueryStringFactory.parse(Uri.parse(playerUrl)).get("player");
             String shortPlayerUrl = playerVersion != null ? playerUrl.split(playerVersion)[1] : null;
             boolean isFailed = MediaServiceData.instance().getFailedAppInfo() != null;
-            //appendRow("Player version", isFailed ? Utils.color(playerVersion, Color.RED) : playerVersion);
-            //appendRow("Player url", isFailed ? Utils.color(shortPlayerUrl, Color.RED) : shortPlayerUrl);
 
             shortPlayerUrl = shortPlayerUrl != null ? shortPlayerUrl.split("/")[1] : null;
             CharSequence coloredVersion = isFailed ? Utils.color(playerVersion, Color.RED) : playerVersion;
@@ -424,7 +406,6 @@ public final class DebugInfoManager implements Runnable, Player.EventListener {
 
     private void appendWebClientInfo() {
         String clientType = getClientType();
-        //CharSequence playerVersion = getPlayerVersion();
         boolean potSupported = MediaServiceData.instance().isPotSupported();
 
         appendRow("Web info", "client=" + clientType + ";pot=" + potSupported);
@@ -555,18 +536,5 @@ public final class DebugInfoManager implements Runnable, Player.EventListener {
         String clientTypeName = clientType != -1 && clientType < AppClient.values().length ? AppClient.values()[clientType].name() : "default";
 
         return clientTypeName;
-    }
-
-    private CharSequence getPlayerVersion() {
-        CharSequence result = NOT_AVAILABLE;
-        AppInfo appInfo = Helpers.firstNonNull(MediaServiceData.instance().getFailedAppInfo(), MediaServiceData.instance().getAppInfo());
-        String playerUrl = appInfo != null ? appInfo.getPlayerUrl() : null;
-        if (playerUrl != null) {
-            String playerVersion = UrlQueryStringFactory.parse(Uri.parse(playerUrl)).get("player");
-            boolean isFailed = MediaServiceData.instance().getFailedAppInfo() != null;
-            result = isFailed ? Utils.color(playerVersion, Color.RED) : playerVersion;
-        }
-
-        return result;
     }
 }

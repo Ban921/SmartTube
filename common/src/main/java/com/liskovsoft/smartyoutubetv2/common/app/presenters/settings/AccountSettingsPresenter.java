@@ -202,7 +202,6 @@ public class AccountSettingsPresenter extends BasePresenter<Void> {
                 newValue -> {
                     AccountsData.instance(getContext()).setAccountPassword(newValue);
                     BrowsePresenter.instance(getContext()).updateSections();
-                    //onSuccess.run();
                     return true;
                 });
     }
@@ -223,7 +222,6 @@ public class AccountSettingsPresenter extends BasePresenter<Void> {
                     if (Utils.passwordMatch(password, newValue)) {
                         AccountsData.instance(getContext()).setAccountPassword(null);
                         BrowsePresenter.instance(getContext()).updateSections();
-                        //onSuccess.run();
                         return true;
                     }
                     return false;
@@ -245,7 +243,6 @@ public class AccountSettingsPresenter extends BasePresenter<Void> {
                     if (Utils.passwordMatch(password, newValue)) {
                         AccountsData.instance(getContext()).setPasswordAccepted(true);
                         BrowsePresenter.instance(getContext()).updateSections();
-                        //onSuccess.run();
                         return true;
                     }
                     return false;

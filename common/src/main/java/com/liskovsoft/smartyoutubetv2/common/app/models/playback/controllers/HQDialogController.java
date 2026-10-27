@@ -32,11 +32,6 @@ public class HQDialogController extends BasePlayerController {
     }
 
     @Override
-    public void onViewResumed() {
-        //updateBackgroundPlayback();
-    }
-
-    @Override
     public void onButtonClicked(int buttonId, int buttonState) {
         if (buttonId == R.id.lb_control_high_quality) {
             onHighQualityClicked();
@@ -55,7 +50,6 @@ public class HQDialogController extends BasePlayerController {
         addAudioDelayCategory();
         addPitchEffectCategory();
         addSleepTimerCategory();
-        //addBackgroundPlaybackCategory();
 
         appendOptions(mCategoriesInt);
         appendOptions(mCategories);
@@ -163,8 +157,6 @@ public class HQDialogController extends BasePlayerController {
     }
 
     private void onDialogHide() {
-        //updateBackgroundPlayback();
-
         for (Runnable listener : mHideListeners) {
             listener.run();
         }

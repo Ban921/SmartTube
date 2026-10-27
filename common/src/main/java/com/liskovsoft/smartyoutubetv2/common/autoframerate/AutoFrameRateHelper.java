@@ -60,9 +60,7 @@ public class AutoFrameRateHelper {
             if (originalMode != null && newMode != null) {
                 if (enabled) {
                     mSyncHelper.setResolutionSwitchEnabled(true);
-                    //syncMode(mCurrentFormat.first, mCurrentFormat.second);
                 } else {
-                    //syncMode(originalMode.getPhysicalWidth(), newMode.getRefreshRate());
                     mSyncHelper.setResolutionSwitchEnabled(false);
                 }
             }

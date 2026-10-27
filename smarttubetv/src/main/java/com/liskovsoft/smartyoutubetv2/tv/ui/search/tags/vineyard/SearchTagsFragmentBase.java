@@ -47,7 +47,6 @@ public abstract class SearchTagsFragmentBase extends SearchSupportFragment
     private static final int REQUEST_SPEECH = 0x00000010;
 
     private TagAdapter mSearchTagsAdapter;
-    //private ObjectAdapter mItemResultsAdapter;
     private ArrayObjectAdapter mResultsAdapter; // contains tags adapter and results adapter (see attachAdapter method)
     private ListRowPresenter mResultsPresenter;
     private TagPresenter mTagsPresenter;

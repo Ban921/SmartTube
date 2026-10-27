@@ -135,8 +135,6 @@ public class StoryboardManager {
         GlideThumbnailTransformation transformation =
                 new GlideThumbnailTransformation(realPosMS, size.getWidth(), size.getHeight(), size.getRowCount(), size.getColCount(), size.getDurationEachMS());
 
-        //Log.d(TAG, "Loading preview. Position: %s, groupNum: %s, groupDurationMS: %s, groupSize", currentPosition, groupNum, mStoryboard.getGroupDurationMS(), size);
-
         Glide.with(mContext)
                 .asBitmap()
                 .load(mStoryboard.getGroupUrl(groupNum))
@@ -146,7 +144,6 @@ public class StoryboardManager {
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        //Log.d(TAG, "onPreviewLoaded: image hashCode: %s", resource.hashCode());
                         callback.onBitmapLoaded(resource);
                     }
 

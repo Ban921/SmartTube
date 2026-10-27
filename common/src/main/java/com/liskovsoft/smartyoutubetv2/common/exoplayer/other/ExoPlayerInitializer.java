@@ -54,8 +54,6 @@ public class ExoPlayerInitializer {
         //        null, new DummyBandwidthMeter(), new AnalyticsCollector.Factory(), Util.getLooper()
         //);
 
-        //enableAudioFocus(player);
-
         // Lead to numbered errors
         //player.setRepeatMode(Player.REPEAT_MODE_ONE);
 
@@ -119,14 +117,10 @@ public class ExoPlayerInitializer {
                 baseBuilder.setBackBuffer(minBufferMs, true);
                 break;
             case PlayerData.BUFFER_MEDIUM:
-                //minBufferMs = 30_000;
-                //maxBufferMs = 30_000;
                 break;
             case PlayerData.BUFFER_LOW:
                 minBufferMs = 5_000; // LIVE fix
                 maxBufferMs = 5_000; // LIVE fix
-                //bufferForPlaybackMs = 1_000;
-                //bufferForPlaybackAfterRebufferMs = 1_000;
                 break;
         }
 

@@ -162,7 +162,6 @@ public class SponsorBlockController extends BasePlayerController {
     }
 
     private boolean checkVideo(Video video) {
-        //return video != null && !video.isLive && !video.isUpcoming;
         return video != null;
     }
 

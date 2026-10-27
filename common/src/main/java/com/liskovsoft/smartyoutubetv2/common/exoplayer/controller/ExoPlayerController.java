@@ -1,7 +1,6 @@
 package com.liskovsoft.smartyoutubetv2.common.exoplayer.controller;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Build.VERSION;
 
 import com.google.android.exoplayer2.C;
@@ -26,7 +25,6 @@ import com.liskovsoft.smartyoutubetv2.common.app.models.playback.listener.Player
 import com.liskovsoft.smartyoutubetv2.common.app.models.playback.ui.LiveStateProvider;
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.ExoMediaSourceFactory;
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.errors.TrackErrorFixer;
-import com.liskovsoft.smartyoutubetv2.common.exoplayer.other.VolumeBooster;
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.selector.ExoFormatItem;
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.selector.FormatItem;
 import com.liskovsoft.smartyoutubetv2.common.exoplayer.selector.TrackInfoFormatter2;
@@ -61,7 +59,6 @@ public class ExoPlayerController implements Player.EventListener, LiveStateProvi
     /** Sabr live stream is waiting for the live start position (see {@link #seekToSabrLiveStart()}) */
     private boolean mSabrLiveStartPending;
     private PlayerView mPlayerView;
-    private VolumeBooster mVolumeBooster;
     private boolean mIsEnded;
     private Runnable mOnVideoLoaded;
 
@@ -496,8 +493,6 @@ public class ExoPlayerController implements Player.EventListener, LiveStateProvi
     public void setVolume(float volume) {
         if (mPlayer != null && volume >= 0) {
             mPlayer.setVolume(Math.min(volume, 1f));
-
-            //applyVolumeBoost(volume);
         }
     }
     
@@ -528,38 +523,6 @@ public class ExoPlayerController implements Player.EventListener, LiveStateProvi
         if (mPlayerView != null && qualityInfoStr != null) {
             mPlayerView.setQualityInfo(qualityInfoStr);
         }
-    }
-
-    private void applyVolumeBoost(float volume) {
-        if (mPlayer == null) {
-            return;
-        }
-
-        if (mVolumeBooster != null) {
-            mPlayer.removeAudioListener(mVolumeBooster);
-            mVolumeBooster = null;
-        }
-
-        // 5.1 audio cannot be boosted (format isn't supported error)
-        // also, other 2.0 tracks in 5.1 group is already too loud. so cancel them too.
-        if (volume > 1f && !contains51Audio() && Build.VERSION.SDK_INT >= 19) {
-            mVolumeBooster = new VolumeBooster(true, volume, null);
-            mPlayer.addAudioListener(mVolumeBooster);
-        }
-    }
-    
-    private boolean contains51Audio() {
-        if (mTrackSelectorManager == null || mTrackSelectorManager.getAudioTracks() == null) {
-            return false;
-        }
-
-        for (MediaTrack track : mTrackSelectorManager.getAudioTracks()) {
-            if (TrackSelectorUtil.is51Audio(track.format)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private void releasePlayer() {

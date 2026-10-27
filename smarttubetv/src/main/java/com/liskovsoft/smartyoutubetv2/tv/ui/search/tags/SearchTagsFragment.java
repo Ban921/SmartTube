@@ -445,7 +445,6 @@ public class SearchTagsFragment extends SearchTagsFragmentBase {
                 mSearchPresenter.onVideoItemLongClicked((Video) item);
             } else if (item instanceof Tag) {
                 mSearchPresenter.onTagLongClicked((Tag) item);
-                //startSearch(((Tag) item).tag, false);
             }
         }
     }

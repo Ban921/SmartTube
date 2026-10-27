@@ -214,7 +214,6 @@ public class LeanbackListPreferenceDialogFragment extends LeanbackPreferenceDial
     }
 
     public RecyclerView.Adapter<ViewHolder> onCreateAdapter() {
-        //final DialogPreference preference = getPreference();
         if (mMulti) {
             return new AdapterMulti(mEntries, mEntryValues, mInitialSelections);
         } else {

@@ -55,15 +55,9 @@ public class VolumeBooster implements AudioListener, TickleListener {
             mBooster = new LoudnessEnhancer(audioSessionId);
             mBooster.setEnabled(mIsEnabled);
 
-            //double log2 = Math.log(mVolume) / Math.log(2);
-            //double gainMb = 10 * log2 * 100;
-            //mBooster.setTargetGain((int) gainMb);
-
             double gainMb = 20 * Math.log10(mVolume * 3) * 100;
             mGainMb = (int) gainMb;
             mBooster.setTargetGain(mGainMb);
-
-            //mBooster.setTargetGain((int) (1000 * mVolume));
 
             mIsSupported = true;
 

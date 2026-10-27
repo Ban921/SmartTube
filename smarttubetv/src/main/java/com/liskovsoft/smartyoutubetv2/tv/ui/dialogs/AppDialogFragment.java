@@ -212,7 +212,6 @@ public class AppDialogFragment extends LeanbackSettingsFragment implements AppDi
 
         // NOTE: Transparent CheckedList should be placed here (just in case you'll need it).
 
-        //return super.onPreferenceDisplayDialog(caller, pref);
         return true;
     }
 

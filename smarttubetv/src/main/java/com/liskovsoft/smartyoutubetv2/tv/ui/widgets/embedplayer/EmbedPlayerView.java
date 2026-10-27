@@ -547,7 +547,6 @@ public class EmbedPlayerView extends PlayerView implements PlaybackView {
         DefaultRenderersFactory renderersFactory = new CustomOverridesRenderersFactory(getContext());
         mPlayer = mPlayerInitializer.createPlayer(getContext(), renderersFactory, trackSelector);
         mPlayer.setPlayWhenReady(true);
-        //mPlayer.setRepeatMode(Player.REPEAT_MODE_ONE);
 
         mExoPlayerController.setPlayer(mPlayer);
         mExoPlayerController.selectFormat(mQuality == QUALITY_LOW ? FormatItem.VIDEO_SUB_SD_AVC_30 : FormatItem.VIDEO_SD_AVC_30);

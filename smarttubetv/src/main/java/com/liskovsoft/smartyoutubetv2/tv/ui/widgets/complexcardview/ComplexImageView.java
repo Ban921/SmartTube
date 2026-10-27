@@ -256,10 +256,6 @@ public class ComplexImageView extends RelativeLayout {
     private void setPreviewDimensions(int width, int height) {
         mPreviewWidth = width;
         mPreviewHeight = height;
-        //ViewGroup.LayoutParams lp = mPreviewImage.getLayoutParams();
-        //lp.width = width;
-        //lp.height = height;
-        //mPreviewImage.setLayoutParams(lp);
     }
 
     private Video getVideo() {

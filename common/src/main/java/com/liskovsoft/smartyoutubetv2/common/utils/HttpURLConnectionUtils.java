@@ -18,7 +18,6 @@ public class HttpURLConnectionUtils {
     public static void setupSSL() {
         try {
             //// Google Play will install latest OpenSSL
-            //ProviderInstaller.installIfNeeded(getApplicationContext());
             SSLContext sslContext;
             sslContext = SSLContext.getInstance("TLSv1.2");
             sslContext.init(null, null, null);

@@ -379,7 +379,6 @@ public class PlayerData extends DataChangeBase implements PlayerConstants, Profi
     }
 
     public void setFormat(FormatItem format) {
-        //if (format == null || Helpers.equalsAny(format, mVideoFormat, mAudioFormat, mSubtitleFormat)) {
         if (format == null) {
             return;
         }

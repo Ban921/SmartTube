@@ -339,7 +339,6 @@ public class ChannelPresenter extends BasePresenter<ChannelView> implements Vide
                     for (MediaGroup group : items) {
                         final int tempIdx = idx;
                         options.add(UiOptionItem.from(group.getTitle(), item -> {
-                            //dialogPresenter.closeDialog();
                             Observable<MediaGroup> continuation = getContentService().continueGroupObserve(group);
                             Disposable result2 = continuation.subscribe(mediaGroup -> {
                                 if (getView() == null) {
@@ -351,7 +350,6 @@ public class ChannelPresenter extends BasePresenter<ChannelView> implements Vide
                                 replace.setPosition(0);
                                 replace.setAction(VideoGroup.ACTION_REPLACE);
                                 getView().update(replace);
-                                //getView().setPosition(1);
                                 mSortIdx = tempIdx;
                             });
                         }, mSortIdx == idx));

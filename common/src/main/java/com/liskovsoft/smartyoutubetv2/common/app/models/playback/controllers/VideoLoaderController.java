@@ -370,7 +370,6 @@ public class VideoLoaderController extends BasePlayerController {
             // NOTE: Next clicked: instant playback even a mix
             // NOTE: Bypass PIP fullscreen on next caused by startView
             getMainController().onNewVideo(item);
-            //getPlayer().showOverlay(true);
         } else {
             VideoActionPresenter.instance(getContext()).apply(item);
         }
@@ -457,7 +456,6 @@ public class VideoLoaderController extends BasePlayerController {
                 if (video.hasNextPlaylist() || mPlaylist.getNext() != null) {
                     loadNext();
                 } else {
-                    //restartPlaylistIfNeeded();
                     stopPlayback();
                 }
                 break;
@@ -475,21 +473,6 @@ public class VideoLoaderController extends BasePlayerController {
         getPlayer().setPositionMs(getPlayer().getDurationMs());
         getPlayer().setPlayWhenReady(false);
         getPlayer().showSuggestions(true);
-    }
-
-    private void restartPlaylistIfNeeded() {
-        if (getPlayer() == null || getVideo() == null) {
-            return;
-        }
-        
-        VideoGroup group = getVideo().getGroup(); // Get the VideoGroup (playlist)
-
-        if (group != null && !group.isEmpty() && getVideo().belongsToSamePlaylistGroup()) {
-            openVideoInt(group.get(0));
-        } else {
-            Log.e(TAG, "VideoGroup is null or empty. Can't restart playlist.");
-            stopPlayback();
-        }
     }
 
     private boolean acceptAdaptiveFormats(MediaItemFormatInfo formatInfo) {

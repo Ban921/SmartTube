@@ -295,7 +295,6 @@ public class ViewManager {
     }
 
     public boolean isPlayerOnlyModeEnabled() {
-        //return mIsPlayerOnlyModeEnabled && PlaybackPresenter.instance(mContext).getBackgroundMode() != PlayerEngine.BACKGROUND_MODE_PIP;
         return mIsPlayerOnlyModeEnabled && !PlaybackPresenter.instance(mContext).isInPipMode();
     }
 

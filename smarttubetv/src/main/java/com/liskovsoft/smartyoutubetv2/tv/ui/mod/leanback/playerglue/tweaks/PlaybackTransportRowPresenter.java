@@ -505,7 +505,6 @@ public class PlaybackTransportRowPresenter extends PlaybackRowPresenter {
                                 stopSeek(false);
                             }
                             return true;
-                        //case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE: // MOD: act as OK? (handled somewhere else, inside player glue)
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
                             if (!mInSeek) {
@@ -643,7 +642,6 @@ public class PlaybackTransportRowPresenter extends PlaybackRowPresenter {
                     mSecondaryControlsVh.view.setVisibility(View.GONE);
                     mDescriptionViewHolder.view.setVisibility(View.GONE);
                     mAdditionalInfo.setVisibility(View.GONE);
-                    //mTimeInfo.setVisibility(View.GONE);
                     mThumbsBarWrapper.setVisibility(View.VISIBLE);
                     break;
             }

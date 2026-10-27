@@ -18,7 +18,6 @@ public class PlayerTweaksData implements ProfileChangeListener {
     public static final int PLAYER_BUTTON_VIDEO_ZOOM = 1;
     public static final int PLAYER_BUTTON_SEARCH = 1 << 1;
     public static final int PLAYER_BUTTON_PIP = 1 << 2;
-    //public static final int PLAYER_BUTTON_SCREEN_OFF = 1 << 3;
     public static final int PLAYER_BUTTON_PLAYBACK_QUEUE = 1 << 4;
     public static final int PLAYER_BUTTON_VIDEO_SPEED = 1 << 5;
     public static final int PLAYER_BUTTON_VIDEO_STATS = 1 << 6;
@@ -736,7 +735,6 @@ public class PlayerTweaksData implements ProfileChangeListener {
         mIsButtonLongClickEnabled = Helpers.parseBoolean(split, 24, true);
         mIsLongSpeedListEnabled = Helpers.parseBoolean(split, 25, true);
         mPlayerDataSource = Helpers.parseInt(split, 26, Utils.getFasterDataSource());
-        //mPlayerDataSource = Helpers.parseInt(split, 26, PLAYER_DATA_SOURCE_DEFAULT);
         mUnlockAllFormats = Helpers.parseBoolean(split, 27, false);
         mIsDashUrlStreamsForced = Helpers.parseBoolean(split, 28, false);
         mIsSonyFrameDropFixEnabled = Helpers.parseBoolean(split, 29, false);
@@ -754,7 +752,6 @@ public class PlayerTweaksData implements ProfileChangeListener {
         mIsPlayerAutoVolumeEnabled = Helpers.parseBoolean(split, 40, true);
         mIsSyncRowButtonIndexEnabled = Helpers.parseBoolean(split, 41, true);
         mIsUnsafeAudioFormatsEnabled = Helpers.parseBoolean(split, 42, true);
-        //mIsHighBitrateFormatsEnabled = Helpers.parseBoolean(split, 43, false);
         mIsLoopShortsEnabled = Helpers.parseBoolean(split, 44, true);
         mIsQuickSkipShortsEnabled = Helpers.parseBoolean(split, 45, true);
         mIsRememberPositionOfLiveVideosEnabled = Helpers.parseBoolean(split, 46, true);

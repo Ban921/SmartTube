@@ -56,7 +56,6 @@ public class MarqueeTextViewCompat extends TextView {
                 mLeftX -= BASE_FPS / mFps * mSpeed;
             }
 
-            //invalidate();
             postInvalidateOnAnimation();
             Choreographer.getInstance().postFrameCallback(this);
         }

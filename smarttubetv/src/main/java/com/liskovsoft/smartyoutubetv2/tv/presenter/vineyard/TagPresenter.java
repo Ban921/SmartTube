@@ -66,7 +66,6 @@ public class TagPresenter extends LongClickPresenter {
 
             if (post.tag != null) {
                 cardView.setCardText(post.tag);
-                //cardView.setCardIcon(R.drawable.ic_tag);
             }
         } else if (item instanceof User) {
             User post = (User) item;

@@ -133,7 +133,6 @@ public final class SeekBar extends View {
             int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
         calculate();
-        //calculateSegments();
     }
 
     @Override
@@ -293,7 +292,6 @@ public final class SeekBar extends View {
     private void calculateSegments(List<SeekBarSegment> segments) {
         if (segments == null) {
             mSeekBarRectangles.clear();
-            //invalidate();
             return;
         }
 
@@ -302,9 +300,6 @@ public final class SeekBar extends View {
         final int width = getWidth();
         final int height = getHeight();
         final int verticalPadding = (height - barHeight) / 2;
-
-        //final int radius = isFocused() ? mActiveRadius : mBarHeight / 2;
-        //final int progressWidth = width - radius * 2;
 
         for (SeekBarSegment segment : segments) {
             if (segment.endProgress < 0 || segment.startProgress < 0 || segment.startProgress >= 1) {
@@ -329,8 +324,6 @@ public final class SeekBar extends View {
             rect.paint.setColor(segment.color);
             mSeekBarRectangles.add(rect);
         }
-
-        //invalidate();
     }
 
     // Touch interceptor

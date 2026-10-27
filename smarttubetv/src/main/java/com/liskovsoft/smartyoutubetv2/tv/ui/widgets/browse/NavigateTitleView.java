@@ -238,7 +238,6 @@ public class NavigateTitleView extends TitleView implements OnDataChange, Accoun
         mGlobalDate.setVisibility(mIsGlobalClockEnabled ? View.VISIBLE : View.GONE);
 
         Utils.postDelayed(this::updateAccountIcon, 1_000); // give a time to engine to fetch an updated icon url
-        //updateAccountIcon();
         updateLanguageIcon();
     }
 
@@ -288,7 +287,6 @@ public class NavigateTitleView extends TitleView implements OnDataChange, Accoun
         if (current != null && current.getAvatarImageUrl() != null) {
             loadIcon(mAccountView, current.getAvatarImageUrl(), false);
             String accountName = current.getName() != null ? current.getName() : current.getEmail();
-            //TooltipCompatHandler.setTooltipText(mAccountView, Utils.updateTooltip(getContext(), accountName));
             TooltipCompatHandler.setTooltipText(mAccountView, accountName);
         } else {
             Colors orbColors = mAccountView.getOrbColors();

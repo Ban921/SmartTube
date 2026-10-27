@@ -36,7 +36,6 @@ public class IconCardView extends BaseCardView {
         // Make sure the ImageCardView is focusable.
         setFocusable(true);
         setFocusableInTouchMode(true);
-        //setCardType(CARD_TYPE_INFO_UNDER);
         setCardType(CARD_TYPE_MAIN_ONLY);
         setBackgroundResource(R.color.primary_dark);
 

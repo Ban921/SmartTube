@@ -56,14 +56,11 @@ public class MainUISettingsPresenter extends BasePresenter<Void> {
         appendCardPreviews(settingsPresenter);
         appendCardStyle(settingsPresenter);
         appendThumbSource(settingsPresenter);
-        //appendCardTitleLines(settingsPresenter);
         appendChannelSortingCategory(settingsPresenter);
-        //appendPlaylistsCategoryStyle(settingsPresenter);
         appendScaleUI(settingsPresenter);
         if (Build.VERSION.SDK_INT > 19) {
             appendVideoGridScale(settingsPresenter);
         }
-        //appendTimeFormatCategory(settingsPresenter);
         appendMiscCategory(settingsPresenter);
 
         settingsPresenter.showDialog(getContext().getString(R.string.dialog_main_ui), mOnFinish);
@@ -162,18 +159,6 @@ public class MainUISettingsPresenter extends BasePresenter<Void> {
         settingsPresenter.appendCheckedCategory(getContext().getString(R.string.cards_style), options);
     }
 
-    private void appendCardTitleLines(AppDialogPresenter settingsPresenter) {
-        List<OptionItem> options = new ArrayList<>();
-
-        for (int linesNum : new int[] {1, 2, 3, 4}) {
-            options.add(UiOptionItem.from(String.format("%s", linesNum),
-                    optionItem -> mMainUIData.setCartTitleLinesNum(linesNum),
-                    linesNum == mMainUIData.getCardTitleLinesNum()));
-        }
-
-        settingsPresenter.appendRadioCategory(getContext().getString(R.string.card_title_lines_num), options);
-    }
-
     private void appendThumbSource(AppDialogPresenter settingsPresenter) {
         List<OptionItem> options = new ArrayList<>();
 
@@ -205,21 +190,6 @@ public class MainUISettingsPresenter extends BasePresenter<Void> {
         }
 
         settingsPresenter.appendRadioCategory(getContext().getString(R.string.channels_section_sorting), options);
-    }
-
-    private void appendPlaylistsCategoryStyle(AppDialogPresenter settingsPresenter) {
-        List<OptionItem> options = new ArrayList<>();
-
-        for (int[] pair : new int[][] {
-                {R.string.playlists_style_grid, MainUIData.PLAYLISTS_STYLE_GRID},
-                {R.string.playlists_style_rows, MainUIData.PLAYLISTS_STYLE_ROWS}}) {
-            options.add(UiOptionItem.from(getContext().getString(pair[0]), optionItem -> {
-                mMainUIData.setPlaylistsStyle(pair[1]);
-                BrowsePresenter.instance(getContext()).updatePlaylistsStyle();
-            }, mMainUIData.getPlaylistsStyle() == pair[1]));
-        }
-
-        settingsPresenter.appendRadioCategory(getContext().getString(R.string.playlists_style), options);
     }
 
     private void appendScaleUI(AppDialogPresenter settingsPresenter) {
@@ -262,28 +232,6 @@ public class MainUISettingsPresenter extends BasePresenter<Void> {
         }
 
         settingsPresenter.appendRadioCategory(getContext().getString(R.string.video_grid_scale), options);
-    }
-
-    private void appendTimeFormatCategory(AppDialogPresenter settingsPresenter) {
-        List<OptionItem> options = new ArrayList<>();
-
-        options.add(UiOptionItem.from(
-                getContext().getString(R.string.time_format_24),
-                option -> {
-                    mGeneralData.set24HourLocaleEnabled(true);
-                    mRestartApp = true;
-                },
-                mGeneralData.is24HourLocaleEnabled()));
-
-        options.add(UiOptionItem.from(
-                getContext().getString(R.string.time_format_12),
-                option -> {
-                    mGeneralData.set24HourLocaleEnabled(false);
-                    mRestartApp = true;
-                },
-                !mGeneralData.is24HourLocaleEnabled()));
-
-        settingsPresenter.appendRadioCategory(getContext().getString(R.string.time_format), options);
     }
 
     private void appendMiscCategory(AppDialogPresenter settingsPresenter) {

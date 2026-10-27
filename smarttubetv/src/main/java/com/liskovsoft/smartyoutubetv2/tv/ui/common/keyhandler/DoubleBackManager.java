@@ -35,14 +35,12 @@ public class DoubleBackManager {
         if (ignoreEvent(event)) {
             Log.d(TAG, "Oops. Seems phantom key received. Ignoring... " + event);
             resetBackPressed();
-            //return false;
             return;
         }
 
         if (isReservedKey(event)) {
             Log.d(TAG, "Found globally reserved key. Ignoring..." + event);
             resetBackPressed();
-            //return false;
             return;
         }
 
@@ -51,8 +49,6 @@ public class DoubleBackManager {
         if (mIsDoubleBackPressed) {
             mOnDoubleBack.run();
         }
-
-        //return mIsDoubleBackPressed;
     }
 
     public void enableDoubleBackExit(Runnable onDoubleBack) {

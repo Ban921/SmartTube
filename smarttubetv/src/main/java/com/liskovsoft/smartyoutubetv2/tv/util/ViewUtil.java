@@ -33,7 +33,6 @@ public class ViewUtil {
      * Focused card zoom factor
      */
     public static final int FOCUS_ZOOM_FACTOR = FocusHighlight.ZOOM_FACTOR_SMALL;
-    //public static final int FOCUS_ZOOM_FACTOR = FocusHighlight.ZOOM_FACTOR_NONE;
     /**
      * Dim focused card?
      */
@@ -109,7 +108,6 @@ public class ViewUtil {
             //textView.setTextAlignment(View.TEXT_ALIGNMENT_GRAVITY);
             textView.setTextDirection(View.TEXT_DIRECTION_LTR);
             textView.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
-            //textView.setGravity(Gravity.TOP | Gravity.START);
             return;
         }
 

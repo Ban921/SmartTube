@@ -128,7 +128,6 @@ public class AccountSelectionPresenter extends BasePresenter<Void> {
         int nextIndex = index + 1;
         // null == 'without account'
         selectAccount(nextIndex == accounts.size() ? null : accounts.get(nextIndex));
-        //selectAccount(accounts.get(nextIndex == accounts.size() ? 0 : nextIndex));
     }
 
     public void selectAccount(Account account) {

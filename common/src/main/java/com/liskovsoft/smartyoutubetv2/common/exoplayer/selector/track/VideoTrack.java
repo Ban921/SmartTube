@@ -165,7 +165,6 @@ public class VideoTrack extends MediaTrack {
         // Fix same id between normal videos and shorts
         if (Helpers.equals(id1, id2) && (size1 == size2)) {
             result = 0;
-        //} else if (sizeLessOrEquals(size2, size1) && fpsLessOrEquals(frameRate2, frameRate1) && bitrateLessOrEquals(bitrate2, bitrate1)) {
         } else if (sizeLessOrEquals(size2, size1) && fpsLessOrEquals(frameRate2, frameRate1)) { // NOTE: Removed bitrate check to fix shorts?
             if (TrackSelectorUtil.isHdrFormat(id1, codecs1) == TrackSelectorUtil.isHdrFormat(id2, codecs2)) {
                 result = 1;

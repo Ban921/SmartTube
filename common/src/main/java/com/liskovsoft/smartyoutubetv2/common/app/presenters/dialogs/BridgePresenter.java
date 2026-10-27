@@ -71,7 +71,6 @@ abstract class BridgePresenter extends BasePresenter<Void> implements MotherActi
         );
         settingsPresenter.appendSingleButton(updateCheckOption);
 
-        //settingsPresenter.setOnFinish(getOnFinish());
         settingsPresenter.showDialog(getContext().getString(R.string.enable_voice_search));
     }
 

@@ -87,7 +87,6 @@ public class BackupAndRestoreHelper implements OnResult {
 
     private void openFileManager(Uri uri) {
         Intent intent = new Intent(Intent.ACTION_SEND);
-        //intent.setType("application/zip");
         intent.setType("*/*");
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

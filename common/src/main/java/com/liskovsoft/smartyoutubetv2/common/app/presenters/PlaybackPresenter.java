@@ -119,7 +119,6 @@ public class PlaybackPresenter extends BasePresenter<PlaybackView> implements Pl
             // NOTE: don't release after init check because this depends on timings
             getView().finishReally();
             setView(null);
-            //getController(VideoStateController.class).saveState();
         }
 
         onNewVideo(video);
@@ -135,7 +134,6 @@ public class PlaybackPresenter extends BasePresenter<PlaybackView> implements Pl
     public boolean isRunningInBackground() {
         return getView() != null &&
                 getView().isEngineBlocked() &&
-                //getView().getBackgroundMode() != PlayerEngine.BACKGROUND_MODE_DEFAULT &&
                 getView().isEngineInitialized() &&
                 !getViewManager().isPlayerInForeground() &&
                 getContext() instanceof Activity && Utils.checkActivity((Activity) getContext()); // Check that activity is not in Finishing state

@@ -26,7 +26,6 @@ public class ErrorDialogFragment extends ErrorSupportFragment implements BrowseS
             new MainFragmentAdapter<Fragment>(this) {
                 @Override
                 public void setEntranceTransitionState(boolean state) {
-                    //setEntranceTransitionState(state);
                 }
             };
 

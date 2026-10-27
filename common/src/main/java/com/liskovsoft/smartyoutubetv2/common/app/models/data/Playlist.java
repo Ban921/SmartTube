@@ -273,7 +273,6 @@ public class Playlist {
         int fromIndex = mCurrentIndex + 1;
         int size = mPlaylist.size();
         if (fromIndex > 0 && fromIndex < size) {
-            //mPlaylist = mPlaylist.subList(0, fromIndex);
             mPlaylist.subList(fromIndex, size).clear();
         }
     }

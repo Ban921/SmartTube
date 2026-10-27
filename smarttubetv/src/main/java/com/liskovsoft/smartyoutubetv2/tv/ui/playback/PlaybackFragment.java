@@ -460,10 +460,6 @@ public class PlaybackFragment extends SeekModePlaybackFragment implements Playba
 
         createPlayerGlue();
 
-        //createSubtitleManager();
-
-        //createDebugManager();
-
         createMediaSession();
 
         initializePlayerRows();

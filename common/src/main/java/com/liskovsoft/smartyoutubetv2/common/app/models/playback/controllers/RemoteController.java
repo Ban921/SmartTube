@@ -2,8 +2,6 @@ package com.liskovsoft.smartyoutubetv2.common.app.models.playback.controllers;
 
 import android.content.Context;
 import android.database.ContentObserver;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.KeyEvent;
 import androidx.annotation.Nullable;
 import com.liskovsoft.mediaserviceinterfaces.ServiceManager;
@@ -254,7 +252,6 @@ public class RemoteController extends BasePlayerController implements OnDataChan
                             // Some users seeing this.
                             // This msg couldn't appear in normal situation.
                             Log.d(TAG, "Remote session has been closed");
-                            //MessageHelpers.showMessage(getActivity(), R.string.remote_session_closed);
                         }
                 );
     }
@@ -328,11 +325,9 @@ public class RemoteController extends BasePlayerController implements OnDataChan
                     }
                     getPlayer().showSubtitles(true);
                     getPlayer().setButtonState(R.id.lb_control_closed_captioning, PlayerUI.BUTTON_ON);
-                    //getMainController().onButtonClicked(R.id.lb_control_closed_captioning, PlayerUI.BUTTON_OFF);
                  } else if (getPlayer() != null) {
                     getPlayer().showSubtitles(false);
                     getPlayer().setButtonState(R.id.lb_control_closed_captioning, PlayerUI.BUTTON_OFF);
-                    //getMainController().onButtonClicked(R.id.lb_control_closed_captioning, PlayerUI.BUTTON_ON);
                  }
                  openNewVideo(subsVideo);
                  break;
@@ -362,7 +357,6 @@ public class RemoteController extends BasePlayerController implements OnDataChan
                 if (getPlayer() != null) {
                     movePlayerToForeground();
                     getPlayer().setPlayWhenReady(true);
-                    //postStartPlaying(getController().getVideo(), true);
                     postPlayState(RemoteControlService.STATE_PLAYING);
                 } else {
                     // Already connected
@@ -373,7 +367,6 @@ public class RemoteController extends BasePlayerController implements OnDataChan
                 if (getPlayer() != null) {
                     movePlayerToForeground();
                     getPlayer().setPlayWhenReady(false);
-                    //postStartPlaying(getController().getVideo(), false);
                     postPlayState(RemoteControlService.STATE_PAUSED);
                 } else {
                     // Already connected
@@ -531,7 +524,6 @@ public class RemoteController extends BasePlayerController implements OnDataChan
         getViewManager().movePlayerToForeground();
         // Device wake fix when player isn't started yet or been closed
         if (getPlayer() == null || !Utils.checkActivity(getActivity())) {
-            //new Handler(Looper.myLooper()).postDelayed(() -> getViewManager().movePlayerToForeground(), 5_000);
             Utils.postDelayed(() -> getViewManager().movePlayerToForeground(), 5_000);
         }
     }

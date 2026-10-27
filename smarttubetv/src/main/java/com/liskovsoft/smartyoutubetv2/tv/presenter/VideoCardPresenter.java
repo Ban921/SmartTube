@@ -150,9 +150,7 @@ public class VideoCardPresenter extends LongClickPresenter {
         }
 
         Glide.with(context)
-                //.asBitmap() // disable animation (webp, gif)
                 .load(ClickbaitRemover.updateThumbnail(video, mThumbQuality))
-                //.placeholder(mDefaultCardImage)
                 .apply(ViewUtil.glideOptions())
                 // improve image compression on low end devices
                 .override(mWidth, mHeight)
@@ -164,7 +162,6 @@ public class VideoCardPresenter extends LongClickPresenter {
                     // Updated thumbnail url not found
                     Glide.with(context)
                         .load(video.cardImageUrl) // always working
-                        //.placeholder(mDefaultCardImage)
                         .apply(ViewUtil.glideOptions())
                         .listener(mErrorListener)
                         .error(R.drawable.card_placeholder) // R.color.lb_grey

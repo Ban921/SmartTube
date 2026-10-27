@@ -40,8 +40,6 @@ public class RenameGroupMenuProvider extends ContextMenuProvider {
                     ItemGroup channelGroup = mService.findChannelGroupById(item.channelGroupId);
 
                     if (channelGroup != null) {
-                        //channelGroup.title = newValue;
-                        //mService.addChannelGroup(channelGroup);
                         mService.renameChannelGroup(channelGroup, newValue);
                     }
 

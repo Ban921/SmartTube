@@ -71,11 +71,8 @@ public class PlayerSettingsPresenter extends BasePresenter<Void> {
         appendSeekTypeCategory(settingsPresenter);
         appendSeekingPreviewCategory(settingsPresenter);
         AppDialogUtil.appendSeekIntervalDialogItems(getContext(), settingsPresenter, mPlayerData, false);
-        //appendRememberSpeedCategory(settingsPresenter);
-        //appendScreenOffTimeoutCategory(settingsPresenter);
         appendEndingTimeCategory(settingsPresenter);
         appendPixelRatioCategory(settingsPresenter);
-        //appendPlayerExitCategory(settingsPresenter);
         appendSleepTimerCategory(settingsPresenter);
         appendMiscCategory(settingsPresenter);
         appendDeveloperCategory(settingsPresenter);
@@ -175,12 +172,6 @@ public class PlayerSettingsPresenter extends BasePresenter<Void> {
         settingsPresenter.appendRadioCategory(getContext().getString(R.string.player_seek_preview), options);
     }
 
-    private void appendRememberSpeedCategory(AppDialogPresenter settingsPresenter) {
-        OptionCategory category = AppDialogUtil.createRememberSpeedCategory(getContext());
-
-        settingsPresenter.appendRadioCategory(category.title, category.options);
-    }
-
     private void appendVideoSpeedCategory(AppDialogPresenter settingsPresenter) {
         settingsPresenter.appendSingleButton(UiOptionItem.from(getContext().getString(R.string.video_speed), optionItem -> {
             AppDialogPresenter settingsPresenter2 = AppDialogPresenter.instance(getContext());
@@ -189,12 +180,6 @@ public class PlayerSettingsPresenter extends BasePresenter<Void> {
             settingsPresenter2.appendCategory(AppDialogUtil.createSpeedMiscCategory(getContext()));
             settingsPresenter2.showDialog(getContext().getString(R.string.video_speed));
         }));
-    }
-
-    private void appendScreenOffTimeoutCategory(AppDialogPresenter settingsPresenter) {
-        OptionCategory category = AppDialogUtil.createPlayerScreenOffTimeoutCategory(getContext(), null);
-
-        settingsPresenter.appendRadioCategory(category.title, category.options);
     }
 
     private void appendPlayerButtonsCategory(AppDialogPresenter settingsPresenter) {
@@ -325,20 +310,6 @@ public class PlayerSettingsPresenter extends BasePresenter<Void> {
     private void appendNetworkEngineCategory(AppDialogPresenter settingsPresenter) {
         OptionCategory category = AppDialogUtil.createNetworkEngineCategory(getContext());
         settingsPresenter.appendCategory(category);
-    }
-
-    private void appendPlayerExitCategory(AppDialogPresenter settingsPresenter) {
-        List<OptionItem> options = new ArrayList<>();
-
-        for (int[] pair : new int[][] {
-                {R.string.app_double_back_exit, GeneralData.EXIT_DOUBLE_BACK},
-                {R.string.app_single_back_exit, GeneralData.EXIT_SINGLE_BACK}}) {
-            options.add(UiOptionItem.from(getContext().getString(pair[0]),
-                    optionItem -> mGeneralData.setPlayerExitShortcut(pair[1]),
-                    mGeneralData.getPlayerExitShortcut() == pair[1]));
-        }
-
-        settingsPresenter.appendRadioCategory(getContext().getString(R.string.player_exit_shortcut), options);
     }
 
     private void appendSleepTimerCategory(AppDialogPresenter settingsPresenter) {

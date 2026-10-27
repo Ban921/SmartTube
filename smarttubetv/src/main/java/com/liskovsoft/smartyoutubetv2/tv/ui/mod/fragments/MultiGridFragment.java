@@ -322,11 +322,9 @@ public class MultiGridFragment extends Fragment implements BrowseSupportFragment
 
         mGridViewHolder1 = mGridPresenter1.onCreateViewHolder(gridDock);
         mGridViewHolder1.getGridView().setOnChildLaidOutListener(mChildLaidOutListener1);
-        //gridDock.addView(mGridViewHolder1.view);
 
         mGridViewHolder2 = mGridPresenter2.onCreateViewHolder(gridDock);
         mGridViewHolder2.getGridView().setOnChildLaidOutListener(mChildLaidOutListener2);
-        //gridDock.addView(mGridViewHolder2.view);
 
         mSceneAfterEntranceTransition = TransitionHelper.createScene(gridDock, new Runnable() {
             @Override

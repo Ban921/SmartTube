@@ -158,7 +158,6 @@ public class GDriveBackupManager {
     }
 
     private void startRestoreConfirm() {
-        //AppDialogUtil.showConfirmationDialog(mContext, mContext.getString(R.string.app_restore), this::startRestoreWrapper);
         showRestoreChooserDialog();
     }
 

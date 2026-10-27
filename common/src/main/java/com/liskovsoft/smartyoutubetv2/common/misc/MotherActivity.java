@@ -97,8 +97,6 @@ public class MotherActivity extends FragmentActivity {
 
         mScreensaverManager = new ScreensaverManager(this); // moved below the theme to fix side effects
 
-        //Helpers.addFullscreenListener(this);
-
         initEdgeSlide();
     }
 

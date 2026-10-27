@@ -48,7 +48,6 @@ public class AppDialogActivity extends MotherActivity {
         //    return true;
         //}
 
-        //return mGlobalKeyTranslator.translate(event) || super.dispatchKeyEvent(event);
         KeyEvent newEvent = mGlobalKeyTranslator.translate(event);
         return handleNavigation(newEvent) || super.dispatchKeyEvent(newEvent);
     }

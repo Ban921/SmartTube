@@ -76,7 +76,6 @@ public class AutoFrameRateController extends BasePlayerController implements Aut
 
         // Sometimes AFR is not working on activity startup. Trying to fix with delay.
         applyAfrDelayed();
-        //applyAfr();
     }
 
     @Override
@@ -93,7 +92,6 @@ public class AutoFrameRateController extends BasePlayerController implements Aut
                 newMode.getPhysicalHeight(),
                 newMode.getRefreshRate());
         Log.d(TAG, message);
-        //MessageHelpers.showLongMessage(getActivity(), message);
         maybePausePlayback();
         getPlayerData().setAfrSwitchTimeMs(System.currentTimeMillis());
     }

@@ -29,7 +29,6 @@ public class CategoryEmptyError implements ErrorFragmentData {
         if (mError != null && !Helpers.containsAny(mError.getMessage(), "fromNullable result is null")) {
             String className = mError.getClass().getSimpleName();
             result = String.format("%s: %s", className, Utils.getStackTraceAsString(mError));
-            //result = mError.getMessage();
         }
         return result;
     }

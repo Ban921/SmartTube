@@ -124,7 +124,6 @@ public class AboutSettingsPresenter extends BasePresenter<Void> {
 
         settingsPresenter.appendSingleButton(releasesOption);
         settingsPresenter.appendSingleButton(sourcesOption);
-        //settingsPresenter.appendSingleButton(webSiteOption);
     }
 
     private void appendDonation(AppDialogPresenter settingsPresenter) {

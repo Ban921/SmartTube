@@ -660,8 +660,6 @@ public class VideoStateController extends BasePlayerController {
         float newVolume = getPlayerData().getPlayerVolume();
 
         if (getPlayerTweaksData().isPlayerAutoVolumeEnabled()) {
-            //newVolume *= getVideo().volume;
-            //newVolume = getVideo().volume;
             if (newVolume < 1f) {
                 newVolume *= getVideo().volume;
             } else {

@@ -581,39 +581,27 @@ public class GeneralData implements ProfileChangeListener {
         String[] split = Helpers.splitData(data);
 
         mBackupZipName = Helpers.parseStr(split, 0);
-        //mBootSectionId = Helpers.parseInt(split, 1, MediaGroup.TYPE_HOME);
-        //mIsSettingsSectionEnabled = Helpers.parseBoolean(split, 2, true);
         mAppExitShortcut = Helpers.parseInt(split, 3, EXIT_DOUBLE_BACK);
         mIsReturnToLauncherEnabled = Helpers.parseBoolean(split, 4, false);
         mBackgroundShortcut = Helpers.parseInt(split, 5, BACKGROUND_PLAYBACK_SHORTCUT_HOME_BACK);
         mOldPinnedItems = Helpers.parseList(split, 6, Video::fromString);
         mIsHideShortsFromSubscriptionsEnabled = Helpers.parseBoolean(split, 7, false);
         mFastForwardRewindAction = Helpers.parseInt(split, 8, ACTION_UNDEFINED);
-        //mScreenDimmingTimeoutMs = Helpers.parseInt(split, 9, 1);
         mIsProxyEnabled = Helpers.parseBoolean(split, 10, false);
         mIsBridgeCheckEnabled = Helpers.parseBoolean(split, 11, true);
         mIsOkButtonLongPressDisabled = Helpers.parseBoolean(split, 12, false);
         mLastPlaylistId = Helpers.parseStr(split, 13);
-        //String selectedSections = Helpers.parseStr(split, 14);
         mIsHideUpcomingEnabled = Helpers.parseBoolean(split, 15, false);
         mPageUpDownAction = Helpers.parseInt(split, 16, ACTION_UNDEFINED);
-        //mIsRemapPageUpToLikeEnabled = Helpers.parseBoolean(split, 17, false);
         mChannelUpDownAction = Helpers.parseInt(split, 18, ACTION_UNDEFINED);
-        //mIsRemapChannelUpToLikeEnabled = Helpers.parseBoolean(split, 19, false);
-        //mIsRemapPageUpToSpeedEnabled = Helpers.parseBoolean(split, 20, false);
-        //mIsRemapChannelUpToSpeedEnabled = Helpers.parseBoolean(split, 21, false);
-        //mIsRemapFastForwardToSpeedEnabled = Helpers.parseBoolean(split, 22, false);
-        //mIsRemapChannelUpToSearchEnabled = Helpers.parseBoolean(split, 23, false);
         mIsHideShortsFromHomeEnabled = Helpers.parseBoolean(split, 24, false);
         mIsHideShortsFromHistoryEnabled = Helpers.parseBoolean(split, 25, false);
         mIsScreensaverDisabled = Helpers.parseBoolean(split, 26, true);
         mIsVPNEnabled = Helpers.parseBoolean(split, 27, false);
         mLastPlaylistTitle = Helpers.parseStr(split, 28);
         mPlaylistOrder = Helpers.parseMap(split, 29, Helpers::parseStr, Helpers::parseInt);
-        //String pendingStreams = Helpers.parseStr(split, 30);
         mPendingStreams = Helpers.parseList(split, 30, Video::fromString);
         mIsGlobalClockEnabled = Helpers.parseBoolean(split, 31, true);
-        //mTimeFormat = Helpers.parseInt(split, 32, -1);
         mSettingsPassword = Helpers.parseStr(split, 33);
         mIsChildModeEnabled = Helpers.parseBoolean(split, 34, false);
         mIsHistoryEnabled = Helpers.parseBoolean(split, 35, true);
@@ -634,27 +622,20 @@ public class GeneralData implements ProfileChangeListener {
         // mSelectedSubscriptionsItem was here
         mIsRemapNumbersToSpeedEnabled = Helpers.parseBoolean(split, 50, false);
         mDpadUpDownAction = Helpers.parseInt(split, 51, ACTION_UNDEFINED);
-        //mIsRemapChannelUpToVolumeEnabled = Helpers.parseBoolean(split, 52, false);
-        //mIsRemapDpadUpToVolumeEnabled = Helpers.parseBoolean(split, 53, false);
         mIsRemapDpadLeftToVolumeEnabled = Helpers.parseBoolean(split, 54, false);
-        //mIsRemapNextToFastForwardEnabled = Helpers.parseBoolean(split, 55, false);
         mIsHideWatchedFromNotificationsEnabled = Helpers.parseBoolean(split, 56, false);
         mChangelog = Helpers.parseStrList(split, 57);
         mPlayerExitShortcut = Helpers.parseInt(split, 58, EXIT_SINGLE_BACK);
         // StackOverflow on old devices?
         //mIsOldChannelLookEnabled = Helpers.parseBoolean(split, 59, Build.VERSION.SDK_INT <= 19);
         mIsFullscreenModeEnabled = Helpers.parseBoolean(split, 60, true);
-        //mIsHideWatchedFromWatchLaterEnabled = Helpers.parseBoolean(split, 61, false);
         mIsRememberPinnedPositionEnabled = Helpers.parseBoolean(split, 62, false);
         mSelectedItems = Helpers.parseMap(split, 63, Helpers::parseInt, Video::fromString);
         mIsFirstUseTooltipEnabled = Helpers.parseBoolean(split, 64, true);
         mIsDeviceSpecificBackupEnabled = Helpers.parseBoolean(split, 65, false);
-        //mIsAutoBackupEnabled = Helpers.parseBoolean(split, 66, false);
-        //mIsRemapPageDownToSpeedEnabled = Helpers.parseBoolean(split, 67, false);
         mSearchExitShortcut = Helpers.parseInt(split, 68, EXIT_SINGLE_BACK);
         mGDriveBackupFreqDays = Helpers.parseInt(split, 69, -1);
         mLocalDriveBackupFreqDays = Helpers.parseInt(split, 70, 1);
-        //mIsRemapFastForwardToSpeedToggleEnabled = Helpers.parseBoolean(split, 71, false);
         mIsRemapSToSpeedToggleEnabled = Helpers.parseBoolean(split, 72, true);
     }
 

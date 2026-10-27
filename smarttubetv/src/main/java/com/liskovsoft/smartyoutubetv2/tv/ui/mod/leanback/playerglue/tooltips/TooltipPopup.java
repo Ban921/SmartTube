@@ -32,7 +32,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import androidx.annotation.RestrictTo;
 import com.liskovsoft.smartyoutubetv2.tv.R;
-//import androidx.appcompat.R;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
